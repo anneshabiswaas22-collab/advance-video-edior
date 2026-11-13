@@ -1,0 +1,49 @@
+name: Studio browser smoke (Playwright)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/studio-browser-smoke.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.7.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+          cache-dependency-path: editor/pnpm-lock.yaml
+      - name: Install locked dependencies
+        working-directory: editor
+        run: pnpm install --frozen-lockfile
+      - name: Install Chromium for Playwright
+        working-directory: editor
+        run: pnpm --filter @openreel/studio exec playwright install --with-deps chromium
+      - name: Run existing upstream Studio browser E2E
+        working-directory: editor
+        run: pnpm --filter @openreel/studio test:e2e
+        env:
+          CI: 'true'
+      - name: Upload Playwright results if present
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: studio-playwright-evidence
+          path: |
+            editor/apps/studio/playwright-report/
+            editor/apps/studio/test-results/
+          if-no-files-found: ignore
+          retention-days: 7
