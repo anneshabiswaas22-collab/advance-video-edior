@@ -1,0 +1,93 @@
+name: Import and verify initial video editor
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/import-editor.yml
+  workflow_dispatch:
+
+concurrency:
+  group: foundation-import-once
+  cancel-in-progress: false
+
+jobs:
+  import:
+    name: Import pinned OpenReel source to main
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout project main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+          fetch-depth: 1
+      - name: Clone primary candidates and import one selected foundation
+        run: bash scripts/import_editor_from_upstream.sh
+      - name: Update root README after successful import
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path("README.md")
+          s = p.read_text()
+          old = "> **Project state (2026-11-13): Bootstrap only.** This repository does **not** yet contain a working video editor. No third-party editor source has been imported, and no video export has been verified."
+          new = "> **Project state: Source imported; not yet verified as a working editor.** OpenReel source is pinned and copied under `editor/`. Build results, rendered output and Windows compatibility must still be tested. Run `cd editor && pnpm install && pnpm dev` to start local development."
+          if old in s:
+              p.write_text(s.replace(old, new))
+          else:
+              print("README state marker missing; leaving existing text unchanged")
+          PY
+      - name: Commit imported editor source to main (never force push)
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- editor docs/evidence/upstream-snapshot.md README.md
+          if git diff --cached --quiet; then
+            echo "No source changes to commit"
+          else
+            git commit -m "vendor: import pinned OpenReel video editor foundation"
+            git push origin HEAD:main
+          fi
+
+  validate:
+    name: Build/test imported editor with read-only credentials
+    needs: import
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout the latest main after import
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Check editor exists
+        run: test -f editor/package.json && test -f editor/LICENSE
+      - name: Setup pnpm matching the upstream lockfile
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.7.0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+          cache-dependency-path: editor/pnpm-lock.yaml
+      - name: Install dependencies
+        working-directory: editor
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        working-directory: editor
+        run: pnpm typecheck
+      - name: Run automated tests
+        working-directory: editor
+        run: pnpm test
+      - name: Build browser editor
+        working-directory: editor
+        run: pnpm build
