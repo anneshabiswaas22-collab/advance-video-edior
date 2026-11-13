@@ -2,7 +2,7 @@
 
 An early-stage project to build an original, high-quality, AI-assisted video editor for web and Windows, inspired by the usability of CapCut and the professional workflows of DaVinci Resolve and Premiere.
 
-> **Project state (2026-11-13): Bootstrap only.** This repository does **not** yet contain a working video editor. No third-party editor source has been imported, and no video export has been verified.
+> **Project state: Source imported; not yet verified as a working editor.** OpenReel source is pinned and copied under `editor/`. Build results, rendered output and Windows compatibility must still be tested. Run `cd editor && pnpm install && pnpm dev` to start local development.
 
 ## Engineering approach
 
