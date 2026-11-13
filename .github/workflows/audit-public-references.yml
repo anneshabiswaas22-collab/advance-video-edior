@@ -1,0 +1,40 @@
+name: Audit all public source candidates (sparse)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-public-references.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: source-inventory
+  cancel-in-progress: false
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: true
+      - name: Clone candidate source trees sparsely and record revisions
+        run: bash scripts/audit_public_references.sh
+      - name: Commit source inventory to main without uploading foreign code
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/evidence/supporting-source-inventory.md
+          if ! git diff --cached --quiet; then
+            git commit -m "audit: record pinned revisions for public video editor dependencies"
+            git push origin HEAD:main
+          fi
+      - name: Confirm all sparse clones succeeded
+        run: test "$(cat "${RUNNER_TEMP}/editor-source-inventory/failed-clone-count")" = "0"
