@@ -1,5 +1,7 @@
 # Codex Cloud: development handoff after initial source import
 
+**First read `docs/CODEX_REVIEW_QUEUE.md` for the latest PRs and prioritized issues.**
+
 Repository: https://github.com/anneshabiswaas22-collab/advance-video-edior
 Default branch: `main` (user explicitly permits direct pushes).
 
