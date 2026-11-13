@@ -1,0 +1,56 @@
+name: Evaluate FreeCut alternative (read-only)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/evaluate-freecut.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  freecut:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out project for media reference scripts
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Use pinned FreeCut npm major
+        run: npm install --global npm@11.8.0
+      - name: Clone pinned FreeCut repository independently
+        shell: bash
+        run: |
+          git clone --depth=1 --filter=blob:none https://github.com/walterlow/freecut.git "${RUNNER_TEMP}/freecut"
+          cd "${RUNNER_TEMP}/freecut"
+          PINNED=5ceeeb388eef5423640b7db157706274bf1b8165
+          if ! git cat-file -e "$PINNED^{commit}" 2>/dev/null; then
+            git fetch --depth=1 origin "$PINNED"
+          fi
+          git checkout --detach "$PINNED"
+          test "$(git rev-parse HEAD)" = "$PINNED"
+          grep -q "MIT License" LICENSE
+          echo "FreeCut source pinned to $(git rev-parse HEAD)"
+      - name: Install FreeCut dependencies
+        working-directory: ${{ runner.temp }}/freecut
+        run: npm ci
+      - name: Run FreeCut static checks
+        working-directory: ${{ runner.temp }}/freecut
+        run: npm run check
+      - name: Run FreeCut unit tests
+        working-directory: ${{ runner.temp }}/freecut
+        run: npm run test:run
+      - name: Build FreeCut browser editor
+        working-directory: ${{ runner.temp }}/freecut
+        run: npm run build
+      - name: Validate source-only smoke-test fixture tooling
+        run: |
+          python -m unittest discover -s tests -v
+          echo "No video-editor import-edit-export comparison is claimed by these build-only checks."
