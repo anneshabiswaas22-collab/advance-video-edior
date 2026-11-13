@@ -1,41 +1,35 @@
-# Foundation comparison and evaluation gates
+# Video editor foundation evaluation
 
-**State: documentation-only review; NO benchmark tests run yet.** The two projects below were read from their public README files on 2026-11-13. Features in an upstream README do not prove they work on our target systems.
+**Status (2026-11-13): OpenReel source has been provisionally imported, not fully benchmarked.**
+GitHub Actions cloned OpenReel at `367d7e90b61b5181f9861b852bb8b9d7a7d2954a` and FreeCut at `5ceeeb388eef5423640b7db157706274bf1b8165`. Only OpenReel source is copied under `editor/`. This does NOT demonstrate either editor passes rendering/export or user workflow tests.
 
-| Candidate | Documented approach | Areas to test | Known suitability considerations | Result |
-| --- | --- | --- | --- | --- |
-| [OpenReel](https://github.com/Augani/openreel-video) | React/TypeScript monorepo with browser, alpha desktop app and AI agent packages | browser+desktop export, project persistence, timeline accuracy, assistant safety, performance | Ready architectural split for web + desktop; desktop is described as alpha | **UNTESTED** |
-| [FreeCut](https://github.com/walterlow/freecut) | Browser-focused React/TypeScript editor using WebGPU, WebCodecs and local workspace | GPU/browser requirements, export fidelity, advanced editing tools, potential desktop packaging | Rich documented timeline features; needs compatible Chromium/WebGPU/File System Access environment | **UNTESTED** |
+| Candidate | Source state | Documented scope | Real editor export benchmark |
+| --- | --- | --- | --- |
+| [OpenReel](https://github.com/Augani/openreel-video) | **Imported provisionally** at pinned SHA; upstream MIT license retained | Web + alpha desktop + editor agent modules | **NOT YET VERIFIED** |
+| [FreeCut](https://github.com/walterlow/freecut) | Cloned separately and inspected for import suitability; not merged | Browser WebGPU/WebCodecs editor with detailed editing UI and local models | **NOT YET VERIFIED** |
 
-## Decision procedure: do not select on star counts
+## Scoring rubric
 
-Use a version-pinned evaluation record and identical media fixtures for each candidate.
-
-| Dimension | Weight | Minimum evidence |
+| Dimension | Weight | Required evidence |
 | --- | ---: | --- |
-| Correct export & preview parity | 30% | Two successful saved/reopened/exported edit cases checked visually and with ffprobe |
-| Core timeline & editing quality | 20% | multitrack trim, split, crossfade, audio sync, undo, timecode |
-| Extensibility & maintainability | 15% | review project schema, commands, tests, module boundaries, dependency hygiene |
-| Performance & stability | 15% | preview scrub, memory, 1080p and 4K where available, no critical crashes |
-| Browser + Windows feasibility | 10% | browser run plus credible native integration/testing path |
-| Licensing & security | 10% | reviewed app/license, FFmpeg build, AI weights, dependencies and untrusted media handling |
+| Preview/export fidelity | 30% | saved/reopened exported scenes checked by ffprobe, visible frames and audio |
+| Core editing quality | 20% | trim/split, multitrack audio, captions, keyframes, undo/redo |
+| Extensibility | 15% | command/state contracts, testability, cross-package coupling and maintenance |
+| Performance/stability | 15% | memory, startup/scrub and GPU render behavior under identical clips |
+| Windows + browser feasibility | 10% | verified browser, credible Windows-native build/test plan |
+| License/security | 10% | source+transitive dependencies, FFmpeg build flags, models, keys, untrusted input |
 
-Score each dimension 0–5, cite measured evidence and compute the weighted score out of 100. An unresolved blocking license problem or inability to export a simple MP4 disqualifies a candidate regardless of the total.
+Score 0–5 in each category, record supporting logs/samples and a calculated result out of 100. A license incompatibility or fundamentally broken export is disqualifying regardless of numerical score.
 
-## Required shared benchmarks
+## Minimum real benchmark cases
+1. Generate three-second 640×360 video and sine-wave audio via `scripts/generate_fixtures.py`.
+2. Import, trim to two seconds, insert title, mix audio and export a playable MP4.
+3. Save, close, reopen and re-export; inspect reproducibility.
+4. Verify timecode alignment at cut boundaries, audio sync, captions, mask/transition preview-versus-export.
+5. Evaluate representative 1080p 30fps editing and 4K on appropriate hardware.
+6. Record actual memory, CPU/GPU and export duration; report hardware, browser and build revision.
+7. Document crashes, availability of autosave and recovery.
+8. Never claim correctness based on UI screenshots or metadata-only ffprobe checks.
 
-1. 3-second 640x360 source video with synthetic audio (generate with scripts/generate_fixtures.py).
-2. Trim to 2 seconds; add visible title; export H.264/AAC MP4 where supported.
-3. Two tracks: overlay image + voice/audio; confirm A/V synchronization.
-4. Save project, close application, reopen, and export same output.
-5. Verify scrub near cuts, speed changes, transitions and undo/redo against reference preview.
-6. 1080p 30fps 30-second edit and a 4K source if suitable hardware exists.
-7. Check out-of-memory, crash recovery, project schema evolution and browser storage limitations.
-8. Record final output file metadata using scripts/check_media.py, AND inspect rendered frames/audio for correctness.
-9. Distinguish Linux cloud results from Windows-native/GPU tests.
-
-## Recording results
-
-For each candidate, create docs/evidence/<candidate>-evaluation.md with upstream SHA, license/review date, machine/browser, commands, screenshots or artifacts, output metadata, pass/fail evidence, and a prioritized defects list. Update THIS document with results and a signed-off Architecture Decision Record before importing a base.
-
-Never merge two incompatible timeline or compositor engines to chase feature counts.
+## Decision record
+Store evidence under `docs/evidence/`. If independent benchmarks strongly favor FreeCut, propose a migration and preserve current working code until replacement passes tests. Never merge two incompatible editor/timeline render engines.
