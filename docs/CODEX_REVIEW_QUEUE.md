@@ -16,7 +16,8 @@ browser E2E remains unverified.
 | --- | --- | --- | --- |
 | 1 | [#3 — Studio Playwright runner](../pull/3) | Use supported Ubuntu 24.04 runner and run Studio E2E on PRs | PR Playwright + root media CI passed; does **not** prove the main editor export |
 | 2 | [#4 — Media export validation](../pull/4) | Add codecs, frame rate and FFmpeg full-decode checks | 16 Python unit tests + synthetic MP4 decode passed locally, root PR CI passed |
-| 3 | [#5 — Silent compression sizing](../pull/5) | Honor `hasAudio=false` in Smaller File export mode | Two new component regression tests; review current editor CI run before merging |
+| 3 | [#5 — Silent compression sizing](../pull/5) | Honor `hasAudio=false` in Smaller File export mode | Editor CI passed with two new regression tests; review before merge |
+| 4 | [#12 — Main editor Chromium startup](../pull/12) | Exercise the main web editor in real Chromium, separate from Studio | CI PR startup workflow pending; follow test artifacts and logs |
 
 ### Review procedure for each PR
 
@@ -47,7 +48,7 @@ Keep scope bounded to one verified behavior per PR, and preserve source licenses
 
 ## Suggested first Codex instruction
 
-> Review PRs #3, #4 and #5 in order. Check their actual GitHub Actions results and
+> Review PRs #3, #4, #5 and #12 in order. Check their actual GitHub Actions results and
 > fix any failures. Merge into main only after adequate review/approval. Then begin
 > issue #6: deliver a real browser import-edit-save-export E2E using test media.
 > Read AGENTS.md and docs/CODEX_HANDOFF.md. Document measured outcomes rather
