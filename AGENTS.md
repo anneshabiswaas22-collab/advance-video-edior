@@ -1,53 +1,47 @@
 # Agent instructions for Codex / GPT-6 Astra
 
-## Product objective
+## Mission
+Build an original, reliable, commercial-grade web + Windows video editor inspired by CapCut usability, DaVinci Resolve color/audio/compositing and Premiere precision workflows. Do not copy proprietary assets/code. Feature parity is a long-term benchmark, not a claim about current readiness.
 
-Build an original, reliable and commercially viable web + Windows video editor that competes through editing quality, ease of use and optional AI automation. Benchmarks: CapCut (creator UX), DaVinci Resolve (color/audio/compositing) and Premiere (precision workflows). Do not claim parity without passing benchmark criteria.
+## Current repository state (updated 2026-11-13)
+- **Real OpenReel source is imported under `editor/`** at upstream commit `367d7e90b61b5181f9861b852bb8b9d7a7d2954a`.
+- OpenReel is the **provisional foundation**; do NOT re-import or replace it without benchmark evidence and a migration plan.
+- FreeCut `5ceeeb388eef5423640b7db157706274bf1b8165` was cloned separately during bootstrap, **not merged**.
+- The root `scripts/` and `tests/` are reusable FFmpeg media-QA utilities, not the actual editor engine.
+- GitHub Actions import/build runs: see `.github/workflows/import-editor.yml`. A passing compile is not proof of media playback/export correctness.
+- The user has **authorized direct commits to `main`**. Make small, non-destructive commits, run tests, avoid force pushes, do not overwrite other work.
 
-## Current truth
+## Immediate executable task
+1. Read `docs/CODEX_HANDOFF.md`, `docs/EDITOR_IMPORT_PLAN.md`, `docs/FOUNDATION_EVALUATION.md`, and `docs/REUSE_AND_LICENSES.md`.
+2. Inspect `editor/` and install the pinned pnpm version; reproduce `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm test`, `pnpm build` and `pnpm dev`. Fix failures in measured order.
+3. Build automated browser end-to-end checks for **import -> trim -> text -> audio -> save -> reopen -> MP4 export**, and verify generated output with ffprobe plus representative frame/audio inspection.
+4. Independently test FreeCut at the pinned SHA against the same fixtures; record comparative measurements and a decision record. Do not merge an incompatible timeline engine.
+5. Develop features incrementally inside the current editor core; use compatible libraries via adapters only where an existing implementation is missing or broken.
+6. Windows packaging, real-GPU latency and 4K performance require compatible Windows/GPU hardware. Clearly distinguish cloud-only results.
 
-As of initial bootstrap the repository has only a README, documents and portable media QA scripts. No editor implementation has been selected or imported. Never treat documentation of an external project as evidence of tested functionality in this repository.
+## Reuse-first, low-credit rules
+- Search existing code and package dependencies BEFORE implementing a capability.
+- No bulk-copy of external editors or dependencies, no duplicate render engines, no paid AI API calls without explicit approval.
+- Maintain one project model and one editing command schema; actions should be undoable, logged, and permission constrained.
+- Record upstream SHA, component licenses, model weight licenses, third-party notices, and test evidence. Use a mock/fake provider in CI.
+- Run targeted tests and incremental builds rather than repeated large-suite reruns.
+- Preserve attribution; investigate FFmpeg LGPL/GPL build configuration, proprietary codecs and noncommercial AI weights.
+- Do not claim functionality, Windows validation or preview/export parity without actual tests.
 
-## First assignment
-
-1. Read README.md, docs/FOUNDATION_EVALUATION.md, docs/REUSE_AND_LICENSES.md, docs/CODEX_HANDOFF.md.
-2. Clone OpenReel and FreeCut into separate temporary directories, **not** over this repo. Pin exact upstream commit hashes and versions.
-3. Inspect licenses, package scripts, actual implementations, open bugs, security posture and test coverage.
-4. Install and run both apps in supported environments. Perform the same imported-media -> trim -> text overlay -> save/reopen -> export MP4 workflows. Measure and attach evidence.
-5. Update the foundation matrix with ACTUAL results, separating VERIFIED, FAILED, UNTESTED, and DOCUMENTED ONLY.
-6. Select one primary architecture based on evidence; write an ADR. Do not merge competing timeline, compositor or render pipelines.
-7. Port the selected foundation via a clear, reviewable path, preserving attribution and licenses. Build a browser editor before taking on OS-specific packaging.
-8. Deliver one reliable vertical slice: import, multitrack timeline, scrub, trim, text, audio, save/reopen, export playable MP4, and regression tests.
-
-## Mandatory credit-saving rules
-
-- Reuse before implementation. Search existing code/dependencies first.
-- No blind bulk installs or imports of many repositories.
-- Prefer a functioning vertical slice to placeholder interfaces.
-- Make small changes; run targeted tests then CI; attach commands and results to PRs.
-- Do not repeatedly research the same dependency: record pinned commit, license, decision and date in docs.
-- Make paid AI model/API use opt-in; never commit keys or execute chargeable remote inference as a default.
-- Preserve user work and avoid force-push/reset and main-branch edits.
-- Stop when missing credentials, incompatible hardware or permission makes a verification impossible; document what could not be tested.
-- Do not quietly add GPL/AGPL, non-commercial model weights or assets to a proprietary deliverable. Obtain a licensing decision first.
-- Render-quality claims need a checked exported file, not only a screenshot or successful build.
-
-## QA commands
-
+## Commands
 ```bash
 python -m unittest discover -s tests -v
 python scripts/generate_fixtures.py --output-dir test-output
 python scripts/check_media.py test-output/sample-3s.mp4 --require-audio --min-seconds 2.8 --max-seconds 3.2
+cd editor
+corepack enable
+corepack prepare pnpm@11.7.0 --activate
+pnpm install --frozen-lockfile
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm dev
 ```
 
-Use these scripts as baseline fixture/metadata tests. Once an editor is integrated, add frame/audio comparison tests and Windows-native hardware tests. Log platform, exact build SHA and tools used.
-
-## Definition of done for any editing feature
-
-1. Implemented and reachable through the product UI / supported agent command.
-2. Produces correct state, supports undo/redo as appropriate.
-3. Persists through save/reopen.
-4. Matches intended preview and exported output.
-5. Has regression tests with representative video/audio fixtures.
-6. Has verified license and security implications.
-7. Documented as tested, partial, or untested without exaggeration.
+## Definition of done
+A feature is reachable from the application UI or guarded agent command, persists through save/reopen, performs correctly with undo/redo as appropriate, matches exported output, has regression tests and reviewed license/security implications. Report failed/unverified behavior accurately.
