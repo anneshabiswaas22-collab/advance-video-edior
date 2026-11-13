@@ -1,0 +1,52 @@
+name: Video editor continuous integration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - editor/**
+      - .github/workflows/editor-ci.yml
+  pull_request:
+    paths:
+      - editor/**
+      - .github/workflows/editor-ci.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: editor-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  editor-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.7.0
+      - name: Setup Node.js with dependency cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+          cache-dependency-path: editor/pnpm-lock.yaml
+      - name: Install locked dependencies
+        working-directory: editor
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        working-directory: editor
+        run: pnpm typecheck
+      - name: Unit tests
+        working-directory: editor
+        run: pnpm test
+      - name: Production build
+        working-directory: editor
+        run: pnpm build
