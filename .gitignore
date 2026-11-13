@@ -1,0 +1,20 @@
+# Media QA output
+test-output/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Future JS applications
+node_modules/
+dist/
+build/
+coverage/
+
+# OS/editor
+.DS_Store
+Thumbs.db

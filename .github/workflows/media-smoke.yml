@@ -1,0 +1,42 @@
+name: Media smoke tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python-and-ffmpeg:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Python unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Install FFmpeg and ffprobe
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+      - name: Check FFmpeg
+        run: |
+          ffmpeg -version
+          ffprobe -version
+      - name: Generate deterministic fixture
+        run: python scripts/generate_fixtures.py --output-dir test-output
+      - name: Verify fixture streams and duration
+        run: python scripts/check_media.py test-output/sample-3s.mp4 --require-audio --min-width 640 --min-height 360 --min-seconds 2.8 --max-seconds 3.2
+      - name: Upload synthetic fixture
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-media
+          path: test-output/*.mp4
+          if-no-files-found: ignore
+          retention-days: 3
