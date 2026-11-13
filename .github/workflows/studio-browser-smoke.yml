@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - .github/workflows/studio-browser-smoke.yml
+  pull_request:
+    paths:
+      - .github/workflows/studio-browser-smoke.yml
+      - editor/**
   workflow_dispatch:
 
 permissions:
