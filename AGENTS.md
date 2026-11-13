@@ -11,6 +11,10 @@ Build an original, reliable, commercial-grade web + Windows video editor inspire
 - GitHub Actions import/build runs: see `.github/workflows/import-editor.yml`. A passing compile is not proof of media playback/export correctness.
 - The user has **authorized direct commits to `main`**. Make small, non-destructive commits, run tests, avoid force pushes, do not overwrite other work.
 
+## Current review queue
+
+Before starting new work, read `docs/CODEX_REVIEW_QUEUE.md` for existing pull requests and prioritized issues. Review and test pending changes before duplicating them. Do not auto-merge unreviewed code.
+
 ## Immediate executable task
 1. Read `docs/CODEX_HANDOFF.md`, `docs/EDITOR_IMPORT_PLAN.md`, `docs/FOUNDATION_EVALUATION.md`, and `docs/REUSE_AND_LICENSES.md`.
 2. Inspect `editor/` and install the pinned pnpm version; reproduce `pnpm install --frozen-lockfile`, `pnpm typecheck`, `pnpm test`, `pnpm build` and `pnpm dev`. Fix failures in measured order.
