@@ -150,4 +150,66 @@ describe("ExportDialog", () => {
     expect(screen.queryByRole("checkbox", { name: "YouTube 4K" })).not.toBeInTheDocument();
     expect(screen.queryByRole("checkbox", { name: "4K ProRes HQ" })).not.toBeInTheDocument();
   });
+
+  it("does not allocate audio bitrate for silent projects in Smaller File mode", () => {
+    const onExport = vi.fn();
+    render(
+      <ExportDialog
+        isOpen
+        onClose={vi.fn()}
+        onExport={onExport}
+        duration={20}
+        hasAudio={false}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole("radio", { name: "Smaller File" }));
+    expect(screen.getByText(/kbps video/)).toBeInTheDocument();
+    expect(screen.queryByText(/kbps audio/)).not.toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { name: "Compress & Export" }));
+    expect(onExport).toHaveBeenCalledWith(
+      expect.objectContaining({
+        audioSettings: expect.objectContaining({ bitrate: 0 }),
+      }),
+      "download",
+    );
+  });
+
+  it("recalculates the compression plan when a project gains an audio track", () => {
+    const onExport = vi.fn();
+    const onClose = vi.fn();
+    const { rerender } = render(
+      <ExportDialog
+        isOpen
+        onClose={onClose}
+        onExport={onExport}
+        duration={20}
+        hasAudio={false}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole("radio", { name: "Smaller File" }));
+    expect(screen.queryByText(/kbps audio/)).not.toBeInTheDocument();
+
+    rerender(
+      <ExportDialog
+        isOpen
+        onClose={onClose}
+        onExport={onExport}
+        duration={20}
+        hasAudio
+      />,
+    );
+
+    expect(screen.getByText(/kbps audio/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Compress & Export" }));
+    expect(onExport).toHaveBeenCalledWith(
+      expect.objectContaining({
+        audioSettings: expect.objectContaining({ bitrate: 128 }),
+      }),
+      "download",
+    );
+  });
+
 });
