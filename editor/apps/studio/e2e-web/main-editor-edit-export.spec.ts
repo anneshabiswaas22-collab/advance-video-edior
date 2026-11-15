@@ -42,6 +42,11 @@ test("main editor really imports, edits, recovers and exports MP4", async ({ pag
   await page.goto("/#/new?dimensions=640x360&fps=24");
   await expect(page.locator("#editor-panel-timeline")).toBeVisible({ timeout: 45_000 });
 
+  // A fresh browser automatically starts the product's interactive onboarding tour.
+  // Dismiss it through the real accessible UI; otherwise the spotlight overlay
+  // intercepts media-tile clicks even though import succeeded.
+  await page.getByRole("button", { name: "Skip tour" }).first().click({ timeout: 20_000 });
+
   const importInput = page.locator('input[type="file"][aria-label="Import media"]');
   await importInput.setInputFiles(source);
   const videoName = page.getByText("sample-colors.mp4", { exact: true });
