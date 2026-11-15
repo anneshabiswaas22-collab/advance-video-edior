@@ -40,6 +40,13 @@ jobs:
       - name: Install Chromium
         working-directory: editor
         run: pnpm --filter @openreel/studio exec playwright install --with-deps chromium
+      - name: Ensure FFmpeg is available for real media fixtures and decode checks
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get update -qq
+            sudo apt-get install -y ffmpeg
+          fi
+          ffmpeg -version | head -n 1
       - name: Launch main web editor and exercise real startup
         working-directory: editor
         run: pnpm --filter @openreel/studio exec playwright test -c playwright.web.config.ts
