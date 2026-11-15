@@ -141,10 +141,12 @@ def verify(media: Path, spec: dict, spec_directory: Path) -> dict:
             size, reference, check.get("expected_rgb"),
         )
         limit = float(check.get("max_mae", 20))
-        passed = math.isfinite(limit) and limit >= 0 and measured <= limit
+        minimum = float(check.get("min_mae", 0))
+        passed = (math.isfinite(limit) and math.isfinite(minimum) and
+                  0 <= minimum <= measured <= limit)
         results.append({
             "kind": "frame", "index": index, "time": time, "mae": round(measured, 3),
-            "max_mae": limit, "passed": passed,
+            "min_mae": minimum, "max_mae": limit, "passed": passed,
         })
     for index, check in enumerate(spec.get("audio_windows", [])):
         start, end = float(check["start"]), float(check["end"])
