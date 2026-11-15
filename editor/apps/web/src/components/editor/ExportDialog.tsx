@@ -261,7 +261,7 @@ export const ExportDialog: React.FC<ExportDialogProps> = ({
       width: projectWidth,
       height: projectHeight,
       frameRate,
-      hasAudio: true,
+      hasAudio,
     };
     const target: CompressionTarget =
       reduceMode === "size"
@@ -278,6 +278,7 @@ export const ExportDialog: React.FC<ExportDialogProps> = ({
     projectWidth,
     projectHeight,
     frameRate,
+    hasAudio,
     reduceMode,
     reduceQuality,
     reduceSizePresetId,
