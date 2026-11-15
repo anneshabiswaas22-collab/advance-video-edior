@@ -1,55 +1,54 @@
-# Codex Astra review queue
+# Codex Astra engineering handoff
 
-**Updated:** 2026-11-13  
+**Verified:** 2026-11-15  
 **Repository:** https://github.com/anneshabiswaas22-collab/advance-video-edior  
-**Target branch:** `main`
+**Branch:** `main`  
+**Open pull requests at handoff:** **0**
 
-This is an **on-demand handoff**, not a continuously running agent. Review and merge
-only verified changes. The main branch currently contains a pinned OpenReel source
-import, a successful upstream `pnpm typecheck && pnpm test && pnpm build` baseline,
-and independent FreeCut build/test comparison. Real main-editor import/edit/export
-browser E2E remains unverified.
+## Completed merge review (2026-11-15)
 
-## Changes awaiting Astra review
+All four previously outstanding PRs were reviewed for scope and checked against
+their successful relevant GitHub Actions runs before merging.
 
-| Order | Pull request | Intent | Available evidence |
-| --- | --- | --- | --- |
-| 1 | [#3 — Studio Playwright runner](../pull/3) | Use supported Ubuntu 24.04 runner and run Studio E2E on PRs | PR Playwright + root media CI passed; does **not** prove the main editor export |
-| 2 | [#4 — Media export validation](../pull/4) | Add codecs, frame rate and FFmpeg full-decode checks | 16 Python unit tests + synthetic MP4 decode passed locally, root PR CI passed |
-| 3 | [#5 — Silent compression sizing](../pull/5) | Honor `hasAudio=false` in Smaller File export mode | Editor CI passed with two new regression tests; review before merge |
-| 4 | [#12 — Main editor Chromium startup](../pull/12) | Exercise the main web editor in real Chromium, separate from Studio | Chromium PR startup workflow PASSED; still no actual edited MP4 export test |
+| PR | Result | Change |
+| --- | --- | --- |
+| [#3](../pull/3) | MERGED | Pin Playwright CI to supported Ubuntu 24.04; enable PR checks |
+| [#4](../pull/4) | MERGED | Validate codecs, FPS, duration, decode and add media QA unit tests |
+| [#5](../pull/5) | MERGED | Honor the actual presence/absence of audio in compressed-export planning |
+| [#12](../pull/12) | MERGED | Real Chromium smoke for main web-editor startup and empty-export guard |
 
-### Review procedure for each PR
+Post-merge GitHub Actions can be inspected at
+https://github.com/anneshabiswaas22-collab/advance-video-edior/actions.
+A green build/startup smoke does not prove an edited, saved/reopened MP4 has been exported.
 
-1. Inspect code diff, upstream compatibility, TypeScript/Python versions and the license impact.
-2. Check all relevant GitHub Actions runs at the **current PR head SHA**.
-3. When failures occur, reproduce and fix without weakening the assertion or hiding an error.
-4. Confirm each change actually addresses the stated problem and preserves existing behavior.
-5. Merge independently in order after successful checks; do not merge on a stale CI result.
-6. If a PR changes `main` while another is under review, check whether its base or tests need updating.
-7. After merges, verify `main` CI, and update this table/close completed work.
+## Study/reference repositories
 
-## New prioritized work (separate tasks, do not implement all at once)
+See [VIDEO_EDITOR_STUDY_REPOSITORIES.txt](VIDEO_EDITOR_STUDY_REPOSITORIES.txt)
+for all **22** previously discussed editor frameworks, media libraries and AI
+references. These are candidates for evaluation, NOT code automatically approved
+for importing or commercial distribution.
 
-- **P0:** [#6 Main web editor E2E](../issues/6) — actual import, trim, text/audio, save, reopen, MP4 export.
-- **P0:** [#7 Frame and audio fidelity checks](../issues/7) — prove content/timing, not just decodability.
-- **P1:** [#8 FreeCut vs OpenReel real benchmarks](../issues/8) — measured final foundation decision.
-- **P1:** [#9 License, codecs and AI asset SBOM](../issues/9) — redistribution readiness.
-- **P1:** [#10 Agent command security/undo](../issues/10) — guarded, reversible AI editing.
-- **P2:** [#11 Windows packaging and real GPU QA](../issues/11) — native release pipeline.
-- **Umbrella:** [#2 Working export milestone](../issues/2).
+## Next prioritized work — do not redo the merged fixes
 
-## Credit-saving rule
+- **P0:** [#6 Main web editor E2E](../issues/6): import, trim, title/audio, save, reopen, actual MP4 export.
+- **P0:** [#7 Frame/audio comparison](../issues/7): verify rendered visual content and synchronization.
+- **P1:** [#8 Foundation ADR](../issues/8): benchmark OpenReel and FreeCut on identical media and hardware.
+- **P1:** [#9 License/SBOM](../issues/9): audit direct/transitive media dependencies, codecs and model weights.
+- **P1:** [#10 AI editing security](../issues/10): validated and undoable editor commands.
+- **P2:** [#11 Windows packaging](../issues/11): native runtime, hardware/GPU and release checks.
+- **Umbrella:** [#2 end-to-end editor readiness](../issues/2).
 
-Use existing OpenReel code under `editor/`; do **not** restart the editor
-from scratch. Inspect dependencies and current tests before implementing a
-feature. Avoid paid inference or arbitrary bulk repository copying.
-Keep scope bounded to one verified behavior per PR, and preserve source licenses.
+## Codex continuation instruction
 
-## Suggested first Codex instruction
+> Start at GitHub `main`. First inspect the post-merge CI runs. PRs #3, #4,
+> #5 and #12 have **already been merged**; do not reopen or duplicate them.
+> Read `AGENTS.md`, `docs/CODEX_HANDOFF.md` and
+> `docs/VIDEO_EDITOR_STUDY_REPOSITORIES.txt`. Work next on Issue #6: the first
+> real browser import/edit/save/reopen/export MP4 end-to-end workflow.
+> Verify with the existing metadata/decode checks and new visual/audio checks.
+> Keep using the imported OpenReel code under `editor/`, and do not bulk-merge
+> alternative editors or invoke paid models without permission.
 
-> Review PRs #3, #4, #5 and #12 in order. Check their actual GitHub Actions results and
-> fix any failures. Merge into main only after adequate review/approval. Then begin
-> issue #6: deliver a real browser import-edit-save-export E2E using test media.
-> Read AGENTS.md and docs/CODEX_HANDOFF.md. Document measured outcomes rather
-> than claiming capability from upstream README files.
+**Reuse-before-rebuild:** This project already contains the pinned OpenReel
+source and built-in editing/agent features. Inspect what is present before adding
+another dependency; preserve applicable source and media licenses.
