@@ -81,6 +81,16 @@ class ContentValidationTests(unittest.TestCase):
         self.assertFalse(report["passed"])
         self.assertIn(2, [x["index"] for x in report["failures"] if x["kind"] == "frame"])
 
+    def test_title_differs_from_clean_source(self):
+        # A source without a title is an independent negative reference.
+        spec = {"frames": [{
+            "time": 0.4, "reference": self.missing_title.name,
+            "reference_time": 0.4, "region": [0.28, 0.10, 0.45, 0.40],
+            "min_mae": 10, "max_mae": 255,
+        }]}
+        self.assertTrue(verify(self.good, spec, self.directory)["passed"])
+        self.assertFalse(verify(self.missing_title, spec, self.directory)["passed"])
+
     def test_wrong_cut_is_detected(self):
         report = verify(self.wrong_cut, self.spec(), self.directory)
         self.assertFalse(report["passed"])
