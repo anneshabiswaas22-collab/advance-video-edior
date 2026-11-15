@@ -1,0 +1,134 @@
+ADVANCED VIDEO EDITOR - COMPLETE PREVIOUSLY DISCUSSED STUDY REPOSITORIES
+Updated: 2026-11-15
+Project: https://github.com/anneshabiswaas22-collab/advance-video-edior
+
+PURPOSE: A consolidated reference inventory of editor frameworks, media processing
+libraries, AI models and professional post-production tooling discussed for the
+CapCut + DaVinci Resolve + Adobe Premiere-class video-editor goal.
+
+IMPORTANT: These are STUDY / EVALUATION REFERENCES, not a list of approved
+dependencies. Public source does not imply commercial redistribution clearance.
+Do not bulk-clone or merge entire editors into the product. Keep ONE canonical
+project/timeline/rendering model. Audit source, dependency, codec, font, model-
+weight and media-asset licenses separately; prioritize reuse before rebuilding.
+
+CURRENT FOUNDATION:
+- OpenReel has been imported at editor/ under a pinned source revision.
+- FreeCut has been cloned/tested separately as a comparative candidate.
+- Existing candidate revisions: docs/evidence/supporting-source-inventory.md
+
+============================================================================
+A. PRIMARY EDITOR CANDIDATES - evaluate one authoritative timeline, not multiple merged engines
+============================================================================
+01. Augani/openreel-video
+    URL: https://github.com/Augani/openreel-video
+    Study: Current imported foundation; browser and desktop packages, timeline, export, AI agent. SHA 367d7e90b61b5181f9861b852bb8b9d7a7d2954a.
+
+02. walterlow/freecut
+    URL: https://github.com/walterlow/freecut
+    Study: Independent alternative; evaluate mature editing operations, tests, local AI, proxy/compound edit ideas. SHA 5ceeeb388eef5423640b7db157706274bf1b8165.
+
+03. medhachim/CapRocket
+    URL: https://github.com/medhachim/CapRocket
+    Study: Reference for Windows desktop integrations, effects, offline captions, AI assistant; don't import bundled FFmpeg without reviewing GPL obligations.
+
+04. OpenCut-app/OpenCut
+    URL: https://github.com/OpenCut-app/OpenCut
+    Study: Reference alternative and plugin-first architecture; previously noted rewrite/incompleteness. Do not combine its separate render engine.
+
+05. openvideodev/react-video-editor
+    URL: https://github.com/openvideodev/react-video-editor
+    Study: Reference for React video-editor UI; previously flagged potential commercial-use license restrictions. Research only until terms are verified.
+
+============================================================================
+B. MEDIA ENGINE AND VIDEO EFFECTS
+============================================================================
+06. Vanilagy/mediabunny
+    URL: https://github.com/Vanilagy/mediabunny
+    Study: Browser containers, decode/encode/mux media handling; keep OpenReel's existing integration when adequate.
+
+07. FFmpeg/FFmpeg
+    URL: https://github.com/FFmpeg/FFmpeg
+    Study: Native processing, export, transcoding, effects and audio; verify exact binary configuration and LGPL/GPL obligations.
+
+08. mltframework/mlt
+    URL: https://github.com/mltframework/mlt
+    Study: Professional media-processing framework; compare as specialized backend only if needed, not a second editor timeline.
+
+09. gl-transitions/gl-transitions
+    URL: https://github.com/gl-transitions/gl-transitions
+    Study: Reusable graphics transition shaders; check individual shader compatibility and notices.
+
+10. katspaugh/wavesurfer.js
+    URL: https://github.com/katspaugh/wavesurfer.js
+    Study: Audio waveforms, timeline/audio UI and visualization; integrate only where missing.
+
+============================================================================
+C. AI SUBTITLES, AUDIO, SCENE CUTTING AND SEGMENTATION
+============================================================================
+11. ggml-org/whisper.cpp
+    URL: https://github.com/ggml-org/whisper.cpp
+    Study: Offline speech recognition, captions; check model sources and performance before packaging.
+
+12. snakers4/silero-vad
+    URL: https://github.com/snakers4/silero-vad
+    Study: Voice activity detection for silence cuts and speech region detection.
+
+13. Breakthrough/PySceneDetect
+    URL: https://github.com/Breakthrough/PySceneDetect
+    Study: Automatic scene boundary detection and cut suggestions.
+
+14. facebookresearch/sam2
+    URL: https://github.com/facebookresearch/sam2
+    Study: Video object segmentation/tracking; evaluate GPU and model-weight redistribution.
+
+15. danielgatis/rembg
+    URL: https://github.com/danielgatis/rembg
+    Study: Image background removal; each bundled/downloaded model's license needs separate verification.
+
+16. xiph/rnnoise
+    URL: https://github.com/xiph/rnnoise
+    Study: Native speech denoising for the audio processing chain.
+
+17. hexgrad/Kokoro-82M (MODEL, NOT GITHUB REPO)
+    URL: https://huggingface.co/hexgrad/Kokoro-82M
+    Study: Text-to-speech model reference; validate exact model weights, voice assets, commercial terms and performance.
+
+============================================================================
+D. PROFESSIONAL POST-PRODUCTION AND UI
+============================================================================
+18. AcademySoftwareFoundation/OpenTimelineIO
+    URL: https://github.com/AcademySoftwareFoundation/OpenTimelineIO
+    Study: Professional editorial timeline interchange; not a rendering engine.
+
+19. AcademySoftwareFoundation/OpenColorIO
+    URL: https://github.com/AcademySoftwareFoundation/OpenColorIO
+    Study: Professional color-management infrastructure; not an editing or grading UI.
+
+20. SubtitleEdit/subtitleedit
+    URL: https://github.com/SubtitleEdit/subtitleedit
+    Study: Reference for robust subtitle timing, editing, formats and QC; research its dependencies/license before reuse.
+
+21. shadcn-ui/ui
+    URL: https://github.com/shadcn-ui/ui
+    Study: React UI component reference; retain product UI consistency rather than wholesale redesign.
+
+22. remotion-dev/remotion (LICENSE REVIEW REQUIRED)
+    URL: https://github.com/remotion-dev/remotion
+    Study: Programmatic video rendering/motion graphics reference. Prior conversation flagged special commercial/editor-product licensing; don't integrate without approval.
+
+============================================================================
+IMPLEMENTATION / CODEX RULES
+============================================================================
+1. Evaluate primary foundation on actual importing, scrubbing, save/reopen, export.
+2. Reuse existing editor capabilities before writing another feature.
+3. Integrate specialized libraries via adapters, not parallel render engines.
+4. Record exact source commits, license findings and reproducible test evidence.
+5. Do not silently invoke paid inference or download noncommercial model weights.
+6. Verify actual exported video frames, audio timing, codecs, duration, GPU speed.
+7. Windows and 4K claims require matching native/hardware validation.
+8. Refer to AGENTS.md, docs/CODEX_REVIEW_QUEUE.md and Issue #6 before new work.
+
+TOTAL REFERENCES: 22 (21 GitHub repositories + 1 Hugging Face model reference).
+
+NOT INCLUDED: unrelated AI video-generation GitHub projects from separate work.
