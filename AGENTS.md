@@ -1,5 +1,7 @@
 # Agent instructions for Codex / GPT-6 Astra
 
+> **Repository memory (2026-11-16):** Start with [docs/PROJECT_MEMORY_INDEX.md](docs/PROJECT_MEMORY_INDEX.md) to restore full current project context, architecture diagrams, research links, available historical decision summaries, and the [Codex continuation prompt](docs/PROJECT_CODEX_CONTINUATION.md). Read [docs/PROJECT_RESEARCH_AND_REFERENCES.md](docs/PROJECT_RESEARCH_AND_REFERENCES.md): OpenReel remains the ONLY canonical editor; independent comparisons now include BOTH FreeCut and the OpenCut rewrite. The notes below are an earlier snapshot. Always inspect latest main, merged PRs, CI, and docs/CODEX_REVIEW_QUEUE.md first.
+
 ## Mission
 Build an original, reliable, commercial-grade web + Windows video editor inspired by CapCut usability, DaVinci Resolve color/audio/compositing and Premiere precision workflows. Do not copy proprietary assets/code. Feature parity is a long-term benchmark, not a claim about current readiness.
 

@@ -22,7 +22,7 @@
 | 9 | [adr/0001-single-editor-foundation.md](adr/0001-single-editor-foundation.md) | Original provisional one-engine decision (updated three-repository study protocol is in the research document) |
 | 10 | [REUSE_AND_LICENSES.md](REUSE_AND_LICENSES.md) | Commercial dependency and licensing safeguards |
 
-**Word-compatible consolidated document:** [ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.rtf](ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.rtf). GitHub Markdown files are the editable, diffable source of truth; open the RTF in Microsoft Word or LibreOffice.
+**Consolidated Word documents:** [DOCX — ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.docx](ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.docx) and [RTF fallback](ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.rtf). GitHub Markdown files are the editable, diffable source of truth. Word formats are generated snapshots; update the Markdown sources after every engineering milestone.
 
 ## Five-minute restart checklist
 

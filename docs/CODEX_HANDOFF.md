@@ -49,3 +49,7 @@ Default branch: `main` (user explicitly permits direct pushes).
 ## Suggested Codex Cloud continuation prompt
 
 > Begin at latest `main`. Read AGENTS.md, CODEX_REVIEW_QUEUE.md and the 2026-11-15 edited export evidence. The real browser import/split/trim/title/audio/save/recover/export MP4 path is **already passing** after PR #14; do not recreate it. Strengthen Issue #7 by adding deliberately one-frame-shifted video failures, audio burst latency/sync measurements and preview/output comparison. Preserve one OpenReel engine, reuse the existing Python media QA and Playwright tests and verify a real output after changes. Benchmark FreeCut independently only when useful. Submit small tested commits, record measured runs and remaining gaps without any paid services.
+
+## Portable document copies
+
+GitHub-native master files are indexed at [PROJECT_MEMORY_INDEX.md](PROJECT_MEMORY_INDEX.md). For Word users, [DOCX consolidated project handoff](ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.docx) and [RTF fallback](ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.rtf) provide portable copies. These are curated available context, not full verbatim chat exports.

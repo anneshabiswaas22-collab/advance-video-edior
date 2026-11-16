@@ -1,6 +1,6 @@
 # Advanced Video Editor
 
-**New contributors / Codex after chat context loss:** Start with [Project Memory & Developer Handoff](docs/PROJECT_MEMORY_INDEX.md) (mission, source paths, all 22 references, OpenReel/FreeCut/OpenCut comparison, diagrams, CI, decision history, and paste-ready continuation prompt). [Word-compatible handoff](docs/ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.rtf). This is curated available context, not a verbatim full chat export.
+**New contributors / Codex after chat context loss:** Start with [Project Memory & Developer Handoff](docs/PROJECT_MEMORY_INDEX.md) (mission, source paths, all 22 references, OpenReel/FreeCut/OpenCut comparison, diagrams, CI, decision history, and paste-ready continuation prompt). [Word DOCX handoff](docs/ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.docx) and [RTF](docs/ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.rtf). This is curated available context, not a verbatim full chat export.
 
 An early-stage project to build an original, high-quality, AI-assisted video editor for web and Windows, inspired by the usability of CapCut and the professional workflows of DaVinci Resolve and Premiere.
 
