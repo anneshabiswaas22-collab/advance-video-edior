@@ -1,0 +1,2 @@
+AnalyseFuture/reference-sources/** -text linguist-vendored=true
+AnalyseFuture/archives/*.zip -text
