@@ -1,5 +1,7 @@
 # Advanced Video Editor
 
+**New contributors / Codex after chat context loss:** Start with [Project Memory & Developer Handoff](docs/PROJECT_MEMORY_INDEX.md) (mission, source paths, all 22 references, OpenReel/FreeCut/OpenCut comparison, diagrams, CI, decision history, and paste-ready continuation prompt). [Word-compatible handoff](docs/ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.rtf). This is curated available context, not a verbatim full chat export.
+
 An early-stage project to build an original, high-quality, AI-assisted video editor for web and Windows, inspired by the usability of CapCut and the professional workflows of DaVinci Resolve and Premiere.
 
 > **Project state: First real Chromium edited-export milestone verified (2026-11-15).** OpenReel is the provisional source under `editor/`. A GitHub Actions browser test imports video/audio, splits and trims via the actual editor store, adds a title, saves to IndexedDB, reloads, recovers media and exports a decoded MP4 with sampled frame/title/audio checks. This is **not** a full professional-editor certification: native Windows, GPU/4K performance, all UI gestures and frame-accurate A/V sync are still unverified. Run `cd editor && pnpm install --frozen-lockfile && pnpm dev` for development.

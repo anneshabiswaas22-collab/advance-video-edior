@@ -1,0 +1,512 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0 Aptos;}{\f1 Consolas;}}\viewkind4\uc1\paperw12240\paperh15840\margl980\margr980\margt900\margb900
+{\pard\sa80\fs20 ADVANCED VIDEO EDITOR - COMPLETE PROJECT HANDOFF (2026-11-16)\par}
+{\pard\sa80\fs20 GitHub source of truth: https://github.com/anneshabiswaas22-collab/advance-video-edior\par}
+{\pard\sa80\fs20 Curated summary of available project history, not a verbatim all-chat export.\par}
+\par
+{\pard\page\b\fs30 DOCUMENT: docs/PROJECT_MASTER_CONTEXT.md\par}
+\par
+{\pard\sa200\sb300\b\fs34 Master Project Context \u8212? Advanced Video Editor\par}
+\par
+{\pard\sa80\fs20 **Consolidated:** 2026-11-16 | **Repository:** https://github.com/anneshabiswaas22-collab/advance-video-edior\par}
+{\pard\sa80\fs20 **Status:** Ongoing commercial software development, NOT a mock UI/prototype and NOT yet commercially production-ready.\par}
+{\pard\sa80\fs20 **Source of truth:** Latest main branch + CI + Issues + ADRs. This document summarizes current available project conversation and inspected repository; dates/links below are snapshots.\par}
+\par
+{\pard\sa180\sb300\b\fs28 1. Founder's mission and outcome\par}
+\par
+{\pard\sa80\fs20 Create an original, independently branded, extensible, high-quality video editing platform for:\par}
+{\pard\sa80\fs20 - YouTubers and everyday creators who value simplicity and quick edits;\par}
+{\pard\sa80\fs20 - professional editors and filmmakers needing precision, color, sound, masking, compositing and production workflow;\par}
+{\pard\sa80\fs20 - content teams needing automation, social delivery, reusable templates and Windows support.\par}
+\par
+{\pard\sa80\fs20 **Product benchmarks, not source to copy:** CapCut (ease of use, templates, effects, AI), Adobe Premiere Pro (precision/nonlinear editing and professional workflows), DaVinci Resolve (color/audio/compositing and post-production). Do not claim equivalent feature completeness or copy proprietary code, designs or assets.\par}
+\par
+{\pard\sa80\fs20 **Primary targets:** Web browser and native Windows desktop. Future systems/platforms can be considered if they do not derail the main goal. Cross-platform architecture is a design consideration, not verified deployment support.\par}
+\par
+{\pard\sa80\fs20 **Development values:** working code > glossy demos, validated exports > containers/screenshots, one coherent editor > wholesale combinations, reuse-first > unnecessary new implementations, trustworthy attribution/license compliance > unlicensed downloads, free/local when possible > recurring inference bills.\par}
+\par
+{\pard\sa180\sb300\b\fs28 2. Operating constraints and instructions\par}
+\par
+{\pard\sa80\fs20 - Use the strongest available reasoning for real architecture and code. User permits deep investigation (up to ~2 hours if an execution environment supports it), but do not artificially spend that time; reserve substantial effort for implementation.\par}
+{\pard\sa80\fs20 - Minimize credit and cost. No paid AI APIs, premium inference, external uploads of original footage, paid media generation or unlicensed checkpoints/assets without explicit approval.\par}
+{\pard\sa80\fs20 - Prefer locally run/open-source utilities, mock AI providers in CI, deterministic short media fixtures, existing Vitest and Playwright setup, FFmpeg/ffprobe validation, and caching in CI.\par}
+{\pard\sa80\fs20 - Inspect latest main and all relevant docs before implementation. Read AGENTS.md, docs/CODEX_REVIEW_QUEUE.md, docs/CODEX_HANDOFF.md, related ADRs/evidence, and the 22-reference inventory.\par}
+{\pard\sa80\fs20 - Current OpenReel import is provisional but real. Keep its project schema, timeline authority, editing commands and export pipeline unless objective tests justify a full migration.\par}
+{\pard\sa80\fs20 - Do not merge incompatible timeline models, render pipelines, project storage schemes, history engines, or full alternative editor repositories.\par}
+{\pard\sa80\fs20 - Reuse existing code and dependencies first; add small typed adapters second; write fresh code only after demonstrating a gap.\par}
+{\pard\sa80\fs20 - Small focused tested changes; follow repository permissions; don't force-push or overwrite unrelated work. Earlier project AGENTS explicitly allowed non-destructive direct main commits, but reviewable PRs are appropriate for high-risk changes.\par}
+{\pard\sa80\fs20 - No fake implementations presented as working, no unsubstantiated Windows/4K/GPU claims, no blanket license clearance.\par}
+\par
+{\pard\sa180\sb300\b\fs28 3. Repository as inspected\par}
+\par
+{\pard\sa80\fs20 Main repository: https://github.com/anneshabiswaas22-collab/advance-video-edior\par}
+\par
+{\pard\sa80\fs20 OpenReel imported as the editor workspace under editor/ from upstream SHA:\par}
+{\pard\sa80\fs20 367d7e90b61b5181f9861b852bb8b9d7a7d2954a\par}
+\par
+{\pard\sa80\fs20 Independently studied FreeCut pinned comparison SHA:\par}
+{\pard\sa80\fs20 5ceeeb388eef5423640b7db157706274bf1b8165\par}
+\par
+{\pard\sa80\fs20 Key observed source locations:\par}
+\par
+{\pard\sa80\fs20 | Location | Role |\par}
+{\pard\sa80\fs20 |---|---|\par}
+{\pard\sa80\fs20 | editor/apps/web/src/App.tsx | App routing, new project lifecycle |\par}
+{\pard\sa80\fs20 | editor/apps/web/src/components/editor/AssetsPanel.tsx | Import media, asset placement, text/title presets |\par}
+{\pard\sa80\fs20 | editor/apps/web/src/components/editor/Timeline.tsx | Timeline UI/tools |\par}
+{\pard\sa80\fs20 | editor/apps/web/src/components/editor/Toolbar.tsx | Export entry, project name and dialogs |\par}
+{\pard\sa80\fs20 | editor/apps/web/src/components/editor/ExportDialog.tsx | Settings and export selections |\par}
+{\pard\sa80\fs20 | editor/apps/web/src/stores/project-store.ts | Project state and editing commands |\par}
+{\pard\sa80\fs20 | editor/apps/web/src/stores/timeline-store.ts | UI timeline/playhead state |\par}
+{\pard\sa80\fs20 | editor/apps/web/src/bridges/media-bridge.ts | Bridge to media import |\par}
+{\pard\sa80\fs20 | editor/apps/web/src/services/auto-save.ts | Browser IndexedDB autosave/recovery |\par}
+{\pard\sa80\fs20 | editor/apps/web/src/services/project-manager.ts | Project .oreel save/open |\par}
+{\pard\sa80\fs20 | editor/apps/web/src/services/media-storage.ts | Media blob persistence/retrieval |\par}
+{\pard\sa80\fs20 | editor/apps/web/src/services/export-runner.ts | UI-to-export-engine, download/file writes |\par}
+{\pard\sa80\fs20 | editor/packages/core/src/timeline/clip-manager.ts | Timeline clip operations |\par}
+{\pard\sa80\fs20 | editor/packages/core/src/media/media-import-service.ts | Media import and metadata |\par}
+{\pard\sa80\fs20 | editor/packages/core/src/playback/ | Master clock and preview playback |\par}
+{\pard\sa80\fs20 | editor/packages/core/src/audio/ | Audio engine, effects/routing |\par}
+{\pard\sa80\fs20 | editor/packages/core/src/export/export-engine.ts | Video export engine |\par}
+{\pard\sa80\fs20 | editor/packages/core/src/storage/project-serializer.ts | Project serialization |\par}
+{\pard\sa80\fs20 | editor/packages/agent/src/ | Optional agent and command integration |\par}
+{\pard\sa80\fs20 | editor/packages/ui/src/ | Shared UI |\par}
+{\pard\sa80\fs20 | editor/apps/desktop/ | Electron/native desktop integration; not Windows-certified |\par}
+{\pard\sa80\fs20 | editor/apps/studio/ | Studio app and existing Playwright test infrastructure |\par}
+{\pard\sa80\fs20 | scripts/generate_fixtures.py | Deterministic synthetic media creation |\par}
+{\pard\sa80\fs20 | scripts/check_media.py | Streams/codecs/duration/full decode QA |\par}
+{\pard\sa80\fs20 | scripts/check_edit_content.py | Decoded-frame region and audio RMS QA |\par}
+{\pard\sa80\fs20 | .github/workflows/ | CI, import and media smoke workflows |\par}
+\par
+{\pard\sa80\fs20 The repo already has substantial code and tests; do not infer missing functionality solely from an untested feature list. Look up real methods and call paths.\par}
+\par
+{\pard\sa180\sb300\b\fs28 4. Proven milestone and strict limits\par}
+\par
+{\pard\sa80\fs20 **Verified by recorded GitHub Actions November 15, 2026:**\par}
+{\pard\sa80\fs20 - PR #13: independently sampled decoded pixels and PCM audio, quantitative regression tests; merged.\par}
+{\pard\sa80\fs20 - PR #14: Playwright Chromium editor E2E imports actual 640x360 24fps synthetic AV, places video/audio via UI, uses real mounted store split/trim commands, adds title, persists with IndexedDB, reloads and recovers media, exports a real MP4 using the actual Toolbar, fully decodes and checks selected cut colors, title-region visual difference and audio presence.\par}
+{\pard\sa80\fs20 - The test was fixed for a genuine initial onboarding spotlight blocking a thumbnail; this is part of real browser UI coverage.\par}
+{\pard\sa80\fs20 - Browser run: https://github.com/anneshabiswaas22-collab/advance-video-edior/actions/runs/43742090193\par}
+{\pard\sa80\fs20 - Build: https://github.com/anneshabiswaas22-collab/advance-video-edior/actions/runs/43742090195\par}
+{\pard\sa80\fs20 - Media QA: https://github.com/anneshabiswaas22-collab/advance-video-edior/actions/runs/43742090202\par}
+{\pard\sa80\fs20 - Studio smoke: https://github.com/anneshabiswaas22-collab/advance-video-edior/actions/runs/43742090219\par}
+{\pard\sa80\fs20 - Evidence file: docs/evidence/browser-edited-export-2026-11-15.md\par}
+\par
+{\pard\sa80\fs20 **NOT VERIFIED:** real pointer/keyboard split/trim for the entire flow; single-frame cut-edge sensitivity on all frame rates; sample-accurate audio sync, speech fidelity or loudness; representative preview/export pixel parity; large project memory/recovery; native Windows app launch/import/export; GPU hardware paths; 4K speed/stability; full commercial dependency audit; secure AI agent contract; complete creator/pro tool parity.\par}
+\par
+{\pard\sa80\fs20 The earlier import CI report recorded 3,416 passing and 34 skipped tests across workspaces; this is a historical CI count and not a current fresh run. Never present it as universal application correctness.\par}
+\par
+{\pard\sa180\sb300\b\fs28 5. Canonical architecture principles\par}
+\par
+{\pard\sa80\fs20 - **One project format:** IDs, media library, track and clip ownership, title/caption timeline, serialization.\par}
+{\pard\sa80\fs20 - **One editing command contract:** state validation, undo/redo, timeline notifications, project scoping; no AI direct mutation of filesystem or uncontrolled network calls.\par}
+{\pard\sa80\fs20 - **One export truth:** preview and rendered export must use validated shared timing/composition semantics. Different acceleration backends may exist behind an adapter, but must produce consistent tested content.\par}
+{\pard\sa80\fs20 - **Stable source media linkage:** source handles, blobs, source-file metadata, relinking, save/reopen and package import/export must be tested across sessions.\par}
+{\pard\sa80\fs20 - **Local-first privacy:** user files should not upload unless requested with informed opt-in.\par}
+{\pard\sa80\fs20 - **Windows constraints:** enforce safe native filesystem boundaries; document FFmpeg binary origin/config and installers/signing.\par}
+{\pard\sa80\fs20 - **Performance:** use WebCodecs/MediaBunny/native FFmpeg capabilities already present, test proxy and worker paths, memory/buffer lifecycle, handling of unsupported codecs and GPU fallback.\par}
+{\pard\sa80\fs20 - **Licensing:** code MIT at upstream root is not blanket clearance; audit dependencies, codec binaries, model weights, templates, fonts, music, stock media and assets separately.\par}
+{\pard\sa80\fs20 - **Reproducibility:** pinned Node/pnpm toolchain; deterministic media; same fixtures/hardware for comparative benchmarking.\par}
+\par
+{\pard\sa180\sb300\b\fs28 6. Functional requirements to develop in stages\par}
+\par
+{\pard\sa80\fs20 | Stage | Intended capabilities | Current acceptance state |\par}
+{\pard\sa80\fs20 |---|---|---|\par}
+{\pard\sa80\fs20 | A: Reliable editing | Multitrack trim/split, ripple/rolling/slip/slide, snapping, transitions, keyframes, captions, undo/redo, autosave, real MP4 export | Basic browser E2E passes; broad gesture and export parity incomplete |\par}
+{\pard\sa80\fs20 | B: Creator workflows | Templates, animated text, background removal, speed curves, stabilization, audio cleanup, proxy management, social presets, accessible UI | Individual modules may exist; feature-by-feature functional audit required |\par}
+{\pard\sa80\fs20 | C: Local AI | Offline transcription, captions, silence/scene detection, clip suggestions, project-scoped typed AI commands, reversible operations | Capability and security audits needed; no paid API by default |\par}
+{\pard\sa80\fs20 | D: Professional | Color pipelines, LUTs/scopes, multicamera, masks/tracking, advanced compositing, grading, audio bus/mixer, interchange | Existing partial code possible; no market-parity claim |\par}
+{\pard\sa80\fs20 | E: Windows | Electron/native media, unsigned CI package, Windows runtime smoke, crash recovery, GPU fallback, real GPU/4K benchmarks, signed release path | NOT VERIFIED for release |\par}
+\par
+{\pard\sa80\fs20 **Prioritize correctness before extra UI themes, speculative AI features or code volume.**\par}
+\par
+{\pard\sa180\sb300\b\fs28 7. Definition of done for each feature\par}
+\par
+{\pard\sa80\fs20 - Reachable by user through actual application UI or explicitly permitted agent command.\par}
+{\pard\sa80\fs20 - Operates on real media, not mocked success.\par}
+{\pard\sa80\fs20 - Correct in timeline and preview, survives save/reload when applicable, undoable when appropriate.\par}
+{\pard\sa80\fs20 - Export contains the actual requested modification.\par}
+{\pard\sa80\fs20 - Regression tests include failure cases; browser tests for user flows.\par}
+{\pard\sa80\fs20 - FFmpeg fully decodes output; frames/audio are independently checked, not only container headers.\par}
+{\pard\sa80\fs20 - No secret/key leakage; dependency and media rights reviewed.\par}
+{\pard\sa80\fs20 - Reproducible commands, actual test status, CI artifacts, commit/PR, known limitations documented.\par}
+{\pard\sa80\fs20 - Windows and hardware test claims limited to tests actually executed.\par}
+\par
+{\pard\sa180\sb300\b\fs28 8. Cost, credit and developer collaboration\par}
+\par
+{\pard\sa80\fs20 Owner expects Codex/GPT to do substantive engineering with minimal cost. Avoid bulk cloning 22 repos, redundant installs, repeated large test runs unchanged, full rewrites, paid inference, premium cloud endpoints, unlicensed images/music/checkpoints. GitHub documents must allow another developer or Codex session to resume without conversation history; maintain a changelog-like evidence trail.\par}
+\par
+{\pard\sa180\sb300\b\fs28 9. Live links\par}
+\par
+{\pard\sa80\fs20 - Project: https://github.com/anneshabiswaas22-collab/advance-video-edior\par}
+{\pard\sa80\fs20 - Issues: https://github.com/anneshabiswaas22-collab/advance-video-edior/issues\par}
+{\pard\sa80\fs20 - PRs: https://github.com/anneshabiswaas22-collab/advance-video-edior/pulls\par}
+{\pard\sa80\fs20 - Actions: https://github.com/anneshabiswaas22-collab/advance-video-edior/actions\par}
+{\pard\sa80\fs20 - Original research file: docs/VIDEO_EDITOR_STUDY_REPOSITORIES.txt\par}
+{\pard\sa80\fs20 - Roadmap/evidence/architecture: linked from PROJECT_MEMORY_INDEX.md\par}
+\par
+{\pard\sa80\fs20 This project is separate from the owner's AI video-generation studio, animated YouTube storytelling, AI interviewer, and other repositories. Do not mix those prompts, source code or model inventories into this editor's engineering context.\par}
+\par
+\par
+{\pard\page\b\fs30 DOCUMENT: docs/PROJECT_RESEARCH_AND_REFERENCES.md\par}
+\par
+{\pard\sa200\sb300\b\fs34 Research & 22-Reference Inventory \u8212? Reuse Strategy\par}
+\par
+{\pard\sa80\fs20 Updated context 2026-11-16. Research archive, NOT blanket dependency approval. Source links indicate research leads. Capability claims in upstream READMEs are **documented claims**, not independently proven export correctness, performance, stability or redistribution rights.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Most important correction to previous prompts\par}
+\par
+{\pard\sa80\fs20 The original build prompt and ADR-0001 required "exactly two" leading editors, OpenReel and FreeCut. Follow-up discussion requested that **OpenCut also receive independent serious architectural evaluation**. The reconciled policy is:\par}
+{\pard\sa80\fs20 - One canonical editor engine / timeline / project schema: **provisionally OpenReel in editor/**.\par}
+{\pard\sa80\fs20 - Up to two primary independent references: **FreeCut** and **current OpenCut rewrite**.\par}
+{\pard\sa80\fs20 - OpenCut Classic is an **additional legacy study source**, not a fourth engine.\par}
+{\pard\sa80\fs20 - This is a research policy extension, not approval to merge 3 engines or migration evidence. ADR-0001 is historical; complete Issue #8 benchmarks before a final foundation choice.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Three-editor comparison and role\par}
+\par
+{\pard\sa80\fs20 | Candidate | URL | What source/docs currently indicate | Recommended role | Evidence still required |\par}
+{\pard\sa80\fs20 |---|---|---|---|---|\par}
+{\pard\sa80\fs20 | **OpenReel** | https://github.com/Augani/openreel-video | Existing React/TS/Zustand editor workspace with web, Electron desktop, core, agent, WebCodecs/media backend; imported at SHA 367d7e90b61b5181f9861b852bb8b9d7a7d2954a | **Retain production foundation for now**; protects tested browser edited MP4 and migration budget | Full visual/audio parity, gesture tests, Windows runtime, GPU/4K, licenses |\par}
+{\pard\sa80\fs20 | **FreeCut** | https://github.com/walterlow/freecut | README documents browser-first WebGPU/WebCodecs editing, source monitor, rolling/slip/slide, sequences/compound clips, proxy/relink, scoped audio EQ, local AI, workspace files; previous comparison SHA 5ceeeb388eef5423640b7db157706274bf1b8165 | **Editing/workflow comparison**, targeted algorithms or UI concepts only | Same-fixture real benchmark, dependency and browser compatibility, export timing |\par}
+{\pard\sa80\fs20 | **OpenCut current** | https://github.com/OpenCut-app/OpenCut | Project README explicitly says active **ground-up rewrite**; roadmap includes Rust cross-platform core, Editor API, plugins, MCP server, headless scripting. Checked root has apps/web, apps/desktop, apps/api, crates/media. Many advertised capabilities are described as coming, not validated | **Long-term plugin/native/automation architecture reference**, independent evaluation | Which APIs/renderer are actually executable, maturity, platform build, export correctness, Rust integration cost |\par}
+{\pard\sa80\fs20 | **OpenCut Classic** | https://github.com/OpenCut-app/opencut-classic | README says legacy code is archived and no longer maintained; previous web/desktop/Rust/WASM implementation | Historical subsystem patterns; not active foundation | Reuse license/maintenance assessment; prefer no direct copy unless justified |\par}
+\par
+{\pard\sa80\fs20 **Why not make OpenCut the current engine?** Lack of confirmed replacement-level user-flow benchmark in this repo, rewrite in progress, high Rust/editor migration risk, already-working OpenReel foundation. This is a provisional engineering risk assessment, **not evidence that OpenCut is inferior or unusable**. Its MIT root LICENSE does not settle transitive or model/media rights.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Original list: 22 study references (21 GitHub repositories + 1 Hugging Face model)\par}
+\par
+{\pard\sa80\fs20 | # | URL | Research purpose / integration decision |\par}
+{\pard\sa80\fs20 |---:|---|---|\par}
+{\pard\sa80\fs20 | 01 | https://github.com/Augani/openreel-video | Imported primary editor foundation; improve in-place |\par}
+{\pard\sa80\fs20 | 02 | https://github.com/walterlow/freecut | Independent feature/quality benchmark; never wholesale-merge its timeline |\par}
+{\pard\sa80\fs20 | 03 | https://github.com/medhachim/CapRocket | Windows desktop integrations, effects, offline captions; review FFmpeg/GPL and root licensing |\par}
+{\pard\sa80\fs20 | 04 | https://github.com/OpenCut-app/OpenCut | Current rewrite; inspect plugin-first, Rust, MCP, headless goals vs code |\par}
+{\pard\sa80\fs20 | 05 | https://github.com/openvideodev/react-video-editor | React editor UI; **license review required** before any commercial reuse |\par}
+{\pard\sa80\fs20 | 06 | https://github.com/Vanilagy/mediabunny | Browser encoding/decoding/mux; existing OpenReel dependency first |\par}
+{\pard\sa80\fs20 | 07 | https://github.com/FFmpeg/FFmpeg | Native/wasm media processing; check compiled binary configuration LGPL/GPL/codecs |\par}
+{\pard\sa80\fs20 | 08 | https://github.com/mltframework/mlt | Professional media processing; separate backend consideration, not timeline merge |\par}
+{\pard\sa80\fs20 | 09 | https://github.com/gl-transitions/gl-transitions | GPU transition shaders; review each shader author's license |\par}
+{\pard\sa80\fs20 | 10 | https://github.com/katspaugh/wavesurfer.js | Audio waveform UI, only if current capabilities inadequate |\par}
+{\pard\sa80\fs20 | 11 | https://github.com/ggml-org/whisper.cpp | Offline ASR/transcription, with model checkpoint audit |\par}
+{\pard\sa80\fs20 | 12 | https://github.com/snakers4/silero-vad | VAD and speech region selection, checkpoint rights to confirm |\par}
+{\pard\sa80\fs20 | 13 | https://github.com/Breakthrough/PySceneDetect | Scene cut analysis and timeline suggestions, adapter only |\par}
+{\pard\sa80\fs20 | 14 | https://github.com/facebookresearch/sam2 | GPU video object segmentation/tracking, model redistribution and compute assessment |\par}
+{\pard\sa80\fs20 | 15 | https://github.com/danielgatis/rembg | Image background removal; separate model license check |\par}
+{\pard\sa80\fs20 | 16 | https://github.com/xiph/rnnoise | Speech denoising/audio enhancement, native integration possible |\par}
+{\pard\sa80\fs20 | 17 | https://huggingface.co/hexgrad/Kokoro-82M | TTS MODEL reference, **not a GitHub repo**; review weights, voices, terms |\par}
+{\pard\sa80\fs20 | 18 | https://github.com/AcademySoftwareFoundation/OpenTimelineIO | Editorial interchange; no rendering engine |\par}
+{\pard\sa80\fs20 | 19 | https://github.com/AcademySoftwareFoundation/OpenColorIO | Professional color management; not a full grading/editor UI |\par}
+{\pard\sa80\fs20 | 20 | https://github.com/SubtitleEdit/subtitleedit | Subtitle workflows, formats, sync and QA; inspect dependencies/license |\par}
+{\pard\sa80\fs20 | 21 | https://github.com/shadcn-ui/ui | Selective React UI components; avoid wholesale design changes |\par}
+{\pard\sa80\fs20 | 22 | https://github.com/remotion-dev/remotion | Motion/video programmatic renderer, **special commercial editor-product license review** |\par}
+\par
+{\pard\sa80\fs20 Additional historical repository **outside original 22**: https://github.com/OpenCut-app/opencut-classic (archived). Do not mislabel 23 links as 22 GitHub repos.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Compatibility and integration guide\par}
+\par
+{\pard\sa80\fs20 **Good low-risk candidate:** isolated pure algorithm, waveform component, subtitle parser, frame comparison, image/audio processing behind a typed interface; tests demonstrate no breaking timing semantics.\par}
+\par
+{\pard\sa80\fs20 **Medium-risk:** FFmpeg native adapter, isolated transcoding/proxy process, color transform layer, on-device transcription with worker isolation; requires performance, security and licensing review.\par}
+\par
+{\pard\sa80\fs20 **High-risk / NOT TO MERGE:** FreeCut's custom playback Clock, timeline/composition runtime, history/state, project/workspace file layout, codecs and canvas renderer; OpenCut's future Rust core and editor schema; entire alternative web apps; competing video renderer and project persistence. Migration requires an ADR with measurable import/edit/export proof and rollback plan.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Feature gap audit template for Codex\par}
+\par
+{\pard\sa80\fs20 | Capability | Current source path / test | Existing? | Works? | External reference | Proposed minimal adapter/fix | Risks | Acceptance evidence |\par}
+{\pard\sa80\fs20 |---|---|---|---|---|---|---|---|\par}
+{\pard\sa80\fs20 | Mouse trim/split | editor/apps/web/src/components/editor/Timeline.tsx; e2e-web | Implemented in UI | Not comprehensively E2E-verified | FreeCut advanced edit tools | Add Playwright gestures first | Timing regression | Cut boundary frames and undo |\par}
+{\pard\sa80\fs20 | Project/missing media | project-store.ts; auto-save.ts; media-storage.ts | Yes | One recovery test passes | FreeCut workspace persistence | Test app restart/handles | Browser privacy/permissions | Reopen same project with media |\par}
+{\pard\sa80\fs20 | GPU color scopes | core effects and UI to inspect | Needs audit | NOT VERIFIED | FreeCut, OpenColorIO | Only after source and perf audit | GPU fallback, color accuracy | Matched test patterns |\par}
+{\pard\sa80\fs20 | Plugin/MCP automation | packages/agent and desktop to inspect | Partial code | Security not verified | OpenCut rewrite goals | Typed agent commands+permissions | prompt injection, uploads | Denial/adversarial tests |\par}
+{\pard\sa80\fs20 | Windows release | editor/apps/desktop | Source present | Not validated on Windows | OpenReel, CapRocket, OpenCut | Windows CI packaging/runtime smoke | native binary licenses | Native import/edit/export artifacts |\par}
+\par
+{\pard\sa80\fs20 Before choosing integration, inspect source + tests in our repo; compare licensing and memory/runtime, and do not inflate upstream marketing into verified capabilities.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Research sources and limitations\par}
+\par
+{\pard\sa80\fs20 Primary evidence source: upstream README and LICENSE where inspected, project's original docs/VIDEO_EDITOR_STUDY_REPOSITORIES.txt, docs/evidence/supporting-source-inventory.md, ADR-0001, GitHub CI. Independent equal-hardware comparisons for OpenCut and FreeCut are **not yet recorded**. Avoid unsupported numerical performance/maintenance claims.\par}
+\par
+\par
+{\pard\page\b\fs30 DOCUMENT: docs/PROJECT_ARCHITECTURE_AND_EVIDENCE.md\par}
+\par
+{\pard\sa200\sb300\b\fs34 Architecture, Verification & Links\par}
+\par
+{\pard\sa80\fs20 Context 2026-11-16. Paths observed in imported source and ADR-0001, not a substitute for inspecting current code. This diagram is GitHub Mermaid-renderable.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Canonical production architecture (provisional)\par}
+\par
+{\pard\sa80\fs20\f1\fs17 flowchart TD\par}
+{\pard\sa80\fs20\f1\fs17   A["Browser UI: apps/web / AssetsPanel + Timeline + Toolbar"]\par}
+{\pard\sa80\fs20\f1\fs17   B["Zustand state: project-store + timeline-store"]\par}
+{\pard\sa80\fs20\f1\fs17   C["Core: clip-manager / editing commands / media library"]\par}
+{\pard\sa80\fs20\f1\fs17   D["Media: media-bridge + import-service + persisted blobs"]\par}
+{\pard\sa80\fs20\f1\fs17   E["Playback: master clock + preview + audio engine"]\par}
+{\pard\sa80\fs20\f1\fs17   F["Persistence: project-serializer / project-manager / IndexedDB autosave"]\par}
+{\pard\sa80\fs20\f1\fs17   G["Export: export-runner + export-engine"]\par}
+{\pard\sa80\fs20\f1\fs17   H["Backends: WebCodecs / MediaBunny / FFmpeg fallback"]\par}
+{\pard\sa80\fs20\f1\fs17   I["Actual downloaded MP4"]\par}
+{\pard\sa80\fs20\f1\fs17   J["FFmpeg + ffprobe + check_edit_content.py"]\par}
+{\pard\sa80\fs20\f1\fs17   A --> B\par}
+{\pard\sa80\fs20\f1\fs17   B --> C\par}
+{\pard\sa80\fs20\f1\fs17   B --> D\par}
+{\pard\sa80\fs20\f1\fs17   B --> E\par}
+{\pard\sa80\fs20\f1\fs17   B --> F\par}
+{\pard\sa80\fs20\f1\fs17   B --> G\par}
+{\pard\sa80\fs20\f1\fs17   D --> E\par}
+{\pard\sa80\fs20\f1\fs17   D --> G\par}
+{\pard\sa80\fs20\f1\fs17   C --> E\par}
+{\pard\sa80\fs20\f1\fs17   C --> G\par}
+{\pard\sa80\fs20\f1\fs17   G --> H\par}
+{\pard\sa80\fs20\f1\fs17   H --> I\par}
+{\pard\sa80\fs20\f1\fs17   I --> J\par}
+\par
+{\pard\sa180\sb300\b\fs28 Real call paths to inspect in code\par}
+\par
+{\pard\sa80\fs20 **Import + timeline:** editor/apps/web/src/components/editor/AssetsPanel.tsx file input -> editor/apps/web/src/stores/project-store.ts importMedia -> editor/apps/web/src/bridges/media-bridge.ts -> editor/packages/core/src/media/media-import-service.ts + browser media storage -> addClipToNewTrack -> editor/packages/core/src/timeline/clip-manager.ts and timeline state.\par}
+\par
+{\pard\sa80\fs20 **Preview:** project/timeline state -> editor/packages/core/src/playback/ + editor/packages/core/src/audio/ -> browser preview. Verify title and effect composition at actual timestamps.\par}
+\par
+{\pard\sa80\fs20 **Persistence:** editor/apps/web/src/services/auto-save.ts (IndexedDB) + project-store recovery; editor/apps/web/src/services/project-manager.ts (.oreel explicit save/open); editor/packages/core/src/storage/project-serializer.ts and media blob/handle references.\par}
+\par
+{\pard\sa80\fs20 **Export:** Toolbar.tsx / ExportDialog.tsx -> services/export-runner.ts -> core/src/export/export-engine.ts -> chosen media encoder/mux and downloadable MP4. Validate media from the UI output, not a synthetically generated fake "editor export".\par}
+\par
+{\pard\sa180\sb300\b\fs28 CI and regression evidence (historical validated links)\par}
+\par
+{\pard\sa80\fs20 | PR / Run | Result | Exactly what was shown |\par}
+{\pard\sa80\fs20 |---|---|---|\par}
+{\pard\sa80\fs20 | https://github.com/anneshabiswaas22-collab/advance-video-edior/pull/3 | MERGED | Playwright CI Ubuntu 24.04 alignment |\par}
+{\pard\sa80\fs20 | https://github.com/anneshabiswaas22-collab/advance-video-edior/pull/4 | MERGED | Basic FFmpeg/media QA extensions |\par}
+{\pard\sa80\fs20 | https://github.com/anneshabiswaas22-collab/advance-video-edior/pull/5 | MERGED | Export audio-presence plan handling |\par}
+{\pard\sa80\fs20 | https://github.com/anneshabiswaas22-collab/advance-video-edior/pull/12 | MERGED | Browser real startup and empty-export guard |\par}
+{\pard\sa80\fs20 | https://github.com/anneshabiswaas22-collab/advance-video-edior/pull/13 | MERGED | Independent pixel/audio content checker |\par}
+{\pard\sa80\fs20 | https://github.com/anneshabiswaas22-collab/advance-video-edior/pull/14 | MERGED | First actual browser edit/recover/MP4 export |\par}
+{\pard\sa80\fs20 | https://github.com/anneshabiswaas22-collab/advance-video-edior/actions/runs/43742090193 | PASS | Ubuntu Chromium, 2 Playwright tests, 36.4s; edited MP4 retained as artifact |\par}
+{\pard\sa80\fs20 | https://github.com/anneshabiswaas22-collab/advance-video-edior/actions/runs/43742090195 | PASS | Workspace install/typecheck/unit/build |\par}
+{\pard\sa80\fs20 | https://github.com/anneshabiswaas22-collab/advance-video-edior/actions/runs/43742090202 | PASS | FFmpeg/Python media QA |\par}
+{\pard\sa80\fs20 | https://github.com/anneshabiswaas22-collab/advance-video-edior/actions/runs/43742090219 | PASS | Studio browser smoke |\par}
+\par
+{\pard\sa80\fs20 Detailed evidence: docs/evidence/browser-edited-export-2026-11-15.md. One earlier E2E attempt failed because onboarding spotlight blocked thumbnail click; fixed test chose the real "Skip tour" control. That is meaningful test coverage, not proof all first-run workflows are perfect.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Test pyramid and acceptance chart\par}
+\par
+{\pard\sa80\fs20\f1\fs17 flowchart TD\par}
+{\pard\sa80\fs20\f1\fs17   U["Unit: Vitest clip/audio/export/storage"]\par}
+{\pard\sa80\fs20\f1\fs17   I["Integration: real store + media objects + project persistence"]\par}
+{\pard\sa80\fs20\f1\fs17   B["Playwright: actual editor import/title/export, gestures"]\par}
+{\pard\sa80\fs20\f1\fs17   Q["FFmpeg: stream/probe/full decode"]\par}
+{\pard\sa80\fs20\f1\fs17   V["Visual: expected frame regions, title, one-frame boundaries"]\par}
+{\pard\sa80\fs20\f1\fs17   S["Audio: timed PCM/RMS, deliberate silence/tone offsets"]\par}
+{\pard\sa80\fs20\f1\fs17   P["Parity: browser preview vs rendered frames"]\par}
+{\pard\sa80\fs20\f1\fs17   W["Windows: package, launch, edit, native media, GPU fallback"]\par}
+{\pard\sa80\fs20\f1\fs17   U --> I --> B --> Q --> V --> S --> P --> W\par}
+\par
+{\pard\sa80\fs20 **Current verified level:** some U/I, one B and Q + representative V/S. **Remaining:** exact 1-frame, exact sync, comprehensive preview parity, full gestures, Windows native runtime/GPU/4K.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Proposed equal-hardware benchmark protocol (Issue #8)\par}
+\par
+{\pard\sa80\fs20 1. Record exact commit SHA, dependency snapshot, browser version, OS/CPU/GPU/RAM, sandbox conditions.\par}
+{\pard\sa80\fs20 2. Use identical deterministic 640x360 test media (red->blue cut, tone and independent WAV); then a realistic 1080p 30fps short fixture.\par}
+{\pard\sa80\fs20 3. Execute import/scrub/split/trim/title/audio/save/reopen/MP4 export using each editor's supported workflow.\par}
+{\pard\sa80\fs20 4. Collect measured import, seek, render latency, peak memory, crash/failure and file size.\par}
+{\pard\sa80\fs20 5. Decode every export; assert expected cut pixels, title visibility, PCM tone windows and relative alignment.\par}
+{\pard\sa80\fs20 6. Distinguish native Windows/GPU/4K from Chromium/Linux and unsupported cases; mark NOT TESTED.\par}
+{\pard\sa80\fs20 7. Review code/asset/model/transitive licenses, maintainer recent activity, issue backlog and adapter surface.\par}
+{\pard\sa80\fs20 8. Log measurements in docs/evidence and update ADR-0001 or create a successor ADR with explicit migration/rollback criteria.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Known high-priority failure modes to detect\par}
+\par
+{\pard\sa80\fs20 Off-by-one cut; title visible in UI but absent from MP4; wrong media source after recovery; silent/missing audio; wrong audio start/tail, failed waveform or channel mix; fallback encoder produces different composition; memory leaks during long export; unavailable browser codec; relink references lost on reopen; destructive agent/tool call; unlicensed model/FFmpeg redistribution.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Reproducible commands\par}
+\par
+{\pard\sa80\fs20 Run in repo root for Python/FFmpeg:\par}
+\par
+{\pard\sa80\fs20\f1\fs17 python -m unittest discover -s tests -v\par}
+{\pard\sa80\fs20\f1\fs17 python scripts/generate_fixtures.py --output-dir test-output\par}
+{\pard\sa80\fs20\f1\fs17 python scripts/check_media.py test-output/sample-3s.mp4 --require-audio --decode\par}
+{\pard\sa200\sb300\b\fs34 For actual editor output, supply independent expected-edits.json:\par}
+{\pard\sa80\fs20\f1\fs17 python scripts/check_edit_content.py exported.mp4 expected-edits.json --report qa-output.json\par}
+\par
+{\pard\sa80\fs20 Then from editor workspace:\par}
+\par
+{\pard\sa80\fs20\f1\fs17 cd editor\par}
+{\pard\sa80\fs20\f1\fs17 corepack enable\par}
+{\pard\sa80\fs20\f1\fs17 corepack prepare pnpm@11.7.0 --activate\par}
+{\pard\sa80\fs20\f1\fs17 pnpm install --frozen-lockfile\par}
+{\pard\sa80\fs20\f1\fs17 pnpm typecheck\par}
+{\pard\sa80\fs20\f1\fs17 pnpm test\par}
+{\pard\sa80\fs20\f1\fs17 pnpm build\par}
+{\pard\sa80\fs20\f1\fs17 pnpm --filter @openreel/studio exec playwright install --with-deps chromium\par}
+{\pard\sa80\fs20\f1\fs17 pnpm --filter @openreel/studio exec playwright test -c playwright.web.config.ts\par}
+\par
+{\pard\sa80\fs20 Do not claim these commands were executed during this documentation-only consolidation. Above test outcomes were historical recorded GitHub CI evidence.\par}
+\par
+\par
+{\pard\page\b\fs30 DOCUMENT: docs/PROJECT_CHAT_DECISIONS.md\par}
+\par
+{\pard\sa200\sb300\b\fs34 Project Conversation & Decision Archive (Reconstructed)\par}
+\par
+{\pard\sa80\fs20 **Purpose:** Preserve meaningful user instructions, decisions, research questions, and outcomes so future agents do not need original chats.\par}
+{\pard\sa80\fs20 **Important limit:** This is a faithful **summary of available project chat context plus inspected GitHub**, NOT a verbatim complete ChatGPT export. Some earlier conversations are represented only by retained summaries, so missing exact word-for-word history cannot be reconstructed. Do not call this an exhaustive chat transcript.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Timeline of major requests and choices\par}
+\par
+{\pard\sa120\sb190\b\fs24 Nov 12\u8211?13, 2026 \u8212? World-class editor vision and ownership\par}
+{\pard\sa80\fs20 - User supplied repository: https://github.com/anneshabiswaas22-collab/advance-video-edior\par}
+{\pard\sa80\fs20 - Goal: commercial Web/Windows editor, eventual benchmark against CapCut usability, Premiere precision and DaVinci audio/color/compositing; should be own original product, not a generic demo.\par}
+{\pard\sa80\fs20 - Codex/GPT to act as principal architect/senior engineer, inspect existing code before changes, combine compatible *features* not incompatible engines, push useful code to GitHub, validate real media, preserve licenses.\par}
+{\pard\sa80\fs20 - User authorized careful direct commits to main in AGENTS.md history; later prompts also favor reviewable PRs when appropriate. Never force push or overwrite unrelated work.\par}
+{\pard\sa80\fs20 - Desired autonomy: "think longer" and do work, not just propose plans; keep spend/credits low, use free/local tools and avoid paid API calls.\par}
+\par
+{\pard\sa120\sb190\b\fs24 Nov 13\u8211?15 \u8212? Source import, initial CI and 22 references\par}
+{\pard\sa80\fs20 - OpenReel source imported and pinned under editor/ (SHA 367d7e90b61b5181f9861b852bb8b9d7a7d2954a).\par}
+{\pard\sa80\fs20 - FreeCut evaluated as separate alternative/reference (historical SHA 5ceeeb388eef5423640b7db157706274bf1b8165), not merged into editor.\par}
+{\pard\sa80\fs20 - Study list established at docs/VIDEO_EDITOR_STUDY_REPOSITORIES.txt: 22 references (21 GitHub repositories + Kokoro-82M Hugging Face model). Includes OpenCut as reference #4.\par}
+{\pard\sa80\fs20 - Media QA and GitHub workflows added; passing compilation/unit counts do not imply verified editing/export.\par}
+{\pard\sa80\fs20 - Historical earlier merged PRs: #3, #4, #5, #12.\par}
+\par
+{\pard\sa120\sb190\b\fs24 Nov 15 \u8212? Master build specification and real media proof\par}
+{\pard\sa80\fs20 - User supplied comprehensive 10-phase "MASTER BUILD PROMPT \u8212? ADVANCED VIDEO EDITOR": latest main audit, inspect named source paths, study all 22, select exactly two primary references, reuse first, implement Issue #6 first then #7, roadmap stages A\u8211?E, typecheck/test/build, GitHub Actions handoff, real code delivery, low-credit execution limits, structured final report.\par}
+{\pard\sa80\fs20 - Early focus on 2 editors: OpenReel (main provisional) and FreeCut (comparison); reasons: imported code and avoid full parallel renderers.\par}
+{\pard\sa80\fs20 - PR #13 merged: exported content QA script, tests and ADR.\par}
+{\pard\sa80\fs20 - PR #14 merged: real Chromium browser import/edit/recover/export test and content checks. Evidence: docs/evidence/browser-edited-export-2026-11-15.md.\par}
+{\pard\sa80\fs20 - The E2E test uses actual UI import + title/audio addition, actual mounted project-store split/trim calls, IndexedDB persistence/recovery, real MP4 download/export, FFmpeg full decode and sampled pixel/audio checks. It does not guarantee every mouse gesture or sample-accurate sync.\par}
+\par
+{\pard\sa120\sb190\b\fs24 Nov 16 \u8212? Why not OpenCut?\par}
+{\pard\sa80\fs20 - User asked whether previous prompt gives the right answers and why OpenCut was not also chosen.\par}
+{\pard\sa80\fs20 - Review of current upstream OpenCut README showed current **rewrite** still advertises Rust core, Editor API, plugins, MCP, headless and scripting as upcoming; current root has web/desktop/api projects and Rust media crate.\par}
+{\pard\sa80\fs20 - The older OpenCut Classic at https://github.com/OpenCut-app/opencut-classic identifies itself as archived and no longer maintained.\par}
+{\pard\sa80\fs20 - User's concern is valid: evaluate OpenCut seriously, rather than excluding it by a rigid "exactly two" rule.\par}
+{\pard\sa80\fs20 - **New research policy:** compare THREE primary repositories: OpenReel (retain pending benchmark), FreeCut (editing feature reference), OpenCut current (plugin/native/headless/automation reference). **Production rule stays ONE canonical editor engine**, not three merged editors. Apply rigorous actual-source evidence and minimal adapters.\par}
+{\pard\sa80\fs20 - Recommended prompt addendum: current main and Issue #7 before new work; new gap matrix, code deliverables, three-repo comparison, preserve existing tests.\par}
+\par
+{\pard\sa120\sb190\b\fs24 Nov 16 \u8212? Why this archive exists\par}
+{\pard\sa80\fs20 - User reports that long ChatGPT chats become difficult to load and models lose earlier research and decisions.\par}
+{\pard\sa80\fs20 - User explicitly requested all project details, documents, charts/diagrams, links and relevant messages be deposited in the GitHub repository so a new developer or fresh Codex session can continue independently.\par}
+{\pard\sa80\fs20 - The repository is now the durable project-memory hub: index, context, research, diagrams/evidence, chronological decision summary and paste-ready next Codex prompt.\par}
+{\pard\sa80\fs20 - No unrelated projects, private data, credentials or personal chat details should be archived into this public repo.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Invariants repeatedly requested by the owner\par}
+\par
+{\pard\sa80\fs20 1. Build a REAL usable application, not a demonstration.\par}
+{\pard\sa80\fs20 2. Compete as a product across creator and professional editing capabilities, incrementally.\par}
+{\pard\sa80\fs20 3. Prioritize strong open-source reuse and low compute/API cost; do not waste coding credit writing what exists.\par}
+{\pard\sa80\fs20 4. Never treat marketing README, a green TypeScript build or valid MP4 header as video-output correctness.\par}
+{\pard\sa80\fs20 5. Ensure imported media, title, trimming, audio, recovery and actual exported video are correct.\par}
+{\pard\sa80\fs20 6. Keep one timeline/project/renderer contract and avoid disconnected source merging.\par}
+{\pard\sa80\fs20 7. Maintain user privacy, robust undo/recovery and AI command permissions.\par}
+{\pard\sa80\fs20 8. Give reproducible commands, test output, artifacts, commit/PR links, blockers and next steps.\par}
+{\pard\sa80\fs20 9. Document project state in GitHub so chat loss does not erase decisions.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Distinguish past assistant findings from verified proof\par}
+\par
+{\pard\sa80\fs20 - Verified by GitHub code/evidence: OpenReel import; GitHub merged PR records; passing Ubuntu browser E2E and example MP4; current READMEs and directory structure.\par}
+{\pard\sa80\fs20 - Reported/documented by upstream: FreeCut feature breadth, OpenCut roadmap, various candidate licenses/features; must independently test and audit.\par}
+{\pard\sa80\fs20 - Desired future capabilities: professional grade color, audio, GPU/4K, Windows certification and full plugin/AI ecosystem; not yet delivered.\par}
+{\pard\sa80\fs20 - Unavailable: complete verbatim content of every earlier ChatGPT thread and attachments not supplied in current context. If exact archival transcripts are required, user should export conversations and commit sanitized copies deliberately.\par}
+\par
+{\pard\sa180\sb300\b\fs28 Knowledge maintenance rule\par}
+\par
+{\pard\sa80\fs20 For every new completed milestone, add dated bullets to this file (request/decision/outcome/source), update current status in PROJECT_MEMORY_INDEX.md, save CI/export evidence and append the next task to PROJECT_CODEX_CONTINUATION.md. No speculative "done" claims.\par}
+\par
+\par
+{\pard\page\b\fs30 DOCUMENT: docs/PROJECT_CODEX_CONTINUATION.md\par}
+\par
+{\pard\sa200\sb300\b\fs34 Paste-Ready Codex / GPT-6 Astra Continuation Prompt\par}
+\par
+{\pard\sa80\fs20 > Developer handoff saved in GitHub because chat threads may become too long. This prompt is operational: **inspect the actual latest main**; no blind reimplementation. Consolidated 2026-11-16.\par}
+\par
+{\pard\sa180\sb300\b\fs28 ROLE\par}
+{\pard\sa80\fs20 You are the principal full-stack and video/media engineer, architect, performance/security reviewer, and autonomous developer for the **Advanced Video Editor**.\par}
+\par
+{\pard\sa80\fs20 **Repository:** https://github.com/anneshabiswaas22-collab/advance-video-edior\par}
+\par
+{\pard\sa80\fs20 **Mission:** Build an original, commercial-grade Web + Windows non-linear editor that combines CapCut accessibility, Premiere precision editing and DaVinci-class professional color/audio/compositing goals. Existing source is the primary starting point, not a throwaway prototype.\par}
+\par
+{\pard\sa180\sb300\b\fs28 BEFORE CODING \u8212? RECOVER REPOSITORY MEMORY\par}
+\par
+{\pard\sa80\fs20 Read, in order:\par}
+{\pard\sa80\fs20 1. README.md and AGENTS.md\par}
+{\pard\sa80\fs20 2. docs/PROJECT_MEMORY_INDEX.md\par}
+{\pard\sa80\fs20 3. docs/PROJECT_MASTER_CONTEXT.md\par}
+{\pard\sa80\fs20 4. docs/PROJECT_RESEARCH_AND_REFERENCES.md\par}
+{\pard\sa80\fs20 5. docs/PROJECT_ARCHITECTURE_AND_EVIDENCE.md\par}
+{\pard\sa80\fs20 6. docs/PROJECT_CHAT_DECISIONS.md\par}
+{\pard\sa80\fs20 7. docs/CODEX_REVIEW_QUEUE.md and docs/CODEX_HANDOFF.md\par}
+{\pard\sa80\fs20 8. docs/adr/0001-single-editor-foundation.md\par}
+{\pard\sa80\fs20 9. docs/evidence/browser-edited-export-2026-11-15.md\par}
+{\pard\sa80\fs20 10. docs/VIDEO_EDITOR_STUDY_REPOSITORIES.txt\par}
+{\pard\sa80\fs20 11. docs/FOUNDATION_EVALUATION.md and docs/REUSE_AND_LICENSES.md\par}
+\par
+{\pard\sa80\fs20 Read the latest GitHub Issues/PRs/workflows/build results, and inspect current source. The 2026-11-15 browser edited-export test and PRs #13/#14 already exist: **do not recreate them**.\par}
+\par
+{\pard\sa180\sb300\b\fs28 MANDATORY THREE-REFERENCE REVIEW, ONE ENGINE\par}
+\par
+{\pard\sa80\fs20 Study:\par}
+{\pard\sa80\fs20 - OpenReel https://github.com/Augani/openreel-video \u8212? imported current foundation.\par}
+{\pard\sa80\fs20 - FreeCut https://github.com/walterlow/freecut \u8212? professional editing workflow and architecture comparison.\par}
+{\pard\sa80\fs20 - OpenCut https://github.com/OpenCut-app/OpenCut \u8212? Rust/plugin/MCP/headless long-term architecture, while distinguishing actually implemented from its rewrite roadmap.\par}
+{\pard\sa80\fs20 - OpenCut Classic https://github.com/OpenCut-app/opencut-classic \u8212? archived historical code, optional study only.\par}
+\par
+{\pard\sa80\fs20 Read the original 22-item list fully, including special license flags and the one non-GitHub model entry. **Choose one canonical editor engine** (currently OpenReel). Use independent comparisons and small typed adapters, never merge 2\u8211?3 incompatible timeline/history/export runtimes. Migration requires real equal-hardware benchmark, ADR, tests and rollback plan.\par}
+\par
+{\pard\sa180\sb300\b\fs28 SOURCE AUDIT\par}
+\par
+{\pard\sa80\fs20 Begin in:\par}
+{\pard\sa80\fs20 - editor/apps/web/src/stores/project-store.ts, timeline-store.ts;\par}
+{\pard\sa80\fs20 - editor/apps/web/src/components/editor/\{AssetsPanel,Timeline,Toolbar,ExportDialog\}.tsx;\par}
+{\pard\sa80\fs20 - editor/apps/web/src/services/\{project-manager,auto-save,media-storage,export-runner\}.ts;\par}
+{\pard\sa80\fs20 - editor/packages/core/src/\{timeline,media,playback,audio,export,storage\}/;\par}
+{\pard\sa80\fs20 - editor/packages/agent, editor/apps/desktop, editor/apps/studio/e2e-web;\par}
+{\pard\sa80\fs20 - scripts/, tests/, .github/workflows/.\par}
+\par
+{\pard\sa80\fs20 Map actual import -> add clip -> edit -> preview -> save/reopen -> export -> FFmpeg verification call paths. Check immutability, history/undo, GPU/CPU fallback, media lifecycle, agent permissions, temporary buffers, codec fallbacks, native integration and licensing.\par}
+\par
+{\pard\sa180\sb300\b\fs28 FIRST IMPLEMENTATION PRIORITIES\par}
+\par
+{\pard\sa80\fs20 1. **Issue #7 (P0):** strengthen frame-level and audio quality analysis. Build negative tests that fail for exactly one-frame shifted cuts, missing/hidden titles, silent output, and deliberate PCM audio timing offsets. Add at least one preview-to-export comparison. Use existing Python FFmpeg checker and existing Playwright infrastructure. Avoid full 4K CI fixtures.\par}
+{\pard\sa80\fs20 2. **Issue #6 (P0):** extend existing green browser E2E with **actual mouse/keyboard split/trim gestures**, undo/redo and project reopen from a fresh session. Verify real MP4 output and media ref integrity.\par}
+{\pard\sa80\fs20 3. **Issue #8 (P1):** compare OpenReel, FreeCut and OpenCut on actual current commits; evaluate OpenCut current work realistically; gather same-fixture benchmarks, dependency and native integration costs; update ADR (new ADR if replacing historical policy).\par}
+{\pard\sa80\fs20 4. **Issue #9 (P1):** pinned dependency SBOM; OpenReel, FFmpeg binary, codecs, model weights, fonts, templates, media license clearance.\par}
+{\pard\sa80\fs20 5. **Issue #10 (P1):** secure typed and reversible AI editing commands, mock provider for CI, opt-in external services, injection defenses.\par}
+{\pard\sa80\fs20 6. **Issue #11 (P2):** native Windows packaging/runtime smoke, GPU/4K validation on target hardware and explicit installer/signing limitations.\par}
+\par
+{\pard\sa80\fs20 When tasks are blocked, document precise blocker and ship next independent safe improvement.\par}
+\par
+{\pard\sa180\sb300\b\fs28 EXECUTION PLAN AND VALIDATION\par}
+\par
+{\pard\sa80\fs20 Use pinned toolchain Node 22 and pnpm 11.7.0. From editor/ run:\par}
+{\pard\sa80\fs20\f1\fs17 corepack enable\par}
+{\pard\sa80\fs20\f1\fs17 corepack prepare pnpm@11.7.0 --activate\par}
+{\pard\sa80\fs20\f1\fs17 pnpm install --frozen-lockfile\par}
+{\pard\sa80\fs20\f1\fs17 pnpm typecheck\par}
+{\pard\sa80\fs20\f1\fs17 pnpm test\par}
+{\pard\sa80\fs20\f1\fs17 pnpm build\par}
+{\pard\sa80\fs20\f1\fs17 pnpm --filter @openreel/studio exec playwright install --with-deps chromium\par}
+{\pard\sa80\fs20\f1\fs17 pnpm --filter @openreel/studio exec playwright test -c playwright.web.config.ts\par}
+{\pard\sa80\fs20 From repo root:\par}
+{\pard\sa80\fs20\f1\fs17 python -m unittest discover -s tests -v\par}
+{\pard\sa80\fs20\f1\fs17 python scripts/generate_fixtures.py --output-dir test-output\par}
+{\pard\sa80\fs20\f1\fs17 python scripts/check_media.py test-output/sample-3s.mp4 --require-audio --decode\par}
+{\pard\sa200\sb300\b\fs34 After genuine editor export:\par}
+{\pard\sa80\fs20\f1\fs17 python scripts/check_edit_content.py exported.mp4 expected-edits.json --report output.json\par}
+\par
+{\pard\sa80\fs20 Use deterministic media; compare independent expected frames/audio, not outputs derived from same generated export. Record OS/browser/FFmpeg versions and artifacts. Linux CI is not Windows testing.\par}
+\par
+{\pard\sa180\sb300\b\fs28 REUSE/COST/SECURITY RULES\par}
+\par
+{\pard\sa80\fs20 - Before any feature: search existing code, tests and dependencies, test present implementation, then only add a compatible adapter or new code if needed.\par}
+{\pard\sa80\fs20 - No paid AI APIs or proprietary model inference, no unlicensed downloads or redistribution, no unauthorized uploading user media.\par}
+{\pard\sa80\fs20 - Do not clone all 22 repos; targeted source inspection/shallow checkouts preferred.\par}
+{\pard\sa80\fs20 - Do not duplicate render/timeline engines, redesign UI without bug evidence or rewrite existing tests.\par}
+{\pard\sa80\fs20 - No force pushes or destructive changes; reviewable PRs for changes of risk, direct safe commits only when allowed and validated.\par}
+{\pard\sa80\fs20 - Build functional outcomes, not plan-only deliverables. Reserve execution budget for testing and code.\par}
+\par
+{\pard\sa180\sb300\b\fs28 MEASURABLE DEFINITION OF DONE\par}
+\par
+{\pard\sa80\fs20 For each change provide (1) actual modified source paths; (2) editing behavior in UI; (3) project save/reopen/undo; (4) exported media decode, visual and audio correctness; (5) regression and negative tests; (6) command/CI results with actual environment; (7) commercial/agent-security risks; (8) PR/commit link; (9) known limitations. Do not claim completion without evidence.\par}
+\par
+{\pard\sa180\sb300\b\fs28 MANDATORY END-OF-SESSION HANDOFF\par}
+\par
+{\pard\sa80\fs20 Update docs/PROJECT_MEMORY_INDEX.md, PROJECT_CHAT_DECISIONS.md, PROJECT_ARCHITECTURE_AND_EVIDENCE.md or relevant evidence file, docs/CODEX_REVIEW_QUEUE.md, and the task prompt/roadmap when decisions change. Explain WHAT changed, WHY, test outcomes, remaining blockers and next coding task. Treat the GitHub docs as the durable memory between chats. **Begin implementation after confirming latest main; do not stop at summarizing this prompt.**\par}
+\par
+}

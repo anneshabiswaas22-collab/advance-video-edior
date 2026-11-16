@@ -1,3 +1,5 @@
+> **New (2026-11-16):** Read [PROJECT_MEMORY_INDEX.md](PROJECT_MEMORY_INDEX.md) for consolidated project history, all research links/diagrams, three-reference OpenReel/FreeCut/OpenCut evaluation policy and current Codex continuation prompt. This document remains an earlier onboarding snapshot; verify latest main and review queue.
+
 # Codex Cloud: development handoff after first working Chromium edited export
 
 **First read `docs/CODEX_REVIEW_QUEUE.md` for the latest PRs and prioritized issues.**
