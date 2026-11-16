@@ -1,5 +1,7 @@
 # Project Memory & Developer Handoff — START HERE
 
+**Structure update, 2026-11-17:** [Project idea](../PROJECT_IDEA.txt), [active layout and preservation map](REPOSITORY_STRUCTURE.md), [review and validation](evidence/repository-restructure-2026-11-17.md). Work directly on main with five-minute checkpoints while making changes. Preserve uncertain material in `AnalyseFuture/`; never discard it. Existing historical evidence below retains its original dates.
+
 **Project:** Advanced Video Editor (Web + Windows)
 **Repository:** https://github.com/anneshabiswaas22-collab/advance-video-edior
 **Last context consolidation:** 2026-11-16

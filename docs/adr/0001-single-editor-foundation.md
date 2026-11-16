@@ -2,7 +2,7 @@
 
 - Status: **Provisional, pending real end-to-end media and equal-hardware benchmark**
 - Date: 2026-11-15
-- Decision scope: [Issue #8](../../issues/8), [Issue #6](../../issues/6), [Issue #7](../../issues/7)
+- Decision scope: [Issue #8](https://github.com/anneshabiswaas22-collab/advance-video-edior/issues/8), [Issue #6](https://github.com/anneshabiswaas22-collab/advance-video-edior/issues/6), [Issue #7](https://github.com/anneshabiswaas22-collab/advance-video-edior/issues/7)
 - Upstream sources: [OpenReel](https://github.com/Augani/openreel-video) at \`367d7e90b61b5181f9861b852bb8b9d7a7d2954a\`; [FreeCut](https://github.com/walterlow/freecut) at \`5ceeeb388eef5423640b7db157706274bf1b8165\`.
 
 ## Exactly two primary editor references

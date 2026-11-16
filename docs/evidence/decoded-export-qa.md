@@ -1,6 +1,6 @@
 # Decoded export fidelity QA — regression tests and integration guide
 
-Date: 2026-11-15. Related: [Issue #7](../../issues/7) and [Issue #6](../../issues/6).
+Date: 2026-11-15. Related: [Issue #7](https://github.com/anneshabiswaas22-collab/advance-video-edior/issues/7) and [Issue #6](https://github.com/anneshabiswaas22-collab/advance-video-edior/issues/6).
 
 ## What was implemented
 

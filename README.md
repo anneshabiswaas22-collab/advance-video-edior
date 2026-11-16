@@ -1,5 +1,9 @@
 # Advanced Video Editor
 
+**Start here:** [Detailed project idea](PROJECT_IDEA.txt) · [Repository structure](docs/REPOSITORY_STRUCTURE.md) · [Preserved material](AnalyseFuture/README.md)
+
+The active application remains in `editor/`. All three source ZIPs and their complete extractions are preserved in `AnalyseFuture/`; they are references, not additional production editors. Legacy automation that wrote directly to `main`, unrelated material, and upstream-only planning are preserved there too. See the [structure review and validation](docs/evidence/repository-restructure-2026-11-17.md).
+
 **New contributors / Codex after chat context loss:** Start with [Project Memory & Developer Handoff](docs/PROJECT_MEMORY_INDEX.md) (mission, source paths, all 22 references, OpenReel/FreeCut/OpenCut comparison, diagrams, CI, decision history, and paste-ready continuation prompt). [Word DOCX handoff](docs/ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.docx) and [RTF](docs/ADVANCED_VIDEO_EDITOR_PROJECT_HANDOFF.rtf). This is curated available context, not a verbatim full chat export.
 
 An early-stage project to build an original, high-quality, AI-assisted video editor for web and Windows, inspired by the usability of CapCut and the professional workflows of DaVinci Resolve and Premiere.

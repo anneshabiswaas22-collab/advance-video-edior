@@ -1,5 +1,7 @@
 # Agent instructions for Codex / GPT-6 Astra
 
+> **Owner instructions, 2026-11-17:** Work as one complete project. Commit and push directly to `main`; no feature branches or PRs. Make a checkpoint within every five minutes while modifying files. Never discard unwanted or uncertain material: preserve it under `AnalyseFuture/` with its origin and reason. Keep the tested `editor/` foundation; do not combine competing timeline engines. Read `docs/REPOSITORY_STRUCTURE.md` and `PROJECT_IDEA.txt` for the current organization and product plan.
+
 > **Repository memory (2026-11-16):** Start with [docs/PROJECT_MEMORY_INDEX.md](docs/PROJECT_MEMORY_INDEX.md) to restore full current project context, architecture diagrams, research links, available historical decision summaries, and the [Codex continuation prompt](docs/PROJECT_CODEX_CONTINUATION.md). Read [docs/PROJECT_RESEARCH_AND_REFERENCES.md](docs/PROJECT_RESEARCH_AND_REFERENCES.md): OpenReel remains the ONLY canonical editor; independent comparisons now include BOTH FreeCut and the OpenCut rewrite. The notes below are an earlier snapshot. Always inspect latest main, merged PRs, CI, and docs/CODEX_REVIEW_QUEUE.md first.
 
 ## Mission
@@ -10,7 +12,7 @@ Build an original, reliable, commercial-grade web + Windows video editor inspire
 - OpenReel is the **provisional foundation**; do NOT re-import or replace it without benchmark evidence and a migration plan.
 - FreeCut `5ceeeb388eef5423640b7db157706274bf1b8165` was cloned separately during bootstrap, **not merged**.
 - The root `scripts/` and `tests/` are reusable FFmpeg media-QA utilities, not the actual editor engine.
-- GitHub Actions import/build runs: see `.github/workflows/import-editor.yml`. A passing compile is not proof of media playback/export correctness.
+- The retired import workflow is preserved, inactive, at `AnalyseFuture/legacy-automation/.github/workflows/import-editor.yml`. Current CI lives in `.github/workflows/`. A passing compile is not proof of media playback/export correctness.
 - The user has **authorized direct commits to `main`**. Make small, non-destructive commits, run tests, avoid force pushes, do not overwrite other work.
 
 ## Current review queue

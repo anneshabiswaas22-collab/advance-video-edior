@@ -2,7 +2,7 @@
 
 Repository: https://github.com/anneshabiswaas22-collab/advance-video-edior  
 Foundation: pinned OpenReel at \`367d7e90b61b5181f9861b852bb8b9d7a7d2954a\` (provisional).  
-Issue: [#6](../../issues/6), with content QA toward [#7](../../issues/7).  
+Issue: [#6](https://github.com/anneshabiswaas22-collab/advance-video-edior/issues/6), with content QA toward [#7](https://github.com/anneshabiswaas22-collab/advance-video-edior/issues/7).
 Code change: [PR #14](https://github.com/anneshabiswaas22-collab/advance-video-edior/pull/14), squash merge \`e4d24050c6cc057be99699665accd22eef0dc7c6\`.  
 Independent decoded-content checker: [PR #13](https://github.com/anneshabiswaas22-collab/advance-video-edior/pull/13), squash merge \`8e841f52df03a7b42b57d02b7221eaa7bdf814e6\`.
 

@@ -1,3 +1,5 @@
+> **2026-11-17 structure handoff:** Read [the current layout](REPOSITORY_STRUCTURE.md) and [project idea](../PROJECT_IDEA.txt). Archive extractions and relocated material are preserved in `AnalyseFuture/`. Use one active OpenReel foundation, direct main commits/pushes, and five-minute checkpoints while modifying files; retain older evidence and limitations below.
+
 # Codex Astra engineering handoff
 
 **Verified:** 2026-11-15  

@@ -1,0 +1,75 @@
+{
+  "date": "2026-11-17",
+  "moves": [
+    {
+      "from": ".github/workflows/import-editor.yml",
+      "to": "AnalyseFuture/legacy-automation/.github/workflows/import-editor.yml",
+      "reason": "Retired one-time import or research automation; workflows automatically commit to main. Preserved inactive outside active workflow discovery."
+    },
+    {
+      "from": ".github/workflows/audit-public-references.yml",
+      "to": "AnalyseFuture/legacy-automation/.github/workflows/audit-public-references.yml",
+      "reason": "Retired one-time import or research automation; workflows automatically commit to main. Preserved inactive outside active workflow discovery."
+    },
+    {
+      "from": "scripts/import_editor_from_upstream.sh",
+      "to": "AnalyseFuture/legacy-automation/scripts/import_editor_from_upstream.sh",
+      "reason": "Retired one-time import or research automation; workflows automatically commit to main. Preserved inactive outside active workflow discovery."
+    },
+    {
+      "from": "scripts/audit_public_references.sh",
+      "to": "AnalyseFuture/legacy-automation/scripts/audit_public_references.sh",
+      "reason": "Retired one-time import or research automation; workflows automatically commit to main. Preserved inactive outside active workflow discovery."
+    },
+    {
+      "from": "editor/test.md",
+      "to": "AnalyseFuture/unrelated/editor/test.md",
+      "reason": "Unrelated BigShots golf/iOS/Watch payment proposal, not a video editor requirement."
+    },
+    {
+      "from": "editor/creating-views/README.md",
+      "to": "AnalyseFuture/upstream-planning/editor/creating-views/README.md",
+      "reason": "Upstream prototype or mobile marketing; preserved as reference, not evidence of delivered product support."
+    },
+    {
+      "from": "editor/creating-views/project/.thumbnail",
+      "to": "AnalyseFuture/upstream-planning/editor/creating-views/project/.thumbnail",
+      "reason": "Upstream prototype or mobile marketing; preserved as reference, not evidence of delivered product support."
+    },
+    {
+      "from": "editor/creating-views/project/Editor (standalone).html",
+      "to": "AnalyseFuture/upstream-planning/editor/creating-views/project/Editor (standalone).html",
+      "reason": "Upstream prototype or mobile marketing; preserved as reference, not evidence of delivered product support."
+    },
+    {
+      "from": "editor/creating-views/project/Editor.dc.html",
+      "to": "AnalyseFuture/upstream-planning/editor/creating-views/project/Editor.dc.html",
+      "reason": "Upstream prototype or mobile marketing; preserved as reference, not evidence of delivered product support."
+    },
+    {
+      "from": "editor/creating-views/project/support.js",
+      "to": "AnalyseFuture/upstream-planning/editor/creating-views/project/support.js",
+      "reason": "Upstream prototype or mobile marketing; preserved as reference, not evidence of delivered product support."
+    },
+    {
+      "from": "editor/creating-views/project/uploads/f6f4c71a91611d33b121d1d4d94ec5d7f46a9f66e1f6c9109147666c51795e4e.PNG",
+      "to": "AnalyseFuture/upstream-planning/editor/creating-views/project/uploads/f6f4c71a91611d33b121d1d4d94ec5d7f46a9f66e1f6c9109147666c51795e4e.PNG",
+      "reason": "Upstream prototype or mobile marketing; preserved as reference, not evidence of delivered product support."
+    },
+    {
+      "from": "editor/creating-views/project/uploads/weee.png",
+      "to": "AnalyseFuture/upstream-planning/editor/creating-views/project/uploads/weee.png",
+      "reason": "Upstream prototype or mobile marketing; preserved as reference, not evidence of delivered product support."
+    },
+    {
+      "from": "editor/APP_STORE_SUBMISSION.txt",
+      "to": "AnalyseFuture/upstream-planning/editor/APP_STORE_SUBMISSION.txt",
+      "reason": "Upstream prototype or mobile marketing; preserved as reference, not evidence of delivered product support."
+    },
+    {
+      "from": "editor/STORE_RELEASE_NOTES.md",
+      "to": "AnalyseFuture/upstream-planning/editor/STORE_RELEASE_NOTES.md",
+      "reason": "Upstream prototype or mobile marketing; preserved as reference, not evidence of delivered product support."
+    }
+  ]
+}

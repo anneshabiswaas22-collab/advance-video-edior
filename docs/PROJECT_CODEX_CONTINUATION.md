@@ -1,3 +1,5 @@
+> **2026-11-17 structure handoff:** Read [the current layout](REPOSITORY_STRUCTURE.md) and [project idea](../PROJECT_IDEA.txt). Archive extractions and relocated material are preserved in `AnalyseFuture/`. Use one active OpenReel foundation, direct main commits/pushes, and five-minute checkpoints while modifying files; retain older evidence and limitations below.
+
 # Paste-Ready Codex / GPT-6 Astra Continuation Prompt
 
 > Developer handoff saved in GitHub because chat threads may become too long. This prompt is operational: **inspect the actual latest main**; no blind reimplementation. Consolidated 2026-11-16.

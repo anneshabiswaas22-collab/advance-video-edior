@@ -1,6 +1,6 @@
 # Editor Redesign — Claude Design "Editor.dc.html"
 
-Source mock: `creating-views/project/Editor.dc.html` (Video lines ~41–304, Motion lines ~306–591).
+Source mock: `AnalyseFuture/upstream-planning/editor/creating-views/project/Editor.dc.html` (repository-root path; preserved upstream design reference) (Video lines ~41–304, Motion lines ~306–591).
 Goal: restyle the web + desktop editor and motion app to match the mock. Preserve ALL functionality.
 
 ## Design system (already wired into the app)
