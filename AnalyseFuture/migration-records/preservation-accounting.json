@@ -1,0 +1,12 @@
+{
+  "method": "Static Git/content and location accounting; no application or test execution",
+  "original_baseline_files": 8611,
+  "original_files_with_matching_retained_bytes": 8611,
+  "master_baseline_git_paths": 20227,
+  "master_original_git_objects_present": 11631,
+  "baseline_is_ancestor": true,
+  "current_functional_moves": 621,
+  "all_recorded_relocations": 635,
+  "ignored_runtime_paths": 59882,
+  "failed_paths": []
+}

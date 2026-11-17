@@ -11,3 +11,9 @@ Current application startup/exports after migration, complete gesture/timing/par
 
 NEXT AUTHORIZED VALIDATION
 Preservation audit and static configuration review first; then pinned frozen install if needed, typecheck, bounded unit suites, production build, browser acceptance, native/Windows and security-specific checks as separately available. Never turn source presence or unchanged semantic module targets into a passing-test claim.
+
+FINAL STATIC ACCOUNTING
+4,603 literal module references across1,328 source files resolve to the recorded relocated targets, with zero discrepancies. All8,611 original baseline contents remain at retained/mapped/backup paths. Original master-baseline Git objects remain recoverable and its commit remains an ancestor. These are file/reference checks only, not runtime tests. Ignored runtime paths are separately accounted for without reading or copying credential values.
+
+HOSTED CI LIMIT
+No local application/test/build/typecheck/lint command was run in this structure-only pass. Existing GitHub workflows may schedule automatically on ordinary main pushes; their hosted status was not inspected or certified because GitHub API access returned Forbidden. Closing documentation commits use [skip ci]. This report does not claim hosted CI was disabled or canceled.

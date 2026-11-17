@@ -123,3 +123,5 @@ No tests, build, typecheck or lint suite is run for this structure-only pass. St
 Find the owning feature first. Place its UI, integration, state helpers and colocated tests inside that collection. Put reusable engine behavior in the existing core domain package, not in a second timeline. Keep runtime-specific native/server entry points inside their applications. Preserve uncertain implementations under a reasoned `AnalyseFuture/` collection with their original path and replacement relationship documented.
 
 Commit and push directly to `main`, without PRs or force-pushes. Make a checkpoint within five minutes while modifying files. Preserve concurrent work and never discard a file merely because it looks duplicated or unfamiliar.
+
+Local ignored dependency/build/cache paths are also listed separately in `AnalyseFuture/repository-inventory/ignored-runtime-paths.txt`; these are runtime state, not extra source to commit or reorganize.

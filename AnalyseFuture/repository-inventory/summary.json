@@ -4,18 +4,18 @@
   "categories": {
     "asset": 13442,
     "binary": 3,
-    "configuration": 339,
-    "documentation": 316,
+    "configuration": 340,
+    "documentation": 317,
     "generated-audit": 6,
     "other": 90,
-    "source": 4645,
+    "source": 4646,
     "source-bundle": 3,
     "test": 1817
   },
   "duplicate_groups": 8565,
-  "existing_files_hashed": 20655,
+  "existing_files_hashed": 20658,
   "groups_with_multiple_active_members": 5,
-  "inventory_paths": 20661,
+  "inventory_paths": 20664,
   "limits": [
     "Path-based purpose and ownership are inferences, not a semantic certification.",
     "Static imports omit computed runtime loading and can include comments or test fixtures.",
@@ -31,7 +31,7 @@
   "static_unresolved_relative_candidates": 1,
   "statuses": {
     "active": 8599,
-    "audit-and-planning": 41,
+    "audit-and-planning": 44,
     "preserved-original": 406,
     "preserved-reference": 10,
     "reference:OpenCut-main": 130,
@@ -40,6 +40,6 @@
     "retired-automation": 4,
     "source-archive": 3
   },
-  "tracked_paths": 20647,
-  "utf8_text_files_read": 20075
+  "tracked_paths": 20664,
+  "utf8_text_files_read": 20078
 }

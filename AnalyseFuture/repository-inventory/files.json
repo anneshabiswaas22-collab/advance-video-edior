@@ -141,7 +141,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "AnalyseFuture",
     "path": "AnalyseFuture/ARCHIVED_FILES_MANIFEST.txt",
     "purpose": "Documentation/planning/attribution for project coordination",
@@ -149,7 +149,7 @@
     "referenced_by": [],
     "sha256": "30e049944f592427b13252ac6c8a30cae18d8ebcb271059813ec0e5ca969eccb",
     "status": "audit-and-planning",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -175,7 +175,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "AnalyseFuture",
     "path": "AnalyseFuture/CONSOLIDATION_REPORT.txt",
     "purpose": "Documentation/planning/attribution for project coordination",
@@ -183,7 +183,7 @@
     "referenced_by": [],
     "sha256": "c0bcf5fc0883d75e77905845d30951cd75229e8b85659c16577edc074d19eba3",
     "status": "audit-and-planning",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -209,7 +209,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "AnalyseFuture",
     "path": "AnalyseFuture/FEATURE_INVENTORY.txt",
     "purpose": "Documentation/planning/attribution for project coordination",
@@ -217,7 +217,7 @@
     "referenced_by": [],
     "sha256": "555fb88e59f5b277aa11e91ba8ff4bc48a7ea4b3404682e32ec13021cdad8fec",
     "status": "audit-and-planning",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -226,7 +226,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "AnalyseFuture",
     "path": "AnalyseFuture/MIGRATION_SUMMARY.txt",
     "purpose": "Documentation/planning/attribution for project coordination",
@@ -234,7 +234,7 @@
     "referenced_by": [],
     "sha256": "597e41697797425f04520f9babbfe844e41721d8a113724ddfdef49ebf96ca0d",
     "status": "audit-and-planning",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -260,7 +260,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "AnalyseFuture",
     "path": "AnalyseFuture/ORIGINAL_TO_NEW_PATH_MAPPING.txt",
     "purpose": "Documentation/planning/attribution for project coordination",
@@ -268,7 +268,7 @@
     "referenced_by": [],
     "sha256": "d7f70004c547f970978cc1f6b2f43264ae22035d75df4721f95fc914b0bc8a2f",
     "status": "audit-and-planning",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -311,7 +311,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "AnalyseFuture",
     "path": "AnalyseFuture/REPOSITORY_AUDIT.txt",
     "purpose": "Documentation/planning/attribution for project coordination",
@@ -319,7 +319,7 @@
     "referenced_by": [],
     "sha256": "a314bea5b1d64bc05e076c8a0976616453688100049efee0c37d15f7a81881d4",
     "status": "audit-and-planning",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -328,7 +328,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "AnalyseFuture",
     "path": "AnalyseFuture/SECURITY_AUDIT.txt",
     "purpose": "Documentation/planning/attribution for project coordination",
@@ -336,7 +336,7 @@
     "referenced_by": [],
     "sha256": "e3c8b1c1541bbbd32bfc15e7af8342f0e6afc056f57eabc227c528ba0e7299ca",
     "status": "audit-and-planning",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -357,24 +357,24 @@
     "usage_status": "excluded historical/reference material"
   },
   {
-    "bytes": 1863,
+    "bytes": 2727,
     "category": "documentation",
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "AnalyseFuture",
     "path": "AnalyseFuture/TEST_AND_VALIDATION_REPORT.txt",
     "purpose": "Documentation/planning/attribution for project coordination",
     "purpose_confidence": "path-and-static-reference-inference",
     "referenced_by": [],
-    "sha256": "cca370f3828806d37d7dbbc3d4910ea61fc99d0254b38bd8945e0caaf3998b0e",
+    "sha256": "a568870d44cc6430f3c6156b447460278e5c2f48e8bfe77b893b45e51c3d982d",
     "status": "audit-and-planning",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
-    "bytes": 4187,
+    "bytes": 5520,
     "category": "documentation",
     "duplicate_group": "",
     "feature": "project coordination",
@@ -385,7 +385,7 @@
     "purpose": "Documentation/planning/attribution for project coordination",
     "purpose_confidence": "path-and-static-reference-inference",
     "referenced_by": [],
-    "sha256": "113aa397b3c4c37b1a08a886c5d0979d85c4ebad881fd15d04ef7d8697f49484",
+    "sha256": "cf016c69a071355cae56386c69ce65d0181fa4ecc3007954d3cb33522ea7f3c6",
     "status": "audit-and-planning",
     "tracked": true,
     "usage_status": "excluded historical/reference material"
@@ -753,7 +753,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "restructure",
     "path": "AnalyseFuture/historical-implementations/restructure/AnalyseFuture/NEXT_DEVELOPER_INSTRUCTIONS.txt",
     "purpose": "Documentation/planning/attribution for project coordination",
@@ -761,7 +761,7 @@
     "referenced_by": [],
     "sha256": "e80a327e9c119eba048c197bab392428f2900550ed79e9bd80e303e017958946",
     "status": "preserved-original",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -770,7 +770,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "restructure",
     "path": "AnalyseFuture/historical-implementations/restructure/AnalyseFuture/TECHNICAL_DEBT.txt",
     "purpose": "Documentation/planning/attribution for project coordination",
@@ -778,7 +778,7 @@
     "referenced_by": [],
     "sha256": "397c820d699ad97f8eec09f26e3bdf68c272935b460742c8b84fd4ac794c9c18",
     "status": "preserved-original",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -906,7 +906,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "restructure",
     "path": "AnalyseFuture/historical-implementations/restructure/docs/PROJECT_RESEARCH_AND_REFERENCES.md",
     "purpose": "Documentation/planning/attribution for project coordination",
@@ -914,7 +914,7 @@
     "referenced_by": [],
     "sha256": "2043f7f61a30d878df5bc1692173c8afd6dd289bb865d23449d09f4d4fc7ca59",
     "status": "preserved-original",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -7570,7 +7570,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "AnalyseFuture",
     "path": "AnalyseFuture/migration-records/apply_functional_moves.mjs",
     "purpose": "Implementation/tooling for project coordination",
@@ -7578,7 +7578,7 @@
     "referenced_by": [],
     "sha256": "98c512e09c35c6e03591ac579b8726404add316702d4d2a97482bef487cfe436",
     "status": "audit-and-planning",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -7604,7 +7604,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "AnalyseFuture",
     "path": "AnalyseFuture/migration-records/plan_functional_moves.py",
     "purpose": "Implementation/tooling for project coordination",
@@ -7612,7 +7612,41 @@
     "referenced_by": [],
     "sha256": "9862a44204f841f2f5793d280221236b75781959dba6b562470ab0a60a8ec10e",
     "status": "audit-and-planning",
-    "tracked": false,
+    "tracked": true,
+    "usage_status": "excluded historical/reference material"
+  },
+  {
+    "bytes": 429,
+    "category": "configuration",
+    "duplicate_group": "",
+    "feature": "project coordination",
+    "inspection": "text-read-static-scan",
+    "mode": "100644",
+    "owner": "AnalyseFuture",
+    "path": "AnalyseFuture/migration-records/preservation-accounting.json",
+    "purpose": "Configuration/dependency declaration; inspect before executing related tooling",
+    "purpose_confidence": "path-and-static-reference-inference",
+    "referenced_by": [],
+    "sha256": "73c4d641b6bc549923357758e1cf67036675403a1f7cf81ecd4d23653537954d",
+    "status": "audit-and-planning",
+    "tracked": true,
+    "usage_status": "excluded historical/reference material"
+  },
+  {
+    "bytes": 2277,
+    "category": "source",
+    "duplicate_group": "",
+    "feature": "project coordination",
+    "inspection": "text-read-static-scan",
+    "mode": "100644",
+    "owner": "AnalyseFuture",
+    "path": "AnalyseFuture/migration-records/review_module_references.mjs",
+    "purpose": "Implementation/tooling for project coordination",
+    "purpose_confidence": "path-and-static-reference-inference",
+    "referenced_by": [],
+    "sha256": "b06178e967743ea19a2d6476c9a0d6d43670ad5124389ff4f951f9be6357c721",
+    "status": "audit-and-planning",
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -7621,7 +7655,7 @@
     "duplicate_group": "",
     "feature": "project coordination",
     "inspection": "text-read-static-scan",
-    "mode": "untracked",
+    "mode": "100644",
     "owner": "AnalyseFuture",
     "path": "AnalyseFuture/migration-records/static-reference-review.json",
     "purpose": "Configuration/dependency declaration; inspect before executing related tooling",
@@ -7629,7 +7663,7 @@
     "referenced_by": [],
     "sha256": "f3eb792a60bd36992ddc8ddd538ffdcb276830edc60bf2472c2fea294b4080df",
     "status": "audit-and-planning",
-    "tracked": false,
+    "tracked": true,
     "usage_status": "excluded historical/reference material"
   },
   {
@@ -205003,6 +205037,23 @@
     "usage_status": "excluded historical/reference material"
   },
   {
+    "bytes": 9423428,
+    "category": "documentation",
+    "duplicate_group": "",
+    "feature": "project coordination",
+    "inspection": "text-read-static-scan",
+    "mode": "100644",
+    "owner": "AnalyseFuture",
+    "path": "AnalyseFuture/repository-inventory/ignored-runtime-paths.txt",
+    "purpose": "Documentation/planning/attribution for project coordination",
+    "purpose_confidence": "path-and-static-reference-inference",
+    "referenced_by": [],
+    "sha256": "59da9cadd98d0f500ed7d20c1977e307765881c43afbfb30cf84f49c7e74b0d6",
+    "status": "audit-and-planning",
+    "tracked": true,
+    "usage_status": "excluded historical/reference material"
+  },
+  {
     "bytes": null,
     "category": "generated-audit",
     "duplicate_group": "",
@@ -205207,7 +205258,7 @@
     "usage_status": "no direct static import found; entrypoint, asset, runtime or dynamic usage may exist"
   },
   {
-    "bytes": 10177,
+    "bytes": 10382,
     "category": "documentation",
     "duplicate_group": "",
     "feature": "project coordination",
@@ -205218,7 +205269,7 @@
     "purpose": "Documentation/planning/attribution for project coordination",
     "purpose_confidence": "path-and-static-reference-inference",
     "referenced_by": [],
-    "sha256": "194bfd3391da1dfec0184b4ca1877346513cbc0f3bec5e1ac1ffd289084d639a",
+    "sha256": "3c664d06a67db9212419fb695159a4774985bff34b2c38ebfa8d2bed175dfd04",
     "status": "active",
     "tracked": true,
     "usage_status": "no direct static import found; entrypoint, asset, runtime or dynamic usage may exist"
