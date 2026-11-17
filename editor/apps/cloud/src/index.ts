@@ -5,6 +5,7 @@ import marketplace from './marketplace/marketplace';
 import studio from './marketplace/studio';
 import events from './marketplace/events';
 import crash from './crash/routes';
+import { requireUser, isResponse } from './marketplace/auth';
 
 const app = new Hono<{ Bindings: Bindings }>();
 
@@ -123,6 +124,8 @@ app.get('/templates/:id', async (c) => {
 });
 
 app.post('/templates', async (c) => {
+  const identity = requireUser(c);
+  if (isResponse(identity)) return identity;
   const bucket = c.env.TEMPLATES_BUCKET;
 
   try {
@@ -170,6 +173,8 @@ app.post('/templates', async (c) => {
 });
 
 app.delete('/templates/:id', async (c) => {
+  const identity = requireUser(c);
+  if (isResponse(identity)) return identity;
   const id = c.req.param('id');
   const bucket = c.env.TEMPLATES_BUCKET;
 
@@ -290,6 +295,8 @@ app.get('/shares/:id/download', async (c) => {
 });
 
 app.post('/highlights', async (c) => {
+  const identity = requireUser(c);
+  if (isResponse(identity)) return identity;
   try {
     const body = await c.req.json() as {
       transcript: Array<{ text: string; start: number; end: number }>;

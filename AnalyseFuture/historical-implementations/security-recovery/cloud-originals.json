@@ -1,0 +1,44 @@
+[
+  {
+    "path": "editor/apps/cloud/src/marketplace/auth.ts",
+    "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/cloud/src/marketplace/auth.ts",
+    "sha256": "1932adb740ffc563773ac9f9b00053c94506bb2f0ec1c8fe2ba4f6c7c56b9b14",
+    "base_commit": "029a3e1346d1c00e1838e6bd304f45499cb2a078",
+    "reason": "Exact original before cloud authentication fail-closed security recovery."
+  },
+  {
+    "path": "editor/apps/cloud/src/marketplace/studio.ts",
+    "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/cloud/src/marketplace/studio.ts",
+    "sha256": "2a3e501f46054bdf0ab8bf50ce045cceab7a9bfb62ef125579f5245a8f6b8c02",
+    "base_commit": "029a3e1346d1c00e1838e6bd304f45499cb2a078",
+    "reason": "Exact original before cloud authentication fail-closed security recovery."
+  },
+  {
+    "path": "editor/apps/cloud/src/marketplace/events.ts",
+    "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/cloud/src/marketplace/events.ts",
+    "sha256": "61cb3c0f99ebc898b880ec1998e449fc245db86af0393dcbe99480dbf28d328b",
+    "base_commit": "029a3e1346d1c00e1838e6bd304f45499cb2a078",
+    "reason": "Exact original before cloud authentication fail-closed security recovery."
+  },
+  {
+    "path": "editor/apps/cloud/src/index.ts",
+    "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/cloud/src/index.ts",
+    "sha256": "7e9af1fb2ea1e735ecd8b65770521ccd16a2768740accbbcea1635b9e8832f51",
+    "base_commit": "029a3e1346d1c00e1838e6bd304f45499cb2a078",
+    "reason": "Exact original before cloud authentication fail-closed security recovery."
+  },
+  {
+    "path": "editor/apps/cloud/src/marketplace/api.test.ts",
+    "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/cloud/src/marketplace/api.test.ts",
+    "sha256": "3b44f923641167c5fcd9f13a8998354f799d3547bc7a3d84b969034007298f7e",
+    "base_commit": "029a3e1346d1c00e1838e6bd304f45499cb2a078",
+    "reason": "Exact original before cloud authentication fail-closed security recovery."
+  },
+  {
+    "path": "editor/apps/cloud/README.md",
+    "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/cloud/README.md",
+    "sha256": "8b53c07b451f5240d3a32aa5af256a0a249ead90464183b0f7be282d4f022f93",
+    "base_commit": "029a3e1346d1c00e1838e6bd304f45499cb2a078",
+    "reason": "Exact original before documenting fail-closed protected cloud routes."
+  }
+]

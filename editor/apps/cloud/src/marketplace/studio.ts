@@ -16,7 +16,7 @@ import {
 } from "@openreel/fxpkg";
 import type { Bindings } from "./types";
 import { getStore } from "./store";
-import { requireCreator, isResponse } from "./auth";
+import { requireCreator, requireReviewer, isResponse } from "./auth";
 import { runAutoChecks, buildArtifact } from "./autochecks";
 import { rateLimit, DAY, SECOND } from "./ratelimit";
 
@@ -207,14 +207,14 @@ app.post("/me/assets/:id/rollback", async (c) => {
 
 // ── Review tooling (§39) ────────────────────────────────────────────────────
 app.get("/submissions", async (c) => {
-  const id = requireCreator(c);
+  const id = requireReviewer(c);
   if (isResponse(id)) return id;
   const state = c.req.query("state");
   return c.json({ submissions: await getStore(c.env).listSubmissions(state) });
 });
 
 app.post("/submissions/:id/review", async (c) => {
-  const id = requireCreator(c);
+  const id = requireReviewer(c);
   if (isResponse(id)) return id;
   const store = getStore(c.env);
   const submission = await store.getSubmission(c.req.param("id"));

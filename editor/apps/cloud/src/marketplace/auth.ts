@@ -1,10 +1,10 @@
 import type { Context } from "hono";
 
 /**
- * Auth shim (STUDIO_PLAN §45.3). Cross-platform identity is cookie (web) or
- * bearer token (mobile); the marketplace API accepts either. This dev shim
- * trusts `Authorization: Bearer <userId>` / `X-Creator-Id` so the surface is
- * exercisable end-to-end; swap for real JWT/cookie verification in prod.
+ * Protected cloud functionality is unavailable until a server-verified identity
+ * provider and authorization policy are implemented. Caller-supplied bearer and
+ * X-User/Creator headers are not identity evidence, including in development.
+ * Public discovery and explicitly public sharing have separate routes.
  */
 export interface Identity {
   userId: string;
@@ -12,26 +12,25 @@ export interface Identity {
   handle?: string;
 }
 
-export function getIdentity(c: Context): Identity | null {
-  const auth = c.req.header("authorization");
-  const bearer = auth?.toLowerCase().startsWith("bearer ") ? auth.slice(7).trim() : undefined;
-  const userId = bearer || c.req.header("x-user-id");
-  if (!userId) return null;
-  const creatorId = c.req.header("x-creator-id") || userId;
-  const handle = c.req.header("x-creator-handle") || undefined;
-  return { userId, creatorId, handle };
+export function getIdentity(_c: Context): Identity | null {
+  return null;
+}
+
+function authenticationUnavailable(c: Context): Response {
+  return c.json({ error: "authentication_not_configured" }, 503);
 }
 
 export function requireUser(c: Context): Identity | Response {
-  const id = getIdentity(c);
-  if (!id) return c.json({ error: "unauthorized" }, 401);
-  return id;
+  return authenticationUnavailable(c);
 }
 
 export function requireCreator(c: Context): (Identity & { creatorId: string }) | Response {
-  const id = getIdentity(c);
-  if (!id || !id.creatorId) return c.json({ error: "creator_required" }, 401);
-  return { ...id, creatorId: id.creatorId };
+  return authenticationUnavailable(c);
+}
+
+/** Review/publication needs a separate server-verified reviewer permission. */
+export function requireReviewer(c: Context): (Identity & { creatorId: string }) | Response {
+  return authenticationUnavailable(c);
 }
 
 export function isResponse(v: unknown): v is Response {

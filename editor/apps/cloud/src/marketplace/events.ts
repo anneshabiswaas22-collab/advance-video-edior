@@ -14,6 +14,7 @@ import {
 import type { Bindings } from "./types";
 import { getStore } from "./store";
 import { rateLimit, SECOND } from "./ratelimit";
+import { requireUser, isResponse } from "./auth";
 
 const app = new Hono<{ Bindings: Bindings }>();
 const now = () => new Date().toISOString();
@@ -40,6 +41,9 @@ interface IncomingEvent {
 // Batched event upload (§34.5, §41.2). Edge worker validates session token,
 // dedupes, rate-limits, then writes payable balances for EXPORT_COMPLETED.
 app.post("/events", rateLimit({ key: "events", limit: 10, windowMs: SECOND }), async (c) => {
+  // Event signatures alone do not authenticate the claimed user or revenue.
+  const identity = requireUser(c);
+  if (isResponse(identity)) return identity;
   const secret = c.env.EVENT_HMAC_SECRET;
   const body = await c.req.json<{ events: IncomingEvent[] }>();
   const store = getStore(c.env);

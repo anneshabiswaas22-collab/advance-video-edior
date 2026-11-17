@@ -2,12 +2,45 @@
 
 Cloudflare Worker API for OpenReel template storage and sharing.
 
+## Security recovery status
+
+**Do not deploy this optional service as a public production API.** No
+server-verified identity provider or reviewer authorization policy is configured.
+Protected marketplace authoring, review/publication, installs, account reads,
+financial events, AI highlight generation, and legacy template upload/deletion therefore return
+`503 {"error":"authentication_not_configured"}` before storage access. Caller
+Bearer tokens and `X-User-Id` / `X-Creator-Id` headers cannot enable them, even in
+development or test. There is no development authentication bypass.
+
+Public catalog reads, explicitly public sharing, health and crash endpoints keep
+their separate behavior; this change does not certify those surfaces safe for
+public deployment. In particular public upload abuse still needs review. AI highlighting
+remains disabled pending verified identity and an explicit usage/cost policy. Re-enabling protected routes requires verified identity, ownership,
+separate reviewer permissions and negative authorization tests, plus a separately
+verified revenue/event trust model. Header-only identity and the old
+self-publication test are not an authentication implementation.
+
+Run local checks from `editor/`:
+
+```bash
+pnpm --filter cloud test:run
+pnpm --filter cloud typecheck
+```
+
+The tests exercise forged headers and missing identity in production, development,
+test and unconfigured environments; confirm rejected calls do not touch storage;
+and keep representative public catalog reads covered. Exact pre-fix originals
+and hashes are retained in
+`AnalyseFuture/historical-implementations/security-recovery/cloud-originals.json`
+from the repository root.
+
+
 ## Features
 
-- **Template Storage**: Upload and store templates in Cloudflare R2
+- **Template Storage**: Upload is disabled pending verified authentication
 - **Template Listing**: Browse all available templates
 - **Template Download**: Download individual templates
-- **Template Deletion**: Delete custom templates (built-ins protected)
+- **Template Deletion**: Disabled pending verified authentication and ownership checks
 
 ## Setup
 
@@ -18,13 +51,10 @@ cd apps/cloud
 npx wrangler r2 bucket create openreel-templates
 ```
 
-### 2. Deploy Worker
+### 2. Deployment is blocked
 
-```bash
-npm run deploy
-```
-
-The worker will be deployed to: `https://openreel-cloud.<your-subdomain>.workers.dev`
+Complete authentication/authorization and the remaining public-surface security
+review before separately authorizing a deployment. Local tests do not deploy the Worker.
 
 ## API Endpoints
 
@@ -99,7 +129,8 @@ Get a specific template by ID.
 ```
 
 ### POST `/templates`
-Upload a new template.
+Disabled: currently returns HTTP 503 before parsing a body or accessing storage.
+The request/response below describes the retained implementation, not an enabled API.
 
 **Request Body:**
 ```json
@@ -125,7 +156,8 @@ Upload a new template.
 ```
 
 ### DELETE `/templates/:id`
-Delete a template.
+Disabled: currently returns HTTP 503 before accessing storage.
+The response below describes the retained implementation, not an enabled API.
 
 **Response:**
 ```json
