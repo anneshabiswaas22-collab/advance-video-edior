@@ -4,6 +4,7 @@ import { z } from "zod";
 import { registerAppSchemePrivileges, handleAppScheme, APP_INDEX } from "./protocol";
 import { installNavigationGuard } from "./nav-guard";
 import { handle } from "./ipc";
+import { assertTrustedIpcSender, isTrustedIpcSender, trustIpcRenderer } from "./ipc/sender";
 import { CHANNELS } from "../shared/ipc-contract";
 import { collectHardwareInfo } from "./ipc/hardware";
 import {
@@ -134,6 +135,7 @@ function createWindow(): void {
   });
   attachUnsavedGuard(win);
   installNavigationGuard(win, APP_INDEX);
+  trustIpcRenderer(win.webContents, APP_INDEX);
   win.loadURL(APP_INDEX);
 }
 
@@ -176,29 +178,35 @@ app.whenReady().then(() => {
   );
   ipcMain.handle(
     CHANNELS.auroraStartPreviewSession,
-    async (event, raw) =>
-      auroraPreviewSessionStartResultSchema.parse(
+    async (event, raw) => {
+      assertTrustedIpcSender(event);
+      return auroraPreviewSessionStartResultSchema.parse(
         await startAuroraPreviewSession(
           event.sender,
           auroraPreviewSessionStartArgsSchema.parse(raw) as AuroraPreviewSessionStartArgs,
         ),
-      ),
+      );
+    },
   );
   ipcMain.handle(CHANNELS.auroraCancelPreviewSession, async (event, raw) => {
+    assertTrustedIpcSender(event);
     const { sessionId } = auroraPreviewSessionCancelArgsSchema.parse(raw);
     await cancelAuroraPreviewSession(sessionId, event.sender);
   });
   ipcMain.handle(
     CHANNELS.auroraStartSequenceSession,
-    async (event, raw) =>
-      auroraSequenceSessionStartResultSchema.parse(
+    async (event, raw) => {
+      assertTrustedIpcSender(event);
+      return auroraSequenceSessionStartResultSchema.parse(
         await startAuroraSequenceSession(
           event.sender,
           auroraSequenceSessionStartArgsSchema.parse(raw) as AuroraSequenceSessionStartArgs,
         ),
-      ),
+      );
+    },
   );
   ipcMain.handle(CHANNELS.auroraCancelSequenceSession, async (event, raw) => {
+    assertTrustedIpcSender(event);
     const { sessionId } = auroraSequenceSessionCancelArgsSchema.parse(raw);
     await cancelAuroraSequenceSession(sessionId, event.sender);
   });
@@ -214,7 +222,10 @@ app.whenReady().then(() => {
   );
   handle(CHANNELS.keychainDelete, z.object({ id: z.string() }), ({ id }) => getKeyStore().delete(id));
   handle(CHANNELS.cloudFetch, cloudFetchArgsSchema, cloudFetch);
-  ipcMain.handle(CHANNELS.exportStart, (e, raw) => startExport(e.sender, raw));
+  ipcMain.handle(CHANNELS.exportStart, (e, raw) => {
+    assertTrustedIpcSender(e);
+    return startExport(e.sender, raw);
+  });
   handle(
     CHANNELS.exportWriteAudioWav,
     z.object({ jobId: z.string(), wav: z.instanceof(ArrayBuffer) }),
@@ -232,13 +243,16 @@ app.whenReady().then(() => {
   handle(CHANNELS.exportFinishAudio, z.object({ jobId: z.string() }), finishAudio);
   handle(CHANNELS.exportCancel, z.object({ jobId: z.string() }), cancelExport);
   ipcMain.handle(CHANNELS.windowControl, (e, raw) => {
+    assertTrustedIpcSender(e);
     const parsed = windowControlArgsSchema.parse(raw);
     applyWindowControl(BrowserWindow.fromWebContents(e.sender), parsed.action);
   });
-  ipcMain.handle(CHANNELS.windowIsMaximized, (e) =>
-    windowIsMaximized(BrowserWindow.fromWebContents(e.sender)),
-  );
-  ipcMain.on(CHANNELS.crashReport, (_e, raw) => {
+  ipcMain.handle(CHANNELS.windowIsMaximized, (e) => {
+    assertTrustedIpcSender(e);
+    return windowIsMaximized(BrowserWindow.fromWebContents(e.sender));
+  });
+  ipcMain.on(CHANNELS.crashReport, (event, raw) => {
+    if (!isTrustedIpcSender(event)) return;
     const payload = (raw ?? {}) as {
       message?: unknown;
       stack?: unknown;

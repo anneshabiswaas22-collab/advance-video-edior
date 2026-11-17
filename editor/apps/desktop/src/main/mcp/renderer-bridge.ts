@@ -1,5 +1,7 @@
 import { BrowserWindow, ipcMain } from "electron";
+import type { IpcMainEvent } from "electron";
 import { CHANNELS } from "../../shared/channels";
+import { isTrustedIpcSender } from "../ipc/sender";
 import type { McpToolDef, McpToolResult, McpToolProvider } from "./core";
 import {
   createDispatcher,
@@ -8,7 +10,7 @@ import {
 } from "./dispatcher";
 
 let bridge: Dispatcher | null = null;
-let responseListener: ((event: unknown, response: BridgeResponse) => void) | null =
+let responseListener: ((event: IpcMainEvent, response: BridgeResponse) => void) | null =
   null;
 
 /**
@@ -41,7 +43,11 @@ export function installRendererBridge(): McpToolProvider {
         win.webContents.send(CHANNELS.mcpRequest, request);
       },
     });
-    responseListener = (_event, response) => bridge?.handleResponse(response);
+    responseListener = (event, response) => {
+      const win = targetWindow();
+      if (!win || event.sender !== win.webContents || !isTrustedIpcSender(event)) return;
+      bridge?.handleResponse(response);
+    };
     ipcMain.on(CHANNELS.mcpResponse, responseListener);
   }
 

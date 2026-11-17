@@ -1,0 +1,31 @@
+{
+  "reason": "Preserve exact pre-hardening desktop IPC sender boundary files",
+  "baseline_commit": "029a3e1346d1c00e1838e6bd304f45499cb2a078",
+  "files": [
+    {
+      "original_path": "editor/apps/desktop/src/main/ipc/index.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/desktop/src/main/ipc/index.ts",
+      "sha256": "9bbcf64c850e76acdcd5c4cc3d7d8346323c5773895e0d8048f95fa608b64b6f"
+    },
+    {
+      "original_path": "editor/apps/desktop/src/main/index.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/desktop/src/main/index.ts",
+      "sha256": "64c0dda877947bb5d046d8a74382214de8135ea896fd6caab0f306ee563816dc"
+    },
+    {
+      "original_path": "editor/apps/desktop/src/main/updater.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/desktop/src/main/updater.ts",
+      "sha256": "1285f1a282e329b05646c7874ebfa38da626dae6d35a86a539641396e6aff7ee"
+    },
+    {
+      "original_path": "editor/apps/desktop/src/main/lifecycle.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/desktop/src/main/lifecycle.ts",
+      "sha256": "4ffa5f194028907553483da1df8684ebf6d26f5e436f25ac9c90c733a328ade7"
+    },
+    {
+      "original_path": "editor/apps/desktop/src/main/mcp/renderer-bridge.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/desktop/src/main/mcp/renderer-bridge.ts",
+      "sha256": "339fed20a921d0498bc575cfca482ae0908a2965ce881ea29564686c47c055da"
+    }
+  ]
+}
