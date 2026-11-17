@@ -11,6 +11,7 @@ import {
   clearWebMotionAssetBitmapCache,
   createWebMotionAssetResolver,
 } from "./motion-asset-resolver";
+import { toast } from "../../app/state/notification-store";
 
 const defaultMotionTransform = {
   position: { x: 960, y: 540, z: 0 },
@@ -29,6 +30,7 @@ describe("web motion asset resolver", () => {
   });
 
   afterEach(() => {
+    vi.restoreAllMocks();
     vi.unstubAllGlobals();
     Object.defineProperty(window, "openreel", {
       configurable: true,
@@ -155,6 +157,59 @@ describe("web motion asset resolver", () => {
     const url = "https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb";
 
     await expect(resolver.resolveModelUrl?.(url)).resolves.toBe(url);
+  });
+
+  it.each(["denied", "throws"])(
+    "does not bypass a desktop bridge that %s the model download", async (failure) => {
+      const fetchUrl = failure === "denied"
+        ? vi.fn().mockResolvedValue({ ok: false, error: "Destination blocked" })
+        : vi.fn().mockRejectedValue(new Error("Desktop fetch unavailable"));
+      Object.defineProperty(window, "openreel", {
+        configurable: true,
+        value: { platform: "desktop", media: { fetchUrl } },
+      });
+      const notification = vi.spyOn(toast, "error").mockReturnValue("test-notification");
+      const rendererFetch = vi.fn();
+      vi.stubGlobal("fetch", rendererFetch);
+      const resolver = createWebMotionAssetResolver([]);
+      const url = "https://model.example/model.glb";
+
+      await expect(resolver.resolveModelUrl?.(url)).resolves.toBeNull();
+      await expect(resolver.resolveModelUrl?.(url)).resolves.toBeNull();
+      expect(fetchUrl).toHaveBeenCalledTimes(1);
+      expect(rendererFetch).not.toHaveBeenCalled();
+      expect(notification).toHaveBeenCalledTimes(1);
+      expect(notification).toHaveBeenCalledWith(
+        "Model download failed",
+        "Download the model separately and import the local file.",
+      );
+    },
+  );
+
+  it("fails closed if the desktop download bridge is missing", async () => {
+    Object.defineProperty(window, "openreel", {
+      configurable: true,
+      value: { platform: "desktop" },
+    });
+    const notification = vi.spyOn(toast, "error").mockReturnValue("test-notification");
+    const resolver = createWebMotionAssetResolver([]);
+    await expect(resolver.resolveModelUrl?.("https://model.example/model.glb"))
+      .resolves.toBeNull();
+    await expect(resolver.resolveModelUrl?.("https://model.example/model.glb"))
+      .resolves.toBeNull();
+    expect(notification).toHaveBeenCalledTimes(1);
+  });
+
+  it("retains local model assets without a desktop network request", async () => {
+    const fetchUrl = vi.fn();
+    Object.defineProperty(window, "openreel", {
+      configurable: true,
+      value: { platform: "desktop", media: { fetchUrl } },
+    });
+    const resolver = createWebMotionAssetResolver([]);
+    await expect(resolver.resolveModelUrl?.("blob:local-model"))
+      .resolves.toBe("blob:local-model");
+    expect(fetchUrl).not.toHaveBeenCalled();
   });
 
   it("renders bound creation scene3d layers through the desktop Aurora bridge", async () => {

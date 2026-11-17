@@ -1,0 +1,17 @@
+{
+  "baseline_commit": "029a3e1346d1c00e1838e6bd304f45499cb2a078",
+  "files": [
+    {
+      "original_path": "editor/apps/web/src/features/motion/motion-asset-resolver.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/web/src/features/motion/motion-asset-resolver.ts",
+      "sha256": "20328030fef12854a47275f0c3243485a28dc9acf218e64747da7ad5ca56f54a",
+      "reason": "Preserve source before closing renderer fallback around desktop URL policy."
+    },
+    {
+      "original_path": "editor/apps/web/src/features/motion/motion-asset-resolver.test.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/web/src/features/motion/motion-asset-resolver.test.ts",
+      "sha256": "c414b8a4558d117e0862c99a5d063a1e83d0c03592960b351c91c535e5426003",
+      "reason": "Preserve source before closing renderer fallback around desktop URL policy."
+    }
+  ]
+}

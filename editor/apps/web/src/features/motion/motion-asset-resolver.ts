@@ -7,6 +7,7 @@ import type {
   MotionScene3DRenderResult,
 } from "@openreel/core";
 import type { CreationProjectState } from "@openreel/core/creation/index";
+import { toast } from "../../app/state/notification-store";
 
 const imageBitmapCache = new Map<string, Promise<ImageBitmap | null>>();
 const videoElementCache = new Map<string, Promise<HTMLVideoElement | null>>();
@@ -70,17 +71,23 @@ export function clearWebMotionAssetBitmapCache(): void {
 
 async function resolveModelUrl(url: string): Promise<string | null> {
   if (!isRemoteHttpUrl(url)) return url;
+  const cached = modelUrlCache.get(url);
+  if (cached) return cached;
   const bridge = typeof window !== "undefined"
     ? window.openreel?.media?.fetchUrl
     : undefined;
-  if (typeof bridge !== "function") return url;
-
-  let cached = modelUrlCache.get(url);
-  if (!cached) {
-    cached = fetchModelObjectUrl(url, bridge);
-    modelUrlCache.set(url, cached);
+  if (typeof bridge !== "function") {
+    if (typeof window !== "undefined" && window.openreel?.platform === "desktop") {
+      reportModelDownloadFailure();
+      modelUrlCache.set(url, Promise.resolve(null));
+      return null;
+    }
+    return url;
   }
-  return cached;
+
+  const pending = fetchModelObjectUrl(url, bridge);
+  modelUrlCache.set(url, pending);
+  return pending;
 }
 
 async function fetchModelObjectUrl(
@@ -89,7 +96,10 @@ async function fetchModelObjectUrl(
 ): Promise<string | null> {
   try {
     const res = await fetchUrl({ url, maxBytes: MODEL_MAX_BYTES });
-    if (!res.ok) return url;
+    if (!res.ok) {
+      reportModelDownloadFailure();
+      return null;
+    }
     const blob = new Blob([res.body], {
       type: inferModelMime(url, res.contentType),
     });
@@ -97,8 +107,16 @@ async function fetchModelObjectUrl(
     modelObjectUrls.set(url, objectUrl);
     return objectUrl;
   } catch {
-    return url;
+    reportModelDownloadFailure();
+    return null;
   }
+}
+
+function reportModelDownloadFailure(): void {
+  toast.error(
+    "Model download failed",
+    "Download the model separately and import the local file.",
+  );
 }
 
 function isRemoteHttpUrl(url: string): boolean {
