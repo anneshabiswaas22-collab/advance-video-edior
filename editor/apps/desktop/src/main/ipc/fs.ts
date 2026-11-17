@@ -5,39 +5,98 @@ import { randomUUID } from "node:crypto";
 import path from "node:path";
 import os from "node:os";
 
-export class FileWriterRegistry {
-  private handles = new Map<string, FileHandle>();
-  private paths = new Map<string, string>();
+interface PendingFileWrite {
+  file: FileHandle;
+  target: string;
+  staging: string;
+  queue: Promise<void>;
+  failed?: unknown;
+  aborted: boolean;
+  finalization?: Promise<void>;
+}
 
-  async open(path: string): Promise<string> {
-    const id = randomUUID();
-    this.handles.set(id, await fs.open(path, "w"));
-    this.paths.set(id, path);
-    return id;
+const MAX_OPEN_WRITERS = 32;
+
+export class FileWriterRegistry {
+  private handles = new Map<string, PendingFileWrite>();
+  private opening = 0;
+
+  async open(targetPath: string): Promise<string> {
+    if (this.handles.size + this.opening >= MAX_OPEN_WRITERS) {
+      throw new Error("too many open write handles");
+    }
+    this.opening++;
+    try {
+      const id = randomUUID();
+      const target = path.resolve(targetPath);
+      const staging = path.join(path.dirname(target), `.openreel-write-${id}.tmp`);
+      // An exclusive sibling keeps cancellation/failure from truncating an
+      // existing export. Keeping it on the same filesystem permits atomic rename.
+      const file = await fs.open(staging, "wx", 0o600);
+      this.handles.set(id, { file, target, staging, queue: Promise.resolve(), aborted: false });
+      return id;
+    } finally {
+      this.opening--;
+    }
   }
 
   async writeChunk(id: string, data: ArrayBuffer | Uint8Array, position: number): Promise<void> {
-    const fh = this.handles.get(id);
-    if (!fh) throw new Error(`unknown write handle ${id}`);
+    const entry = this.handles.get(id);
+    if (!entry || entry.finalization) throw new Error(`unknown or closing write handle ${id}`);
     const bytes = data instanceof Uint8Array ? data : new Uint8Array(data);
-    await fh.write(bytes, 0, bytes.byteLength, position);
+    if (!Number.isSafeInteger(position) || position < 0 ||
+        !Number.isSafeInteger(position + bytes.byteLength)) {
+      const error = new Error("write position must be a nonnegative safe integer");
+      entry.failed = error;
+      throw error;
+    }
+    const operation = entry.queue.then(async () => {
+      if (entry.failed) throw entry.failed;
+      let offset = 0;
+      while (offset < bytes.byteLength) {
+        const { bytesWritten } = await entry.file.write(
+          bytes, offset, bytes.byteLength - offset, position + offset,
+        );
+        if (bytesWritten <= 0) throw new Error("file write made no progress");
+        offset += bytesWritten;
+      }
+    });
+    // Serialize overlapping chunks and retain a failure so close cannot commit
+    // an incomplete file even if its caller catches the write rejection.
+    entry.queue = operation.catch((error: unknown) => { entry.failed = error; });
+    await operation;
   }
 
   async close(id: string): Promise<void> {
-    const fh = this.handles.get(id);
-    if (!fh) return;
-    await fh.close();
-    this.handles.delete(id);
-    this.paths.delete(id);
+    const entry = this.handles.get(id);
+    if (!entry) return;
+    entry.finalization ??= this.finalize(id, entry);
+    await entry.finalization;
   }
 
   async abort(id: string): Promise<void> {
-    const fh = this.handles.get(id);
-    const p = this.paths.get(id);
-    if (fh) await fh.close();
-    this.handles.delete(id);
-    this.paths.delete(id);
-    if (p) await fs.rm(p, { force: true });
+    const entry = this.handles.get(id);
+    if (!entry) return;
+    entry.aborted = true;
+    entry.finalization ??= this.finalize(id, entry);
+    await entry.finalization;
+  }
+
+  private async finalize(id: string, entry: PendingFileWrite): Promise<void> {
+    let closed = false;
+    try {
+      await entry.queue;
+      await entry.file.close();
+      closed = true;
+      if (entry.aborted) return;
+      if (entry.failed) throw entry.failed;
+      await fs.rename(entry.staging, entry.target);
+    } finally {
+      if (!closed) await entry.file.close().catch(() => {});
+      this.handles.delete(id);
+      // Only remove the staging file. Never unlink the user's target on abort.
+      await fs.rm(entry.staging, { force: true });
+    }
   }
 }
 

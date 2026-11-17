@@ -1,0 +1,17 @@
+{
+  "baseline_commit": "5b15d6e5437a36ceb1a1cf008befa1486d2bf986",
+  "files": [
+    {
+      "path": "editor/apps/desktop/src/main/ipc/fs.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/desktop/src/main/ipc/fs.ts",
+      "sha256": "e7495d0fc5fddc8d9b9216de3950cbd5580ef59afa13f668e90f5647bf7b5c41",
+      "reason": "Preserve pre-repair streaming writer and tests before atomic save/cancellation fix; no full filesystem capability protection claimed."
+    },
+    {
+      "path": "editor/apps/desktop/test/fs-writer.test.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/desktop/test/fs-writer.test.ts",
+      "sha256": "8e042c3cdd430531a0e709cace98941af98c82e0b122403af69c078f2ceee7f5",
+      "reason": "Preserve pre-repair streaming writer and tests before atomic save/cancellation fix; no full filesystem capability protection claimed."
+    }
+  ]
+}
