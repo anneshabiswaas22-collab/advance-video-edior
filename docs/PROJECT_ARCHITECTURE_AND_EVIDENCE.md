@@ -33,11 +33,11 @@ flowchart TD
 
 ## Real call paths to inspect in code
 
-**Import + timeline:** editor/apps/web/src/components/editor/AssetsPanel.tsx file input -> editor/apps/web/src/stores/project-store.ts importMedia -> editor/apps/web/src/bridges/media-bridge.ts -> editor/packages/core/src/media/media-import-service.ts + browser media storage -> addClipToNewTrack -> editor/packages/core/src/timeline/clip-manager.ts and timeline state.
+**Import + timeline:** editor/apps/web/src/features/media/components/AssetsPanel.tsx file input -> editor/apps/web/src/features/projects/state/project-store.ts importMedia -> editor/apps/web/src/features/media/bridges/media-bridge.ts -> editor/packages/core/src/media/media-import-service.ts + browser media storage -> addClipToNewTrack -> editor/packages/core/src/timeline/clip-manager.ts and timeline state.
 
 **Preview:** project/timeline state -> editor/packages/core/src/playback/ + editor/packages/core/src/audio/ -> browser preview. Verify title and effect composition at actual timestamps.
 
-**Persistence:** editor/apps/web/src/services/auto-save.ts (IndexedDB) + project-store recovery; editor/apps/web/src/services/project-manager.ts (.oreel explicit save/open); editor/packages/core/src/storage/project-serializer.ts and media blob/handle references.
+**Persistence:** editor/apps/web/src/features/projects/services/auto-save.ts (IndexedDB) + project-store recovery; editor/apps/web/src/features/projects/services/project-manager.ts (.oreel explicit save/open); editor/packages/core/src/storage/project-serializer.ts and media blob/handle references.
 
 **Export:** Toolbar.tsx / ExportDialog.tsx -> services/export-runner.ts -> core/src/export/export-engine.ts -> chosen media encoder/mux and downloadable MP4. Validate media from the UI output, not a synthetically generated fake "editor export".
 

@@ -30,3 +30,6 @@ Structure-only work, no further tests/build/typecheck runs. Earlier unfinished a
 
 STRUCTURE CHECKPOINT
 621 files regrouped by functional responsibility; 388 originals retained before reference/path updates. Browser feature collections, app/shared layers, media/repository scripts and preserved disconnected Studio prototype are in place. PROJECT_STRUCTURE.md created. No tests/build/typecheck/lint run after latest user instruction. Static inventory/reference and preservation accounting only. Final report refresh and explicit remaining limitations still in progress.
+
+FINAL ORGANIZATION STATUS
+Functional migration complete; root PROJECT_STRUCTURE.md explains retained framework homes and22 browser feature collections. Required human reports written; full file inventory regeneration and final remote confirmation remain. Application/security behavior changes intentionally inactive. No tests/typecheck/build/lint in this pass. Every file has a structural owner/category, with automated inference vs deeper review limitations disclosed; this is not line-by-line security certification.

@@ -1,5 +1,7 @@
 # Advanced Video Editor
 
+**Current folder guide:** [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)
+
 **Start here:** [Detailed project idea](PROJECT_IDEA.txt) · [Repository structure](docs/REPOSITORY_STRUCTURE.md) · [Preserved material](AnalyseFuture/README.md)
 
 The active application remains in `editor/`. All three source ZIPs and their complete extractions are preserved in `AnalyseFuture/`; they are references, not additional production editors. Legacy automation that wrote directly to `main`, unrelated material, and upstream-only planning are preserved there too. See the [structure review and validation](docs/evidence/repository-restructure-2026-11-17.md).

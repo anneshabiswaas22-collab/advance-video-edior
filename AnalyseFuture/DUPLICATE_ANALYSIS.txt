@@ -28,7 +28,7 @@ SHA256-e32657baf631d7c5: 3 active copies
 Decision: candidate for responsibility review; no deletion or automatic code merge from hash identity alone.
 
 SHA256-4aafb37e8da45156: 2 active copies
-  editor/apps/web/src/types/asset-imports.d.ts
+  editor/apps/web/src/shared/types/asset-imports.d.ts
   editor/packages/core/src/types/asset-imports.d.ts
 Decision: candidate for responsibility review; no deletion or automatic code merge from hash identity alone.
 
@@ -55,4 +55,4 @@ Relative-resolution candidates are not build failures; use TypeScript/build/runt
 Text files were read automatically; this does not claim line-by-line human review of every file.
 Gitignored caches/dependencies/runtime outputs are excluded unless already tracked.
 Source presence and a matching duplicate hash do not prove reachability, safety or compatible semantics.
-Unavailable/pending paths: AnalyseFuture/ARCHIVED_FILES_MANIFEST.txt, AnalyseFuture/CONSOLIDATION_REPORT.txt, AnalyseFuture/FEATURE_INVENTORY.txt, AnalyseFuture/MIGRATION_SUMMARY.txt, AnalyseFuture/ORIGINAL_TO_NEW_PATH_MAPPING.txt, AnalyseFuture/REPOSITORY_AUDIT.txt, AnalyseFuture/SECURITY_AUDIT.txt, AnalyseFuture/TEST_AND_VALIDATION_REPORT.txt
+Unavailable/pending paths: none

@@ -62,7 +62,7 @@ Additional historical repository **outside original 22**: https://github.com/Ope
 
 | Capability | Current source path / test | Existing? | Works? | External reference | Proposed minimal adapter/fix | Risks | Acceptance evidence |
 |---|---|---|---|---|---|---|---|
-| Mouse trim/split | editor/apps/web/src/components/editor/Timeline.tsx; e2e-web | Implemented in UI | Not comprehensively E2E-verified | FreeCut advanced edit tools | Add Playwright gestures first | Timing regression | Cut boundary frames and undo |
+| Mouse trim/split | editor/apps/web/src/features/timeline/components/Timeline.tsx; e2e-web | Implemented in UI | Not comprehensively E2E-verified | FreeCut advanced edit tools | Add Playwright gestures first | Timing regression | Cut boundary frames and undo |
 | Project/missing media | project-store.ts; auto-save.ts; media-storage.ts | Yes | One recovery test passes | FreeCut workspace persistence | Test app restart/handles | Browser privacy/permissions | Reopen same project with media |
 | GPU color scopes | core effects and UI to inspect | Needs audit | NOT VERIFIED | FreeCut, OpenColorIO | Only after source and perf audit | GPU fallback, color accuracy | Matched test patterns |
 | Plugin/MCP automation | packages/agent and desktop to inspect | Partial code | Security not verified | OpenCut rewrite goals | Typed agent commands+permissions | prompt injection, uploads | Denial/adversarial tests |

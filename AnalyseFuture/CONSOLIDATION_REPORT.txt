@@ -1,0 +1,12 @@
+FUNCTIONAL CONSOLIDATION REPORT
+This pass consolidates ownership/locations, not runtime algorithms. No behavior merge is claimed.
+
+Browser:621 file moves bring UI, bridges, services, state, helpers, workers and existing tests into their actual feature collections or app/shared roles. Motion preserves its coherent substructure; timeline and preview components join their integration/state helpers; audio/caption/color/etc. inspector sections join those domains while inspector navigation stays shared. One project store and core timeline remain authoritative. Cross-feature imports preserve the same target identities through the recorded mapping.
+
+Scripts: fixture generation and media checks belong in scripts/media; file inventory/preservation belongs in scripts/repository. Python imports, workflow/e2e command paths, root path calculations and documentation were repaired.
+
+Studio: active src/effect/EffectEditor remains authoritative. The unreferenced static components/effect/EffectEditor and private FireScene pair are preserved under duplicate-implementations with original paths. Shared data.ts stays because active template authoring consumes it. No data was discarded or blindly merged.
+
+Not combined: OpenReel/FreeCut/OpenCut snapshots have incompatible editor ownership and remain references; still-image artboard/history differs from video timeline; native/Node/browser process boundaries are legitimate; exported legacy PlaybackEngine/CompositionRenderer/export-worker interfaces remain pending semantic compatibility review. Byte-identical assets/configurations are not automatically interchangeable.
+
+Earlier shared-audio-loading and cloud-auth changes were unfinished behavior proposals. Their source/tests/patch are retained inactive under experiments/post-audit-proposals after the owner requested structure-only work. They are NOT delivered fixes. No source compatibility, performance or security certification is claimed without subsequent authorized validation.

@@ -1,0 +1,13 @@
+ARCHIVED FILES MANIFEST
+1. archives/: all3 original ZIP files unchanged, hashes recorded in manifests/archive-extractions.json.
+2. reference-sources/:11,598 complete extracted files, original licenses and metadata retained, outside active workspace globs. They are independent references, not merged runtime dependencies.
+3. legacy-automation/:2 retired repository-writing workflows and their2 scripts; original paths recorded, inactive outside Actions discovery.
+4. unrelated/: original editor/test.md golf/iOS/Watch proposal.
+5. upstream-planning/:7 design prototype files and2 upstream mobile marketing/release planning documents.
+6. duplicate-implementations/studio/:2 disconnected static Studio effect prototype files; actual stateful effect editor remains active.
+7. recovery-originals/: original handoff/document bytes from first cleanup.
+8. historical-implementations/restructure/: byte-for-byte originals before structural reference/path edits; not runtime imports.
+9. historical-implementations/consolidation/ and security/: original baselines from earlier unfinished proposals.
+10. experiments/post-audit-proposals/: complete unfinished behavior patches/source/tests preserved inactive when scope changed.
+
+Complete per-file rows/hashes: COMPLETE_FILE_INVENTORY.txt and repository-inventory/files.json. Exact locations/reasons: ORIGINAL_TO_NEW_PATH_MAPPING.txt and manifests/relocations.json. Content preserved does not imply security approval, feature completeness or license clearance. No live credential values are intentionally included in reports.

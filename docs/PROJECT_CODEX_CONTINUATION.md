@@ -41,7 +41,7 @@ Read the original 22-item list fully, including special license flags and the on
 ## SOURCE AUDIT
 
 Begin in:
-- editor/apps/web/src/stores/project-store.ts, timeline-store.ts;
+- editor/apps/web/src/features/projects/state/project-store.ts, timeline-store.ts;
 - editor/apps/web/src/components/editor/{AssetsPanel,Timeline,Toolbar,ExportDialog}.tsx;
 - editor/apps/web/src/services/{project-manager,auto-save,media-storage,export-runner}.ts;
 - editor/packages/core/src/{timeline,media,playback,audio,export,storage}/;

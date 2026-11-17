@@ -1,0 +1,6 @@
+{
+  "method": "Static AST literal reference inspection only; no test/build/typecheck or application execution",
+  "recorded_targets": 4603,
+  "source_files": 1328,
+  "errors": []
+}

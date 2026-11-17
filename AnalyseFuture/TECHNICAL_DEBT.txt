@@ -25,8 +25,8 @@ TD-01 — FULL REAL-UI EDITING COVERAGE
 Priority: P0. Type: coverage debt. Owner: editor frontend + media QA.
 
 Paths: editor/apps/studio/e2e-web/main-editor-edit-export.spec.ts;
-editor/apps/web/src/components/editor/Timeline.tsx;
-editor/apps/web/src/stores/project-store.ts.
+editor/apps/web/src/features/timeline/components/Timeline.tsx;
+editor/apps/web/src/features/projects/state/project-store.ts.
 
 The existing E2E uses actual UI file import, title placement, recovery and export,
 but split/trim and title-content/timing changes use page.evaluate on the real
@@ -41,7 +41,7 @@ TD-02 — ONE-FRAME CUT BOUNDARIES AND EXACT AUDIO TIMING
 Priority: P0. Type: precision verification debt. Owner: core media + QA.
 
 Paths: editor/apps/studio/e2e-web/main-editor-edit-export.spec.ts;
-scripts/check_edit_content.py; tests/test_check_edit_content.py;
+scripts/media/check_edit_content.py; tests/test_check_edit_content.py;
 editor/packages/core/src/playback/; editor/packages/core/src/export/.
 
 The current edited-export fixture uses 24fps and samples color near a one-second
@@ -57,9 +57,9 @@ audio regressions; compare preview and export with a defined sampling method.
 TD-03 — MEDIA PERSISTENCE BEYOND A SAME-SESSION PAGE RELOAD
 Priority: P0. Type: resilience coverage debt. Owner: storage + frontend + QA.
 
-Paths: editor/apps/web/src/services/auto-save.ts, project-manager.ts,
+Paths: editor/apps/web/src/features/projects/services/auto-save.ts, project-manager.ts,
 media-storage.ts; editor/packages/core/src/storage/project-serializer.ts;
-editor/apps/web/src/stores/project-store.ts and associated project-store slices.
+editor/apps/web/src/features/projects/state/project-store.ts and associated project-store slices.
 
 The current E2E verifies IndexedDB snapshots and media recovery after page.reload.
 Broader app/browser restart, lost filesystem permission, cleared browser storage,
@@ -126,7 +126,7 @@ denied with no unintended change or data disclosure; model-free mocks cover CI.
 TD-07 — TEST SKIPS AND CAPABILITY-TO-EVIDENCE TRACEABILITY
 Priority: P1. Type: maintenance/evidence debt. Owner: QA + relevant package owners.
 
-Paths: editor/apps/web/src/stores/project-store.test.ts; workspace Vitest suites;
+Paths: editor/apps/web/src/features/projects/state/project-store.test.ts; workspace Vitest suites;
 editor/apps/studio/e2e-web/; docs/CODEX_REVIEW_QUEUE.md and evidence documents.
 
 Examples include four explicitly skipped legacy subtitle tests whose comments
@@ -187,7 +187,7 @@ Priority: P1 for repository maintenance. Type: operational assurance debt.
 Owner: repository owner + maintainers.
 
 Paths: AnalyseFuture/manifests/, archives/, reference-sources/, legacy-automation/;
-scripts/verify_repository_preservation.py; .gitattributes; .github/workflows/.
+scripts/repository/verify_repository_preservation.py; .gitattributes; .github/workflows/.
 
 All source snapshots were preserved/extracted and hash-checked; they add material
 to search and Git storage. Treat them as reference-only and do not activate nested

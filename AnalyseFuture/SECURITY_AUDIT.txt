@@ -1,0 +1,22 @@
+SECURITY AND HISTORY REVIEW — 17 November 2026
+SCOPE: structural/static recovery, not a penetration test or GitHub account incident certification. No tests were run after the owner's structure-only instruction.
+
+CONFIRMED CODE/CONFIGURATION FINDINGS
+1. Optional cloud marketplace auth trusts caller-supplied bearer/user-ID development headers in editor/apps/cloud/src/marketplace/auth.ts. Legacy template mutation routes in src/index.ts also lack verified identity. This is not a suitable public production authentication system. Earlier fail-closed proposals are preserved INACTIVE under experiments/post-audit-proposals; no security fix is claimed delivered in this structure-only pass. Do not deploy this optional service until verified authentication, ownership and reviewer authorization are implemented.
+2. Core expression evaluators use new Function (packages/core/src/effects/expression-engine.ts and motion/motion-expressions.ts). Imported/generated expressions need a restricted trust/sandbox design; renderer globals/network/storage remain relevant even with Electron node isolation.
+3. Desktop IPC filesystem operations accept paths through validation but require a fuller capability/allowed-root review (apps/desktop/src/main/ipc/fs.ts). Desktop URL fetch validation does not establish DNS/redirect/private-address SSRF protection. These are unresolved release risks, not proof of an observed exploit.
+4. Two legacy contents:write/git-push workflows were already preserved inactive under legacy-automation. Five active workflows request read-only contents permissions. Nested reference snapshot workflows are not discovered by GitHub Actions.
+5. Binary/native/model/codec and third-party asset provenance remains a distribution review requirement. A binary's presence does not establish malware, compatibility or redistribution rights.
+
+ARCHIVE ISOLATION
+pnpm workspace globs apps/* and packages/* are rooted at editor/. AnalyseFuture is outside them. Web/image src/public and explicit Electron files/resources define active packaging; archive code is outside those paths. Active Actions live only in root .github/workflows. No archived script or dependency was executed or installed. Folder isolation does not itself certify contents safe for restoration.
+
+HISTORY / ACCESS
+Accessible history is complete/non-shallow; origin advertises default main, only main and no tags. The ZIP-adding commit4323697 sits above earlier project history. No commit was automatically reverted and published history was not rewritten. A complete-history Git bundle was verified outside checkout, and starting Git object inventory is committed.
+GitHub API metadata/protection access returned Forbidden using existing gh configuration. Normal Git read and ordinary main pushes work. Account audit logs, token/session grants, collaborator privileges, signed-commit trust and branch protection were not independently verified. No bypass or new credential request was used.
+
+CREDENTIAL SCAN LIMITS
+Earlier static audit read20,227 tracked paths and reported no high-confidence GitHub/AWS/private-key/Slack/provider-key-shaped matches. This is a bounded regex signal, not proof that no credential or sensitive data exists. No secret values are included in reports. Newly created grouping changes contain paths/content preserved from that baseline and no credential configuration changes.
+
+OWNER ACTION IF UNAUTHORIZED ACCESS IS SUSPECTED
+Review GitHub sessions, collaborators, installed apps, deploy keys/tokens, audit logs and workflow permissions; rotate credentials actually exposed or unauthorized. Obtain audit evidence before attributing authorship. Repository reorganization alone cannot secure an account. Treat optional cloud publication and untrusted project expressions as blocked pending appropriate security work.

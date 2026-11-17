@@ -44,17 +44,17 @@ Key observed source locations:
 | Location | Role |
 |---|---|
 | editor/apps/web/src/App.tsx | App routing, new project lifecycle |
-| editor/apps/web/src/components/editor/AssetsPanel.tsx | Import media, asset placement, text/title presets |
-| editor/apps/web/src/components/editor/Timeline.tsx | Timeline UI/tools |
-| editor/apps/web/src/components/editor/Toolbar.tsx | Export entry, project name and dialogs |
-| editor/apps/web/src/components/editor/ExportDialog.tsx | Settings and export selections |
-| editor/apps/web/src/stores/project-store.ts | Project state and editing commands |
-| editor/apps/web/src/stores/timeline-store.ts | UI timeline/playhead state |
-| editor/apps/web/src/bridges/media-bridge.ts | Bridge to media import |
-| editor/apps/web/src/services/auto-save.ts | Browser IndexedDB autosave/recovery |
-| editor/apps/web/src/services/project-manager.ts | Project .oreel save/open |
-| editor/apps/web/src/services/media-storage.ts | Media blob persistence/retrieval |
-| editor/apps/web/src/services/export-runner.ts | UI-to-export-engine, download/file writes |
+| editor/apps/web/src/features/media/components/AssetsPanel.tsx | Import media, asset placement, text/title presets |
+| editor/apps/web/src/features/timeline/components/Timeline.tsx | Timeline UI/tools |
+| editor/apps/web/src/features/editor-shell/components/Toolbar.tsx | Export entry, project name and dialogs |
+| editor/apps/web/src/features/export/components/ExportDialog.tsx | Settings and export selections |
+| editor/apps/web/src/features/projects/state/project-store.ts | Project state and editing commands |
+| editor/apps/web/src/features/timeline/state/timeline-store.ts | UI timeline/playhead state |
+| editor/apps/web/src/features/media/bridges/media-bridge.ts | Bridge to media import |
+| editor/apps/web/src/features/projects/services/auto-save.ts | Browser IndexedDB autosave/recovery |
+| editor/apps/web/src/features/projects/services/project-manager.ts | Project .oreel save/open |
+| editor/apps/web/src/features/media/services/media-storage.ts | Media blob persistence/retrieval |
+| editor/apps/web/src/features/export/services/export-runner.ts | UI-to-export-engine, download/file writes |
 | editor/packages/core/src/timeline/clip-manager.ts | Timeline clip operations |
 | editor/packages/core/src/media/media-import-service.ts | Media import and metadata |
 | editor/packages/core/src/playback/ | Master clock and preview playback |

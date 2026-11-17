@@ -18,7 +18,7 @@ The E2E test is \`editor/apps/studio/e2e-web/main-editor-edit-export.spec.ts\`. 
 
 The test then invokes the **actual browser Toolbar's MP4 Standard export**, waits for a browser download, saves the bytes, fully decodes them with FFmpeg and checks codec/duration/resolution. Content QA samples pixels before and after the red/blue cut, asserts visible difference in the title region against the clean source, and verifies PCM audio is present in two expected windows. The exported MP4 and decoded measurements were attached to the Playwright test and retained in [the run's \`main-editor-browser-smoke\` artifact](https://github.com/anneshabiswaas22-collab/advance-video-edior/actions/runs/43742090193).
 
-The first test attempt [run 43741356307](https://github.com/anneshabiswaas22-collab/advance-video-edior/actions/runs/43741356307) **failed** because the actual first-run onboarding spotlight blocked a thumbnail click. We inspected \`editor/apps/web/src/components/editor/tour/SpotlightTour.tsx\` and fixed the test to click the accessible **Skip tour** control. This is not an app rendering error; it was an unhandled genuine first-run UX step in the test.
+The first test attempt [run 43741356307](https://github.com/anneshabiswaas22-collab/advance-video-edior/actions/runs/43741356307) **failed** because the actual first-run onboarding spotlight blocked a thumbnail click. We inspected \`editor/apps/web/src/features/onboarding/components/SpotlightTour.tsx\` and fixed the test to click the accessible **Skip tour** control. This is not an app rendering error; it was an unhandled genuine first-run UX step in the test.
 
 ## Reproduction
 

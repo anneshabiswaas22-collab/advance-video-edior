@@ -274,6 +274,16 @@ def audit(root: Path) -> dict[str, object]:
                 row["inspection"] = "text-read-import-scan"
                 break
 
+    incoming = defaultdict(list)
+    for edge in edges:
+        if edge["kind"] in {"relative", "source-alias"}:
+            incoming[edge["to"]].append(edge["from"])
+    for row in rows:
+        row["referenced_by"] = sorted(set(incoming.get(row["path"], [])))
+        row["usage_status"] = ("excluded historical/reference material" if row["status"] != "active" else
+                               "statically referenced" if row["referenced_by"] else
+                               "no direct static import found; entrypoint, asset, runtime or dynamic usage may exist")
+
     active_groups = [group for group in duplicates if len(group["active_members"]) > 1]
     summary = {
         "scope": "all git-tracked paths plus nonignored working-tree additions and required audit paths",
