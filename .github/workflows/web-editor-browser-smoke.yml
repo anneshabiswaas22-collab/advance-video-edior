@@ -7,10 +7,23 @@ on:
       - editor/apps/studio/e2e-web/**
       - .github/workflows/web-editor-browser-smoke.yml
       - editor/apps/web/**
+      - editor/packages/**
+      - editor/pnpm-lock.yaml
+      - editor/pnpm-workspace.yaml
+      - editor/package.json
+      - editor/tsconfig.base.json
+      - scripts/media/**
   push:
     branches: [main]
     paths:
       - editor/apps/web/**
+      - editor/apps/studio/playwright.web.config.ts
+      - editor/packages/**
+      - editor/pnpm-lock.yaml
+      - editor/pnpm-workspace.yaml
+      - editor/package.json
+      - editor/tsconfig.base.json
+      - scripts/media/**
       - editor/apps/studio/e2e-web/**
       - .github/workflows/web-editor-browser-smoke.yml
   workflow_dispatch:

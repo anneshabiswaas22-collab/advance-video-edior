@@ -1,6 +1,6 @@
 # Project structure
 
-Updated 17 November 2026. This organization follows the owner's instruction to group by actual responsibility, preserve all existing work, and perform this pass without tests. The active product remains one OpenReel-based browser/Windows editor, with companion creation tools. No competing editor engine was merged, no Git history was rewritten, and no files were discarded.
+The 17 November 2026 organization grouped files by responsibility and preserved existing work without running tests during that structure-only pass. The owner subsequently authorized validation and security recovery; see [current recovery status](docs/CODEX_RECOVERY_STATUS.md) for fresh results and limitations. The active product remains one OpenReel-based browser/Windows editor, with companion creation tools. No competing editor engine was merged, no Git history was rewritten, and no files were discarded.
 
 ## Top-level homes
 
