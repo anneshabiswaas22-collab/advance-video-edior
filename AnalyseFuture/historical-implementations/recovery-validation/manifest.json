@@ -36,6 +36,12 @@
       "preserved_path": "AnalyseFuture/historical-implementations/recovery-validation/.github/workflows/web-editor-browser-smoke.yml",
       "sha256": "1fa3e60ad3ee572986bae1182abeee7464d7ad172c98da864ad45992391fede2",
       "reason": "Preserve pre-recovery operational instructions and CI configuration before authorized validation/security follow-up."
+    },
+    {
+      "original_path": "scripts/repository/verify_repository_preservation.py",
+      "preserved_path": "AnalyseFuture/historical-implementations/recovery-validation/scripts/repository/verify_repository_preservation.py",
+      "sha256": "dc34ac2532d753240858d92981a63ef8648ed13052a05c390f27b5fa1fe3e51b",
+      "reason": "Preserve checker before adding new exact recovery-archive locations; retain expected hashes and path safety."
     }
   ]
 }

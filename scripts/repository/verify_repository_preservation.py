@@ -10,6 +10,12 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFESTS = ROOT / "AnalyseFuture" / "manifests"
+PRESERVED_ROOTS = (
+    "AnalyseFuture/recovery-originals",
+    "AnalyseFuture/historical-implementations/restructure",
+    "AnalyseFuture/historical-implementations/recovery-validation",
+    "AnalyseFuture/historical-implementations/security-recovery",
+)
 
 
 def digest(path: Path) -> str:
@@ -38,7 +44,13 @@ def main() -> int:
     failures = []
     for item in baseline["files"]:
         name = item["path"]
-        candidates = [name, moved.get(name, name), f"AnalyseFuture/recovery-originals/{name}", f"AnalyseFuture/historical-implementations/restructure/{name}"]
+        names = {name, moved.get(name, name)}
+        # Recovery fixes can alter a relocated active file. Its exact earlier
+        # bytes may be archived under either the original or relocated path.
+        # Every candidate still requires the original manifest's SHA-256 match.
+        candidates = list(names) + [
+            f"{archive}/{relative}" for archive in PRESERVED_ROOTS for relative in names
+        ]
         if not any(matches(candidate, item["sha256"]) for candidate in candidates):
             failures.append(f"Original missing or altered without preserved copy: {name}")
 
