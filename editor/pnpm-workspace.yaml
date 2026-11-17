@@ -21,3 +21,7 @@ allowBuilds:
   protobufjs: false
   sharp: false
   workerd: false
+
+overrides:
+  "protobufjs@7.5.4": "7.6.5"
+  "lodash-es@4.17.23": "4.18.1"

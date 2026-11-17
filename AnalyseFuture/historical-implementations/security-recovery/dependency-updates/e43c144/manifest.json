@@ -1,0 +1,7 @@
+{
+  "base_commit": "e43c144724cdd340478c1cb86adeb31c2cdbfd40",
+  "path": "editor/pnpm-lock.yaml",
+  "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/dependency-updates/e43c144/editor/pnpm-lock.yaml",
+  "sha256": "8db984b7b5ad1f5b285633448ff983d1596dc31e8c471a83aa68a0e083255012",
+  "reason": "Exact lockfile after expression hardening before targeted protobufjs/lodash-es advisory updates."
+}

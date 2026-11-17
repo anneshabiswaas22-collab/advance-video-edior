@@ -1,0 +1,9 @@
+{
+  "base_commit": "40ab9e5e81f025a67fef1b0f8adeec7d85ed4a74",
+  "path": "editor/pnpm-workspace.yaml",
+  "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/dependency-updates/e43c144/editor/pnpm-workspace.yaml",
+  "sha256": "19efff9d8347852b65397d9f8a4ad9b1c2cb6e930c765c0fa935c9bfb2b8cb10",
+  "reason": "Exact original before scoped protobufjs and lodash-es security overrides.",
+  "canonical_preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/pnpm-workspace.yaml",
+  "canonical_sha256": "19efff9d8347852b65397d9f8a4ad9b1c2cb6e930c765c0fa935c9bfb2b8cb10"
+}
