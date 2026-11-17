@@ -1,0 +1,196 @@
+diff --git a/editor/apps/cloud/README.md b/editor/apps/cloud/README.md
+index 3416fb8..eb38495 100644
+--- a/editor/apps/cloud/README.md
++++ b/editor/apps/cloud/README.md
+@@ -2,6 +2,23 @@
+ 
+ Cloudflare Worker API for OpenReel template storage and sharing.
+ 
++## Authentication and deployment status
++
++This backend is not ready for public production deployment. It has no production
++identity verifier. All non-GET/HEAD/OPTIONS requests now fail with HTTP 401 unless
++trusted server authentication middleware establishes a `verifiedIdentity` context
++principal. Caller-supplied bearer/user/creator headers are never an identity, and
++setting `ENVIRONMENT=development` or `test` does not enable a bypass. Existing API
++tests inject a principal through a test-only wrapper, outside deployed code.
++
++This deliberately disables unauthenticated template mutations, share uploads,
++AI/highlight jobs, marketplace events and crash uploads. Public discovery reads
++remain available. Before enabling authenticated operations, implement and test a
++real credential verifier, creator/reviewer authorization, ownership checks,
++durable rate limits, body limits and a privacy/abuse review. These changes are a
++fail-closed safety boundary, not a complete authentication implementation. The
++deployment examples below describe infrastructure setup, not production approval.
++
+ ## Features
+ 
+ - **Template Storage**: Upload and store templates in Cloudflare R2
+diff --git a/editor/apps/cloud/src/index.ts b/editor/apps/cloud/src/index.ts
+index 575fc7b..c940751 100644
+--- a/editor/apps/cloud/src/index.ts
++++ b/editor/apps/cloud/src/index.ts
+@@ -5,6 +5,7 @@ import marketplace from './marketplace/marketplace';
+ import studio from './marketplace/studio';
+ import events from './marketplace/events';
+ import crash from './crash/routes';
++import { requireUser, isResponse } from './marketplace/auth';
+ 
+ const app = new Hono<{ Bindings: Bindings }>();
+ 
+@@ -25,6 +26,17 @@ app.use('/*', cors({
+   maxAge: 86400,
+ }));
+ 
++// This optional backend has no production identity verifier yet. Fail closed
++// for every mutation, including legacy upload/delete/AI and crash endpoints;
++// CORS or caller-supplied identity headers must never authorize a write.
++app.use('/*', async (c, next) => {
++  if (!['GET', 'HEAD', 'OPTIONS'].includes(c.req.method)) {
++    const identity = requireUser(c);
++    if (isResponse(identity)) return identity;
++  }
++  await next();
++});
++
+ // Marketplace + Studio API (STUDIO_PLAN §34), mounted under /v1.
+ app.route('/v1', marketplace);
+ app.route('/v1', studio);
+diff --git a/editor/apps/cloud/src/marketplace/api.test.ts b/editor/apps/cloud/src/marketplace/api.test.ts
+index d2699eb..7b0805c 100644
+--- a/editor/apps/cloud/src/marketplace/api.test.ts
++++ b/editor/apps/cloud/src/marketplace/api.test.ts
+@@ -1,4 +1,5 @@
+ import { describe, it, expect, beforeEach } from "vitest";
++import { Hono } from "hono";
+ import app from "../index";
+ import { sealEvent, getBlueprint } from "@openreel/fxpkg";
+ 
+@@ -7,8 +8,24 @@ const env = { ENVIRONMENT: "test", EVENT_HMAC_SECRET: "test-secret" } as unknown
+ const creatorHeaders = { "Content-Type": "application/json", "X-User-Id": "u-creator", "X-Creator-Id": "c-1", "X-Creator-Handle": "augani" };
+ const userHeaders = { "Content-Type": "application/json", "X-User-Id": "u-viewer" };
+ 
++// Test-only trusted authentication adapter. Production code never derives a
++// principal from these headers; unwrapped-app denial tests cover that boundary.
++const authenticatedTestApp = new Hono();
++authenticatedTestApp.use("*", async (c, next) => {
++  const userId = c.req.header("x-user-id");
++  if (userId) {
++    c.set("verifiedIdentity", {
++      userId,
++      creatorId: c.req.header("x-creator-id"),
++      handle: c.req.header("x-creator-handle"),
++    });
++  }
++  await next();
++});
++authenticatedTestApp.route("/", app);
++
+ async function req(path: string, init?: RequestInit) {
+-  return app.request(path, init, env as never);
++  return authenticatedTestApp.request(path, init, env as never);
+ }
+ 
+ describe("marketplace + studio API", () => {
+diff --git a/editor/apps/cloud/src/marketplace/auth.ts b/editor/apps/cloud/src/marketplace/auth.ts
+index c186ee3..7ce5716 100644
+--- a/editor/apps/cloud/src/marketplace/auth.ts
++++ b/editor/apps/cloud/src/marketplace/auth.ts
+@@ -1,10 +1,10 @@
+ import type { Context } from "hono";
+ 
+ /**
+- * Auth shim (STUDIO_PLAN §45.3). Cross-platform identity is cookie (web) or
+- * bearer token (mobile); the marketplace API accepts either. This dev shim
+- * trusts `Authorization: Bearer <userId>` / `X-Creator-Id` so the surface is
+- * exercisable end-to-end; swap for real JWT/cookie verification in prod.
++ * A principal must be established by trusted server authentication middleware.
++ * Request headers and environment names are not proof of identity. There is
++ * deliberately no header-based development bypass in the deployed application.
++ * Until a real verifier populates this context, authenticated routes fail closed.
+  */
+ export interface Identity {
+   userId: string;
+@@ -13,13 +13,15 @@ export interface Identity {
+ }
+ 
+ export function getIdentity(c: Context): Identity | null {
+-  const auth = c.req.header("authorization");
+-  const bearer = auth?.toLowerCase().startsWith("bearer ") ? auth.slice(7).trim() : undefined;
+-  const userId = bearer || c.req.header("x-user-id");
+-  if (!userId) return null;
+-  const creatorId = c.req.header("x-creator-id") || userId;
+-  const handle = c.req.header("x-creator-handle") || undefined;
+-  return { userId, creatorId, handle };
++  const principal: unknown = c.get("verifiedIdentity");
++  if (!principal || typeof principal !== "object") return null;
++  const { userId, creatorId, handle } = principal as Partial<Identity>;
++  if (typeof userId !== "string" || !userId.trim()) return null;
++  return {
++    userId,
++    creatorId: typeof creatorId === "string" && creatorId.trim() ? creatorId : undefined,
++    handle: typeof handle === "string" && handle.trim() ? handle : undefined,
++  };
+ }
+ 
+ export function requireUser(c: Context): Identity | Response {
+diff --git a/editor/apps/web/src/bridges/silence-cut-bridge.ts b/editor/apps/web/src/bridges/silence-cut-bridge.ts
+index 90306f8..61d2826 100644
+--- a/editor/apps/web/src/bridges/silence-cut-bridge.ts
++++ b/editor/apps/web/src/bridges/silence-cut-bridge.ts
+@@ -1,5 +1,6 @@
+ import { getAudioEngine } from "@openreel/core";
+ import { useProjectStore } from "../stores/project-store";
++import { loadAudioBuffer } from "../utils/load-audio-buffer";
+ 
+ export interface SilenceSettings {
+   threshold: number;
+@@ -62,8 +63,12 @@ export class SilenceCutBridge {
+     onProgress?.(10, "Loading audio...");
+ 
+     const audioContext = this.getAudioContext();
+-    const arrayBuffer = await mediaItem.blob.arrayBuffer();
+-    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
++    const audioBuffer = await loadAudioBuffer(audioContext, mediaItem.blob, {
++      audioTrackIndex: clip.audioTrackIndex,
++    });
++    if (!audioBuffer) {
++      throw new Error("Could not decode the selected audio track for silence analysis.");
++    }
+ 
+     onProgress?.(30, "Detecting silence...");
+ 
+diff --git a/editor/apps/web/src/components/editor/inspector/AudioDuckingSection.tsx b/editor/apps/web/src/components/editor/inspector/AudioDuckingSection.tsx
+index 55f8153..8125619 100644
+--- a/editor/apps/web/src/components/editor/inspector/AudioDuckingSection.tsx
++++ b/editor/apps/web/src/components/editor/inspector/AudioDuckingSection.tsx
+@@ -26,6 +26,7 @@ import { PropertySlider } from "./shell/PropertySlider";
+ import { MockToggle } from "./shell/InspectorControls";
+ import { useProjectStore } from "../../../stores/project-store";
+ import type { AudioDuckingSettings } from "../../../stores/project";
++import { loadAudioBuffer } from "../../../utils/load-audio-buffer";
+ 
+ interface AudioDuckingSectionProps {
+   clipId: string;
+@@ -147,7 +148,7 @@ const DuckingSlider: React.FC<DuckingSliderProps> = ({
+   </div>
+ );
+ 
+-const buildTriggerTrackBuffer = async (
++export const buildTriggerTrackBuffer = async (
+   project: Project,
+   backgroundClip: Clip,
+   sourceTrack: Track,
+@@ -201,8 +202,10 @@ const buildTriggerTrackBuffer = async (
+       }
+ 
+       try {
+-        const arrayBuffer = await mediaItem.blob.arrayBuffer();
+-        const decodedBuffer = await decodeContext.decodeAudioData(arrayBuffer.slice(0));
++        const decodedBuffer = await loadAudioBuffer(decodeContext, mediaItem.blob, {
++          audioTrackIndex: sourceClip.audioTrackIndex,
++        });
++        if (!decodedBuffer) continue;
+         const source = offlineContext.createBufferSource();
+         const gainNode = offlineContext.createGain();
+         const playbackRate = Math.max(0.1, sourceClip.speed ?? 1);

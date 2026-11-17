@@ -1,0 +1,573 @@
+PROJECT VISION AND FUTURE ROADMAP
+Evidence and planning baseline: 17 November 2026 (client date)
+Repository: anneshabiswaas22-collab/advance-video-edior
+
+PURPOSE AND STATUS RULES
+
+This expanded report preserves the complete original PROJECT_IDEA.txt below and
+adds an explicit feasibility classification, competitive direction and three-to-
+five-year research horizon. It does not replace the owner's original idea file.
+It describes one browser-plus-Windows editor built on the existing OpenReel
+foundation. It authorizes no automatic service deployment, language migration,
+paid AI usage or merger of alternative editor engines.
+
+Use these labels when choosing future work:
+VERIFIED: demonstrated by a named test on a recorded checkout/environment.
+PRESENT / NOT FULLY VERIFIED: code exists, but the intended complete workflow or
+platform has not met its acceptance gate.
+CONFIRMED BROKEN: a reproducible current failure with evidence and scope. Do not
+apply this label merely because a feature is unfamiliar or has a skipped test.
+FEASIBLE NOW: an ordinary engineering task with understood dependencies; this is
+not a claim that the feature is already implemented or can ship without testing.
+RESOURCE-DEPENDENT: needs specific hardware, specialist skills, models, rights,
+funding or infrastructure that has not been established for this project.
+EXPERIMENTAL: a narrow prototype may be useful, but quality/robustness needs study.
+SPECULATIVE: no reliable project-level delivery path or date is established.
+UNSUPPORTED PROMISE: a blanket guarantee that this project should not advertise.
+
+CURRENT CAPABILITY AND FEASIBILITY CLASSIFICATION
+
+Verified in the earlier cloud setup: type checks, a production build, 3,420 unit
+passes with 34 skips, 24 Python media checks, and two Chromium tests. The later
+repository-structure evidence records a fresh 24-test Python pass and a fresh
+two-test Chromium pass after preservation/reorganization. These are separate runs,
+not extra features or independent Windows certification. See docs/evidence/
+repository-restructure-2026-11-17.md for recorded commands and run boundaries.
+
+Present / not fully verified: desktop/native integration, many effects and
+creation packages, agent features, companion image/studio/cloud surfaces, extensive
+timeline tools and professional workflows. Presence and unit coverage should be
+recorded per capability; no broad production-readiness inference follows.
+
+Confirmed broken: this report does not establish a current broken production
+workflow. Previously failed downloads during onboarding were diagnosed and
+resolved as environment problems. Any new failing run must be recorded with its
+checkout, command, input and outcome before being called an application defect.
+
+Feasible now: strengthen real UI gesture tests, one-frame/audio regression checks,
+project backups, relink/recovery validation, accessible controls, feature/evidence
+inventory, documented export support and a bounded creator workflow. Audit existing
+implementation first; many components already exist.
+
+Resource-dependent: Windows release qualification, real GPU/4K benchmarks, native
+codec packaging, robust multilingual local models, HDR reference validation,
+collaboration infrastructure and a specialist commercial redistribution review.
+
+Experimental: model-assisted rough cuts, local semantic search, object reframing,
+model-based cleanup and improved tracking. Select narrow tasks and measure failure
+rates instead of assuming a model makes an entire workflow reliable.
+
+Speculative: long-form generative scene consistency, broadly autonomous professional
+editing, exact object-aware relighting across arbitrary footage and general
+cross-project cinematic reasoning without sustained human review.
+
+Unsupported promises: perfect editing decisions, guaranteed recovery of uncaptured
+original detail, universal real-time 4K/8K on all hardware, zero security risk,
+unlimited free inference/storage, or unrestricted rights to all generated media.
+
+FULL PRODUCT IDEA (PRESERVED FROM THE ROOT IDEA FILE)
+
+ADVANCED VIDEO EDITOR — PROJECT IDEA AND LONG-TERM PRODUCT VISION
+Planning baseline: 17 November 2026
+Primary delivery targets: browser editor and Windows desktop application
+Status: product direction and staged proposal, not a claim of finished features
+
+1. THE IDEA
+
+Build one original video-editing platform that helps a beginner finish a useful
+video quickly and gives an experienced editor precise control when needed.
+The product should combine an approachable creator workflow with dependable
+timeline editing, meaningful audio and color tools, recoverable projects, and
+an optional AI assistant that works under the editor's control.
+
+The central promise is: import your footage, shape your story, keep control of
+your work, and export the edit you actually saw. Reliability matters more than
+having the longest feature list. An attractive preview is insufficient if the
+saved project loses media or the exported file contains different timing.
+
+CapCut, Premiere Pro and DaVinci Resolve are usability and capability benchmarks.
+Their proprietary code, assets and branding are not ingredients to copy. Our
+product needs its own identity, interaction decisions, licensed resources and
+measurable strengths. Reaching their entire feature range is a long-term ambition,
+not an initial release promise or a result established by the current code.
+
+2. START FROM THE WORK WE ALREADY HAVE
+
+This is an existing engineering project, not a request to begin again. The active
+foundation is OpenReel under editor/. It already contains a TypeScript/React web
+application, shared editing and media packages, Electron desktop integration,
+project persistence, preview and export paths, UI components and optional agent
+features. There are additional applications and packages whose exact product role
+should be audited before changing or removing them.
+
+Root scripts/ and tests/ provide Python and FFmpeg media-quality tools. They are
+supporting infrastructure, not a competing video-editor engine. Project history,
+decision records, research references and earlier evidence live under docs/.
+
+There is concrete evidence worth protecting. Earlier recorded CI demonstrated
+a Chromium workflow that imports video and audio, splits/trims through the real
+editor store, adds a title, saves, reloads, recovers media and exports an MP4.
+Independent checks decode the output and inspect selected frames and audio.
+The earlier cloud setup in this session (17 November 2026, client date) also
+completed type checks, a production build, 3,420 passing workspace unit tests
+with 34 skipped, 24 passing
+Python media tests, and two passing Chromium tests using system Chromium.
+Those are results for that tested checkout and environment. They do not certify
+every feature, every platform or subsequent changes.
+
+Still unverified as complete workflows are broad mouse/keyboard editing coverage,
+frame-perfect boundary behavior across formats, sample-accurate audio sync,
+comprehensive preview/export parity, native Windows operation, real GPU paths,
+4K performance, very large projects and the complete redistribution/license audit.
+Source files and passing unit tests alone must not be presented as proof of these.
+
+The three supplied ZIP archives are preserved research/source snapshots. OpenReel
+is the current foundation; FreeCut and OpenCut are independent comparison sources.
+Extracting them is not approval to combine three timelines, replace the current
+editor, or run their installation scripts. Keep their provenance and licenses.
+
+3. WHO THE PRODUCT SERVES
+
+First audience: independent creators, educators and small content teams making
+short videos, tutorials, interviews and social clips. They need clear import,
+fast basic edits, readable captions, understandable export choices and recovery
+when something goes wrong. The first release should solve a narrow set of these
+jobs well before advertising a full professional post-production suite.
+
+Second audience: intermediate editors who need precise trims, reusable styles,
+sequences, good audio controls, proxies, keyboard efficiency and predictable
+file management. They should grow into deeper tools without rebuilding a project.
+
+Later audience: professional editors and teams needing multicamera work, advanced
+color, audio routing, complex compositions, interchange, review and managed assets.
+These users require stronger evidence, compatibility commitments and support.
+
+Different workspaces can expose different levels of complexity while sharing one
+project and engine. Beginner mode must not create a separate project format that
+becomes a dead end. Accessibility, discoverable shortcuts and clear terminology
+should be part of the core workflow rather than a final visual polish pass.
+
+4. THE SIGNATURE USER JOURNEY
+
+A creator opens a local project and imports footage, music and graphics. The app
+reports unsupported media clearly and offers a proxy where a supported path exists.
+The creator arranges clips, trims gaps, adds titles or captions, adjusts levels,
+checks the preview and saves. Reopening the project restores the accepted edit
+and its media references, or explains precisely which originals need relinking.
+
+The creator can ask an assistant to suggest a shorter cut, identify silence,
+draft captions or produce a portrait version. The app presents proposed changes,
+time ranges and any data/network requirements. Accepted changes become ordinary
+undoable editing commands. The creator can refine every suggestion manually.
+
+Export presents compatible presets, expected dimensions/frame rate and supported
+codec choices. It shows progress, allows cancellation, handles disk exhaustion,
+and explains failures. Completion means a valid file exists and includes the edit;
+a success animation or an open output path is not enough.
+
+5. FIRST PRODUCT PRIORITY: AN EDITOR PEOPLE CAN TRUST
+
+Before expanding feature breadth, harden import, timeline operations, preview,
+audio, save/reopen, relinking, undo/redo and export. Audit existing implementation
+before adding a duplicate tool. Build a feature ledger with these distinct states:
+present in source, covered by a unit test, validated through the UI, exported
+correctly, validated on Windows, and ready for supported release.
+
+Essential editing scope includes multitrack placement, trim/split, snapping,
+ripple operations, predictable selection, clip transforms, basic transitions,
+titles, keyframes, captions, audio levels/fades and export presets. Exact release
+scope depends on the audit; this list describes intended acceptance, not a claim
+that every item is already complete.
+
+Recovery must cover crashes, browser restarts, quota pressure, missing media and
+interrupted exports. Users need explicit project backups and understandable
+storage usage. Browser autosave is useful but browser storage can be cleared;
+it should not be the only recovery mechanism users believe they possess.
+
+6. CREATOR FEATURES AFTER THE RELIABILITY BASELINE
+
+Develop coherent workflows rather than isolated buttons. A talking-head workflow
+can combine silence detection, reviewed captions, audio cleanup, title presets
+and social reframing. A tutorial workflow can combine screen footage, callouts,
+zoom keyframes, chapter markers and clear speech. A short promotional workflow
+can combine reusable styles, licensed graphics, music timing and aspect ratios.
+
+Candidate capabilities include animated text, caption styling, speed ramps,
+stabilization, background removal, beat markers, reusable templates, brand styles,
+safe zones, thumbnail frames and batch delivery of approved variants. Their
+accuracy and speed depend on implementation and hardware. Existing modules must
+be checked first; adoption means verified behavior, not merely another dependency.
+
+Templates should be editable project instructions and licensed assets. They should
+not hide broken timing, hard-code watermarks, or silently rely on paid services.
+Portrait reframing needs a visible crop path and manual correction. Caption
+generation needs text review, timing correction and export/burn-in checks.
+
+7. PROFESSIONAL FEATURES AS SEPARATE ACCEPTANCE PROGRAMS
+
+Precision editing: rolling/slip/slide tools, nested sequences, multicamera editing,
+markers, source/sequence monitoring, media relinking and interchange. Tests must
+cover time bases, mixed frame rates, variable-frame-rate sources, rotations and
+audio sample rates rather than only one synthetic MP4.
+
+Color: exposure/contrast controls, white balance, curves, LUT handling, scopes and
+a documented color pipeline. Wider color gamuts and HDR require explicit transfer
+functions, metadata handling, display conditions and measured output validation.
+A color-looking UI alone is not a color-managed professional pipeline.
+
+Audio: channel mapping, meters, gain, fades, equalization, compression, ducking,
+bus routing and loudness delivery. Noise reduction and speech enhancement need
+quality checks for artifacts and fidelity. Reconstruction of clipped or missing
+audio must not be advertised as guaranteed recovery of the original signal.
+
+Compositing: masks, tracking, chroma key, layers, blends, motion graphics and effect
+ordering. Preview and export need matching timing and composition rules. Complex
+3D/VFX work should initially use import/export and focused adapters rather than
+an immediate attempt to recreate an entire specialist application.
+
+8. ONE PROJECT, ONE AUTHORITATIVE MODEL
+
+Retain one canonical timeline, media library, project schema, command/history
+system and accepted edit state. The UI, AI assistant, preview, persistence and
+export must work from those shared contracts. Additional applications should
+have a documented purpose and integrate through explicit boundaries.
+
+The intended path is:
+user action or accepted AI proposal -> validated editing command -> project state
+-> shared timing/composition semantics -> preview or export -> independent checks.
+
+Different acceleration backends can exist where necessary, but they must honor
+the same project semantics. A Rust media adapter, native FFmpeg process or GPU
+shader should not invent a second timeline or undo stack. Schema migrations need
+versioning, compatibility tests and recoverable backups.
+
+Keep original media separate from derived proxies, thumbnails, waveforms, renders
+and model caches. Generated files should be regenerable and have bounded storage.
+Media references need stable identity and relink behavior. Do not equate a filename
+with proof that two pieces of media are identical.
+
+9. LANGUAGE STRATEGY
+
+Use TypeScript as the primary application and command/API language because the
+current editor, UI and many shared packages already use it. Retain Python where
+it provides useful media QA or isolated analysis. Retain AssemblyScript/WASM,
+GPU shader languages and existing native components where they solve a measured
+need. Consider Rust/C++ work only behind a justified, tested interface.
+
+A complete product does not require a single programming language. Rewriting
+everything into TypeScript would consume time, risk regressions and still rely
+on browser/native codec and GPU implementations written in other languages.
+Prefer a small number of clear boundaries over a language-purity rewrite.
+
+Each boundary needs typed inputs, time units, error behavior, cancellation,
+resource limits, versioning and reproducible tests. Shared schemas or generated
+bindings can reduce drift. Large media should not be repeatedly copied through
+JSON merely to make a cross-language interface look convenient.
+
+10. AI AS AN OPTIONAL EDITING PARTNER
+
+The first useful AI features should be bounded and inspectable: transcription,
+silence/scene suggestions, media search, caption drafts, rough-cut proposals,
+reframing assistance, accessible descriptions and explanations of editing tools.
+Prefer local inference when quality, hardware, license and download size permit.
+Expose optional providers only with explicit consent and clear costs/data flow.
+
+AI must use validated project-scoped commands. It should preview a change set,
+identify affected clips, preserve undo, obey constraints such as locked tracks,
+and distinguish uncertainty from facts. Model output is untrusted input. Text in
+captions, media metadata, a document or an imported project is not authorization
+to run commands, send files or change the user's system.
+
+No model should receive unrestricted filesystem, shell, credential or network
+access as a default editing feature. Operations outside the project or involving
+uploads, paid inference, deletion or publication require the appropriate explicit
+user action. Mock providers should exercise command and denial paths in CI.
+
+AI-generated footage, voice or music could become optional media sources later,
+but this project remains an editor. Outputs need rights review, provenance and
+clear generated-content labeling where relevant. Voice/likeness use requires
+permission. A generated shot cannot be claimed as documentary evidence of an
+event, and copyrighted style/asset requests need appropriate handling.
+
+11. PRIVACY, SECURITY AND RECOVERY
+
+Default to local media processing. Make cloud transfer an informed choice with
+visible destination, purpose and retention expectations. Keep secrets out of
+project files, logs and source control. Optional plugins need capability limits,
+versioned interfaces and a disable/recovery path.
+
+The owner reported repository disruption. That report justifies preserving files,
+recording hashes and reviewing history, but it does not by itself prove which
+files are malicious or who changed them. A source review is not a complete account
+or infrastructure incident investigation. Any security conclusion needs evidence.
+
+Repository recovery should preserve original files and uncertain material under
+AnalyseFuture/, document why items were moved, and keep the active application
+separate from research snapshots. Do not execute archived workflows or install
+archived dependencies merely because they were extracted. Avoid automatic
+deletion of content judged unnecessary; preserve provenance for later review.
+
+Project safety also includes bounded media parsing, path restrictions in desktop
+IPC, safe temporary files, dependency verification and handling malicious/corrupt
+input. Shipping requires a documented update and vulnerability-response process.
+
+12. PERFORMANCE AND HARDWARE EXPECTATIONS
+
+Measure before promising. Record OS, browser, CPU/GPU, memory, codecs, dimensions,
+frame rates, timeline complexity and acceleration path. A 360p software-rendered
+cloud test cannot certify 4K hardware playback or native Windows encode behavior.
+
+Use proxies, workers, bounded decode queues, cache budgets, cancellable jobs and
+supported hardware acceleration. Provide a graceful lower-resolution preview or
+software fallback when feasible. Communicate unsupported operations honestly.
+Long exports need memory stability, usable progress and recoverable failures.
+
+Set product targets only after collecting representative baselines. Track import
+and seek latency, dropped frames, peak memory, export duration, recovery success
+and failure rates. Publish the measured fixture/hardware conditions with results.
+Avoid a universal real-time or unlimited-layers promise.
+
+13. QUALITY GATES THAT MAKE FEATURES REAL
+
+Every accepted feature should work on real media, be reachable through the UI or
+an authorized command, persist when appropriate, participate in undo where needed,
+and appear correctly in an exported file. Tests must include deliberately wrong
+outputs that the checks detect, not only examples that always pass.
+
+Use existing Vitest coverage, integration checks, Playwright flows and Python/
+FFmpeg validation. Extend cut-boundary tests to one-frame sensitivity, timed audio
+bursts, actual mouse/keyboard trims, cross-session recovery and preview/export
+comparison. Decode outputs fully; file extension, codec headers or a screenshot
+are insufficient. Keep skipped and untested cases visible.
+
+Windows acceptance must include package, launch, import/edit/save/reopen/export,
+file permissions, crash recovery, GPU fallback and installer behavior on real
+supported systems. Signing and release requirements need separate completion.
+
+Use short deterministic fixtures for fast regression checks and a smaller set of
+realistic licensed fixtures for compatibility and performance. Fix an environment
+problem before calling it an application defect; investigate failures instead of
+disabling assertions or rewriting tests solely to obtain a green result.
+
+14. ACCESSIBILITY AND INTERNATIONAL USE
+
+Support keyboard operation, visible focus, screen-reader labels, useful contrast,
+reduced motion, readable scaling and predictable dialogs. Timeline interactions
+need alternatives for users who cannot perform precise dragging.
+
+Plan localization, Unicode titles, right-to-left text where supported, font
+fallback and caption format compatibility. Test long labels and different writing
+systems. Transcription/translation quality varies by language, accent and audio;
+offer review rather than an unqualified accuracy claim.
+
+15. LICENSING, COST AND COMMERCIAL DIRECTION
+
+Preserve upstream attribution. Root open-source licenses do not automatically
+clear dependencies, codec builds, model weights, voices, fonts, stock media or
+templates. Review FFmpeg configuration and distribution obligations before
+shipping binaries. Create a dependency/asset inventory and required notices.
+
+Core local editing should be usable without buying an AI provider subscription.
+Cloud collaboration, managed storage, team controls, optional rendering or support
+could become paid offerings if a sustainable business model is chosen. Do not
+promise free unlimited storage/inference or introduce paid calls without approval.
+
+Evaluate operating costs, model downloads, GPU requirements, support load and
+licensing restrictions before including a feature in a release. Prefer reuse of
+compatible existing modules and focused adapters over recurring rewrites.
+
+16. ROADMAP: NOW TO ABOUT ONE YEAR
+Planning window: November 2026 to November 2027; conditional, not a deadline promise.
+
+First, finish preservation and structure documentation. Inventory the active
+workspace, research snapshots, generated outputs and historical material. Retain
+the current tested editor and establish a clear contributor starting point.
+
+Next, expand the reliable browser editing baseline: real gestures, boundary/sync
+checks, relinking, explicit backups, codec fallback and long-running cancellation.
+Audit already-present creator tools before selecting a small coherent release.
+
+In parallel when resources permit, validate Windows runtime and packaging using
+supported hardware. Pilot bounded local transcription/caption and silence tools.
+Add accessibility checks and licensed starter resources.
+
+Exit gate: a defined supported set of browser/Windows workflows passes real
+import/edit/recover/export acceptance; known limitations are documented; release
+artifacts have provenance and notices; the selected AI operations are reversible
+and denied outside their permissions. Broad professional parity is not this gate.
+
+17. ROADMAP: ABOUT ONE TO TWO YEARS
+Planning window: November 2027 to November 2028; reconsider after the first gate.
+
+Potential focus: stronger multicamera/nested workflows, audio routing, color
+validation, motion/compositing tools, interchange, reusable styles and efficient
+large-media management. Explore optional team review, annotations and proxy
+sharing only after access control, conflict behavior and storage cost are designed.
+
+AI can attempt longer project understanding, transcript-driven rough cuts, searched
+shot selection and structured story suggestions. Accepted edits should remain
+explicit, editable commands. Benchmark quality against human-reviewed tasks;
+retain manual workflows and review checkpoints.
+
+Exit gate: each added workflow meets persistence/export tests, larger-project
+benchmarks and security/license requirements. Team features additionally need
+permission, conflict/recovery and data-retention validation. A calendar date alone
+cannot qualify a feature for release.
+
+18. ROADMAP: TWO YEARS AND BEYOND
+Research horizon: after November 2028, subject to evidence, funding and hardware.
+
+Candidates include project-aware multimodal assistants, editable story plans,
+semantic media retrieval across large libraries, consistent object-aware edits,
+improved local enhancement, advanced tracking and optional distributed rendering.
+Explore professionally useful HDR/color workflows and deeper interchange where
+the required expertise and measured compatibility are available.
+
+More ambitious research includes temporally consistent generative fill, relighting,
+scene extension, controllable synthetic B-roll and motion/identity consistency
+across longer shots. These depend on model quality, rights, compute and difficult
+evaluation. Preserve them as experiments with fallback and provenance, not launch
+commitments or a guaranteed outcome of future AI progress.
+
+19. WHAT IS IMPOSSIBLE, AND WHAT IS MERELY NOT FEASIBLE YET
+
+Fundamental limits: no tool can guarantee exact recovery of original detail that
+was never captured or has been irreversibly lost. AI can invent plausible detail,
+not prove the original content. No editor can guarantee flawless semantic judgment,
+unlimited computation on finite hardware, universal codec availability, or legal
+rights to every uploaded/generated asset. Zero-risk security is not a meaningful
+product guarantee.
+
+Currently unproven or impractical here: full professional-suite parity immediately;
+real-time 4K/8K with arbitrary effects on every ordinary device; perfect segmentation
+and tracking of every scene; automatic feature-length editing without human review;
+lossless compatibility with every proprietary project format; guaranteed lip/speech
+and identity consistency for long generative scenes; high-quality offline AI on
+all low-memory devices. Some narrower versions may be achievable and should be
+tested. None should be called permanently impossible solely because this project
+has not built it today.
+
+Research decisions should record the task, current failure, data/compute needs,
+quality threshold, legal constraints and next review date. Reassess promising
+items annually; stop experiments that cannot meet a useful quality/cost target.
+
+20. WHO CAN TRY THE FUTURE FEATURES
+
+The project owner sets priorities, budget, release scope and acceptable tradeoffs.
+An editor/product specialist validates real creative workflows. Core media
+engineers own timing, codec and rendering correctness; frontend engineers own
+usable interactions and accessible controls; desktop engineers own native safety
+and platform delivery. QA/performance engineers turn claims into repeatable tests.
+
+AI/ML specialists and supervised AI coding assistants can prototype models,
+benchmark alternatives and implement constrained integrations. Security engineers
+review boundaries and abuse cases. Licensing/release specialists review notices,
+assets and distribution. Smaller teams can combine roles, but responsibility must
+remain explicit rather than assuming an AI assistant independently certifies work.
+
+Community contributors, universities or specialist partners could pursue selected
+R&D behind stable interfaces and reproducible benchmarks. No named company or
+person is assumed committed. Recruiting, grants, partnerships and paid services
+remain future owner decisions. An AI assistant can help execute and document
+authorized tasks; it does not replace account ownership, legal judgment, hardware
+testing or a human release decision.
+
+21. THE NEXT CONCRETE STEPS
+
+1) Preserve all supplied archives and existing work; document the new folder map
+   and what is active versus reference-only. Keep uncertain files in AnalyseFuture.
+2) Keep one active OpenReel-based editor. Compare references independently before
+   proposing compatible adapters; do not merge complete alternative editors.
+3) Create a feature/evidence ledger from actual code and tests, including what has
+   already been achieved and exactly what remains unverified.
+4) Improve one-frame timing/audio and real UI gesture/recovery acceptance before
+   adding another large feature area.
+5) Prepare an honest browser/Windows support matrix and measured performance plan.
+6) Choose a small creator workflow and a bounded optional AI pilot based on the
+   audit, available hardware, licenses and budget.
+7) Keep recoverable direct-main checkpoints as requested by the owner, preserve
+   others' work, avoid force pushes, and record completed checks and limitations.
+
+The success measure is a coherent editor that users can trust with their footage
+and recoverable projects. Future AI should make creative work easier while keeping
+the accepted timeline, exported result and final decisions understandable.
+
+
+22. THREE-TO-FIVE-YEAR RESEARCH HORIZON
+Planning window: November 2029 to November 2031, contingent on earlier gates.
+
+A useful ambition is an editor that understands project intent while preserving
+human control: it could retrieve relevant shots from a large local library,
+propose alternate story structures, maintain chosen style constraints, explain
+why an edit was suggested and revise only approved ranges. The accepted timeline
+must remain inspectable and portable even if the model or provider disappears.
+
+Potential research programs are:
+A) Long-project assistance: consistent transcript/shot search, continuity warnings,
+   repeated-subject tracking and constraints across sequences. Owner: AI/media
+   engineers with working editors and QA reviewers. Gate: measured retrieval and
+   suggestion quality on licensed projects; bounded resource and privacy costs.
+B) Correctable semantic edits: user-defined subject masks, tracking and selective
+   adjustments with editable keyframes and confidence markers. Owner: vision/GPU
+   specialists. Gate: temporal stability and export parity on difficult footage,
+   plus a clear manual fallback for occlusion, motion blur and unfamiliar objects.
+C) Controllable generative repairs: limited fill/extension or synthetic inserts
+   with provenance, shot constraints and explicit consent. Owner: ML researchers,
+   artists and rights/release specialists. Gate: acceptable continuity and identity,
+   no documentary-recovery claim, licensing clearance and visible generated status.
+D) Professional ecosystem: stable project exchange, plugin capabilities and
+   optional render workers. Owner: core/desktop/security/integration engineers.
+   Gate: versioned contracts, reproducible output, safe permissions and sustainable
+   operations. Distributed execution is not a substitute for correct local output.
+
+Keep each experiment outside the production promise until it passes defined tests.
+Use adapters and feature flags, not another competing timeline. Do not assume that
+future AI progress, a larger model or a new language automatically resolves timing,
+rights, hardware, model hallucination or application-security constraints.
+
+23. POTENTIAL COMPETITIVE ADVANTAGES TO BUILD AND MEASURE
+
+1) Trustworthy edit-to-export behavior: make timing, recovery and content checks a
+   product discipline. Publish representative measured results and limitations.
+   This can differentiate a dependable editor without claiming industry parity.
+2) Recoverable local work: clear project backups, portable media references,
+   understandable cache/storage behavior and explicit relink tools. Privacy must
+   be demonstrable through actual data-flow design, not only marketing text.
+3) Explainable, reversible AI: an accepted assistant proposal becomes normal
+   editable commands with scope, undo and visible uncertainty. Users can continue
+   editing after disabling AI or changing providers.
+4) A gradual learning curve: creator-focused defaults with precise controls,
+   keyboard accessibility and consistent project semantics underneath. Measure
+   time-to-first-export and successful task completion with actual users.
+5) Honest deployment and cost: useful local editing without mandatory recurring
+   AI bills, documented supported hardware, optional services and predictable
+   resource usage. Viability depends on real support and operating-cost evidence.
+6) Open interfaces with preserved provenance: versioned exchange and compatible
+   adapters, upstream attribution, asset rights and reliable project evolution.
+   Avoid dependence on an opaque format that the owner cannot recover or inspect.
+
+These are proposed strengths to earn. Current files, this report and successful
+small-fixture tests do not prove a market advantage or user demand.
+
+24. WHAT NOT TO PURSUE AS THE INITIAL STRATEGY
+
+Do not restart the entire project, translate all languages for cosmetic consistency,
+or combine OpenReel/FreeCut/OpenCut engines wholesale. Do not recreate every
+professional application simultaneously or turn this editor into the owner's
+separate generation studio. Keep broad marketing parity claims out of releases.
+
+Do not pursue an unrestricted autonomous agent, covert media uploads, universal
+codec promises, mandatory cloud inference, automatic replacement of originals,
+unlicensed model/voice/template bundles, or irreversible AI actions as shortcuts.
+Do not mistake downloaded code volume or copied UI screens for a delivered feature.
+
+Do not add collaboration, render farms, plugin marketplaces, mobile certification
+or advanced generative film production before core editing, recovery, permissions,
+packaging and rights have been measured. Preserve those ideas for future review
+rather than deleting them. A paused idea is not a failed project or a permanent
+claim of impossibility.
+
+Annual review should compare user needs, model/hardware maturity, financial cost,
+rights, failure modes and measurable improvement against the existing workflow.
+The owner decides priorities; engineers and supervised AI assistants supply
+experiments and evidence; qualified humans retain release and legal responsibility.

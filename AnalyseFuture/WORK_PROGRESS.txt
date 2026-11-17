@@ -24,3 +24,6 @@ Previous session full setup passed typecheck/build,3420unit+34skipped,24Python,2
 
 KNOWN LIMITATIONS
 GitHub account audit logs/protections/permissions not available via API. Native Windows/GPU4K runtime not available here. Optional cloud authentication is a confirmed code concern under remediation; do not deploy.
+
+LATEST OWNER STEERING — 17 November 2026
+Structure-only work, no further tests/build/typecheck runs. Earlier unfinished audio/auth behavior changes and their tests were preserved under experiments/post-audit-proposals and restored inactive to honor this scope. Full initial inventory generated before structural file moves; classification is structural/content scan with explicit confidence, not line-by-line certification. Next: web functional grouping + static reference migration, root media/repository tool grouping, inactive Studio prototype preservation, root PROJECT_STRUCTURE.md and refreshed reports.

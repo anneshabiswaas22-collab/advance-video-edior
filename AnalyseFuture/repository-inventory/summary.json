@@ -1,0 +1,54 @@
+{
+  "active_import_edges": 6208,
+  "active_package_manifests": 16,
+  "categories": {
+    "asset": 13442,
+    "binary": 3,
+    "configuration": 336,
+    "documentation": 299,
+    "generated-audit": 6,
+    "other": 90,
+    "source": 4385,
+    "source-bundle": 3,
+    "test": 1701
+  },
+  "duplicate_groups": 8565,
+  "existing_files_hashed": 20251,
+  "groups_with_multiple_active_members": 5,
+  "inventory_paths": 20265,
+  "limits": [
+    "Path-based purpose and ownership are inferences, not a semantic certification.",
+    "Static imports omit computed runtime loading and can include comments or test fixtures.",
+    "Relative-resolution candidates are not build failures; use TypeScript/build/runtime validation.",
+    "Text files were read automatically; this does not claim line-by-line human review of every file.",
+    "Gitignored caches/dependencies/runtime outputs are excluded unless already tracked.",
+    "Source presence and a matching duplicate hash do not prove reachability, safety or compatible semantics."
+  ],
+  "manifest_parse_errors": [],
+  "paths_unavailable_or_pending": [
+    "AnalyseFuture/ARCHIVED_FILES_MANIFEST.txt",
+    "AnalyseFuture/CONSOLIDATION_REPORT.txt",
+    "AnalyseFuture/FEATURE_INVENTORY.txt",
+    "AnalyseFuture/MIGRATION_SUMMARY.txt",
+    "AnalyseFuture/ORIGINAL_TO_NEW_PATH_MAPPING.txt",
+    "AnalyseFuture/REPOSITORY_AUDIT.txt",
+    "AnalyseFuture/SECURITY_AUDIT.txt",
+    "AnalyseFuture/TEST_AND_VALIDATION_REPORT.txt"
+  ],
+  "scope": "all git-tracked paths plus nonignored working-tree additions and required audit paths",
+  "self_reference_policy": "Generated inventory report bodies use an explicit excluded hash/size marker; all paths are still enumerated.",
+  "static_unresolved_relative_candidates": 1,
+  "statuses": {
+    "active": 8600,
+    "audit-and-planning": 35,
+    "preserved-original": 15,
+    "preserved-reference": 10,
+    "reference:OpenCut-main": 130,
+    "reference:freecut-main": 2877,
+    "reference:openreel-video-main": 8591,
+    "retired-automation": 4,
+    "source-archive": 3
+  },
+  "tracked_paths": 20229,
+  "utf8_text_files_read": 19671
+}

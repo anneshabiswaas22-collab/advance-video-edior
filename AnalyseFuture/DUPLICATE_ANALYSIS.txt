@@ -1,0 +1,58 @@
+DUPLICATE ANALYSIS
+
+Exact content comparison of every readable non-self-generated path.
+Found 8565 SHA-256 groups; 5 contain more than one active path.
+Full memberships and hashes: AnalyseFuture/repository-inventory/duplicates.json.
+
+1. UPSTREAM MIRRORS
+Most duplicates are intentionally preserved source snapshots and assets.
+OpenReel mirror content is not a second production dependency. Keep snapshots intact as evidence.
+Do not merge FreeCut/OpenCut timeline engines solely because names or features resemble OpenReel.
+
+2. ACTIVE EXACT-CONTENT GROUPS
+Identical bytes can be deliberate package boundaries or copied configuration.
+Do not replace shared-looking files without reviewing imports, runtime ownership and test semantics.
+
+SHA256-dca8aa10a3a274ab: 5 active copies
+  editor/packages/creation-agent/tsconfig.json
+  editor/packages/creation-bindings/tsconfig.json
+  editor/packages/creation-schema/tsconfig.json
+  editor/packages/fxpkg/tsconfig.json
+  editor/packages/image-core/tsconfig.json
+Decision: retain framework/package configuration; identical contents do not make paths interchangeable.
+
+SHA256-e32657baf631d7c5: 3 active copies
+  editor/apps/image/postcss.config.js
+  editor/apps/studio/postcss.config.js
+  editor/apps/web/postcss.config.js
+Decision: candidate for responsibility review; no deletion or automatic code merge from hash identity alone.
+
+SHA256-4aafb37e8da45156: 2 active copies
+  editor/apps/web/src/types/asset-imports.d.ts
+  editor/packages/core/src/types/asset-imports.d.ts
+Decision: candidate for responsibility review; no deletion or automatic code merge from hash identity alone.
+
+SHA256-7a1a464ea90f74f7: 2 active copies
+  editor/apps/web/public/icons/icon-512.png
+  editor/apps/web/public/icons/icon-maskable-512.png
+Decision: retain assets at public/package boundaries; shared packaging needs reference and license validation.
+
+SHA256-e3b0c44298fc1c14: 2 active copies
+  editor/scripts/filters/__init__.py
+  editor/scripts/filters/tests/__init__.py
+Decision: candidate for responsibility review; no deletion or automatic code merge from hash identity alone.
+
+3. SEMANTIC OVERLAP AND CONSOLIDATION BOUNDARY
+Web UI/store/bridge/core layers are complementary responsibilities, not duplicate complete editors.
+Different preview/export acceleration backends are deliberate if they share one project/timing contract.
+Semantic consolidation decisions and tests are recorded separately in CONSOLIDATION_REPORT.txt.
+This detector finds byte-identical groups and import relationships; it does not claim to solve near-duplicate algorithms.
+
+4. READ/SCAN LIMITS
+Path-based purpose and ownership are inferences, not a semantic certification.
+Static imports omit computed runtime loading and can include comments or test fixtures.
+Relative-resolution candidates are not build failures; use TypeScript/build/runtime validation.
+Text files were read automatically; this does not claim line-by-line human review of every file.
+Gitignored caches/dependencies/runtime outputs are excluded unless already tracked.
+Source presence and a matching duplicate hash do not prove reachability, safety or compatible semantics.
+Unavailable/pending paths: AnalyseFuture/ARCHIVED_FILES_MANIFEST.txt, AnalyseFuture/CONSOLIDATION_REPORT.txt, AnalyseFuture/FEATURE_INVENTORY.txt, AnalyseFuture/MIGRATION_SUMMARY.txt, AnalyseFuture/ORIGINAL_TO_NEW_PATH_MAPPING.txt, AnalyseFuture/REPOSITORY_AUDIT.txt, AnalyseFuture/SECURITY_AUDIT.txt, AnalyseFuture/TEST_AND_VALIDATION_REPORT.txt

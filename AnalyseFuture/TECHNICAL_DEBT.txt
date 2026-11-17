@@ -1,0 +1,217 @@
+TECHNICAL DEBT AND VERIFICATION BACKLOG
+Evidence baseline: 17 November 2026 (client date)
+Scope: active editor/ workspace and its QA, delivery and preservation contracts
+
+HOW TO READ THIS REPORT
+
+This is an evidence-backed backlog, not a list of alleged malicious files or
+invented production defects. Priorities describe the next investigation or
+acceptance gap. A missing end-to-end proof does not mean the implementation is
+missing. Conversely, a source file or green unit test does not establish that
+every user workflow, platform or hardware path works.
+
+The earlier session validated type checks, a production build, 3,420 workspace
+unit passes with 34 skipped, 24 Python tests and two Chromium tests. Post-structure
+evidence records fresh Python and Chromium checks. Preserve run boundaries and
+commit/environment details; do not claim that older checks ran on later changes.
+See docs/evidence/repository-restructure-2026-11-17.md and the dated CI evidence.
+
+No current reproducible production defect is established by this report. Initial
+Electron/Playwright download failures were setup problems, with a supported proxy
+route/system Chromium workaround verified in this environment. Do not relabel
+these resolved failures as missing credentials or source-code bugs.
+
+TD-01 — FULL REAL-UI EDITING COVERAGE
+Priority: P0. Type: coverage debt. Owner: editor frontend + media QA.
+
+Paths: editor/apps/studio/e2e-web/main-editor-edit-export.spec.ts;
+editor/apps/web/src/components/editor/Timeline.tsx;
+editor/apps/web/src/stores/project-store.ts.
+
+The existing E2E uses actual UI file import, title placement, recovery and export,
+but split/trim and title-content/timing changes use page.evaluate on the real
+mounted project store. This is useful integration evidence, not a complete test
+of pointer/keyboard editing. Add narrow actual trim/split gesture checks, locked
+track behavior, undo/redo and selection tests against exported content. Keep the
+existing baseline; do not replace it with mock clips or a screenshot-only check.
+Gate: UI operations change the intended range, undo is correct, save/reopen keeps
+it, and decoded output matches, including deliberately failing negative cases.
+
+TD-02 — ONE-FRAME CUT BOUNDARIES AND EXACT AUDIO TIMING
+Priority: P0. Type: precision verification debt. Owner: core media + QA.
+
+Paths: editor/apps/studio/e2e-web/main-editor-edit-export.spec.ts;
+scripts/check_edit_content.py; tests/test_check_edit_content.py;
+editor/packages/core/src/playback/; editor/packages/core/src/export/.
+
+The current edited-export fixture uses 24fps and samples color near a one-second
+cut at 0.94 and 1.04 seconds. Audio windows assert a minimum RMS, which proves
+non-silent output in those ranges, not exact placement, phase, channel mapping or
+speech fidelity. Extend known-time burst/silence and one-frame boundary fixtures;
+include shifted-audio/wrong-cut negatives that independently fail. Add representative
+frame rates/time bases and mixed audio rates. Do not weaken pixel/audio thresholds
+merely to accommodate a failing output.
+Gate: documented tolerances distinguish intended edits from one-frame and timed
+audio regressions; compare preview and export with a defined sampling method.
+
+TD-03 — MEDIA PERSISTENCE BEYOND A SAME-SESSION PAGE RELOAD
+Priority: P0. Type: resilience coverage debt. Owner: storage + frontend + QA.
+
+Paths: editor/apps/web/src/services/auto-save.ts, project-manager.ts,
+media-storage.ts; editor/packages/core/src/storage/project-serializer.ts;
+editor/apps/web/src/stores/project-store.ts and associated project-store slices.
+
+The current E2E verifies IndexedDB snapshots and media recovery after page.reload.
+Broader app/browser restart, lost filesystem permission, cleared browser storage,
+quota exhaustion, partial writes, corrupt project input, moved originals and
+portable explicit backups need separate acceptance. Browser storage is not a
+durable external backup by itself. Audit supported recovery/relink paths before
+adding another project model.
+Gate: predictable recovery or a specific actionable missing-media/error state,
+with original project/media preserved and no silent replacement.
+
+TD-04 — WINDOWS AND PACKAGED NATIVE MEDIA ARE NOT QUALIFIED
+Priority: P0 for a Windows release. Type: platform validation debt.
+Owner: desktop/media/release engineers with Windows test hardware.
+
+Paths: editor/apps/desktop/test/media-integration.test.ts;
+editor/apps/desktop/test/export-integration.test.ts;
+editor/apps/desktop/src/main/sidecar/ffmpeg-path.ts;
+editor/apps/desktop/src/main/sidecar/export-job.ts;
+editor/apps/desktop/src/main/ipc/media.ts and packaging resources/configuration.
+
+The integration suites use describe.skipIf(!HAS_FFMPEG). HAS_FFMPEG checks the
+platform binary under apps/desktop/resources/bin/<platform>-<arch>/, not merely
+whether system ffmpeg is on PATH. The seven skipped desktop integration tests in
+the earlier run therefore must not be counted as native media/export passes.
+System FFmpeg supporting Python/browser tests does not qualify a Windows bundle.
+Gate: trusted binary provenance/configuration, package/install/launch, real
+import/edit/recover/export, cancellation, permissions and hardware fallback on
+supported Windows environments. Signing and update behavior need their own gate.
+
+TD-05 — GPU, PERFORMANCE AND LARGE-PROJECT CLAIMS
+Priority: P1; release-blocking only where advertised. Type: hardware/evidence debt.
+Owner: performance/media engineers.
+
+Paths: editor/packages/core/src/playback/, video/, audio/, export/;
+editor/apps/web/src/bridges/ and services/export-runner.ts;
+editor/apps/desktop/src/main/sidecar/.
+
+The small Chromium fixture and cloud CPU environment do not establish real GPU,
+4K/8K, long timelines, high layer counts, memory stability or seek performance.
+Record hardware/codecs/effects, concurrency, caches, memory and acceleration path.
+Audit cancellation and resource lifecycle on repeated imports/exports. Compare
+fallback behavior, not just the fastest path. Do not infer a performance defect
+without a measured representative failure.
+Gate: documented baseline/targets, bounded resources, repeatable long-run results
+and clear unsupported configurations.
+
+TD-06 — AGENT PERMISSIONS NEED END-TO-END ADVERSARIAL VALIDATION
+Priority: P1, and P0 before broad AI/native automation exposure.
+Type: security assurance debt. Owner: agent + security engineers.
+
+Paths: editor/packages/agent/src/; editor/packages/agent-runner/src/;
+editor/apps/web/src/services/agent/; desktop IPC/MCP integration under
+editor/apps/desktop/src/main/. Optional creation-agent integration needs review.
+
+Existing agent code/tests do not establish a complete security proof. Verify
+project scoping, command validation, locked tracks, undo, data upload consent,
+paid-provider controls, filesystem restrictions and injection resistance. Imported
+captions, project metadata and model output are data, not permission. An intentional
+throw for unavailable headless storage or a missing API key is not automatically
+a bug; document the supported runtime contract.
+Gate: supported commands succeed; malformed/out-of-scope/adversarial requests are
+denied with no unintended change or data disclosure; model-free mocks cover CI.
+
+TD-07 — TEST SKIPS AND CAPABILITY-TO-EVIDENCE TRACEABILITY
+Priority: P1. Type: maintenance/evidence debt. Owner: QA + relevant package owners.
+
+Paths: editor/apps/web/src/stores/project-store.test.ts; workspace Vitest suites;
+editor/apps/studio/e2e-web/; docs/CODEX_REVIEW_QUEUE.md and evidence documents.
+
+Examples include four explicitly skipped legacy subtitle tests whose comments
+say subtitles were consolidated into text clips. This suggests a need to map the
+current caption contract to active tests; it does not prove caption functionality
+is broken. Inventory every skip with reason, replacement coverage and intended
+runtime. Historical test totals differ by checkout; never silently combine runs.
+Gate: a feature ledger distinguishes source presence, unit/integration/UI/export
+proof, platform, skipped, failed and unrun outcomes.
+
+TD-08 — TOOLCHAIN AND REPRODUCIBLE ENVIRONMENT BOUNDARIES
+Priority: P1. Type: setup/documentation debt. Owner: build/runtime maintainer.
+
+Paths: editor/package.json (pnpm@11.7.0), editor/pnpm-lock.yaml,
+editor/pnpm-workspace.yaml, editor/bun.lock, CI workflow tool versions;
+/workspace/onboarding/install.sh and saved cloud install/start instructions.
+
+Use the pinned pnpm/frozen lockfile. The prior cloud run used Node 24 while CI
+configuration uses Node 22; neither fact alone proves incompatibility. Define
+and validate a supported matrix before changing versions. Some caches defaulted
+to read-only home locations; the saved setup uses writable /workspace caches.
+Playwright CDN access was restricted, so a local override uses system Chromium.
+Do not disable TLS/signatures/checksums or modify lockfiles to mask setup failures.
+Gate: an isolated restored task can activate tools, install/reuse dependencies,
+start services and execute representative validation with no hidden live-process
+dependency. Earlier current-instance validation is not proof of a new restoration.
+
+TD-09 — WORKSPACE SCOPE AND OPTIONAL COMPONENT BOUNDARIES
+Priority: P2. Type: ownership/integration debt. Owner: architecture + package owners.
+
+Paths: editor/apps/{web,desktop,studio,image,cloud}; editor/packages/{core,ui,
+agent,agent-runner,creation-schema,creation-core,creation-bindings,creation-agent,
+fxpkg,image-core}; docs/REPOSITORY_STRUCTURE.md.
+
+The existing monorepo has more surfaces than the primary browser/Windows editor.
+Keep them until dependency/call-path/usage evidence justifies a change. Studio is
+also the current main-editor Playwright host/dependency; removing it breaks the
+documented test commands. Define component owner, supported role, runtime needs
+and canonical model boundary. Preserve uncertain material rather than deleting it.
+Gate: one authoritative timeline/schema and documented optional integrations;
+no accidentally enabled cloud service or competing imported editor engine.
+
+TD-10 — DISTRIBUTION RIGHTS AND THIRD-PARTY INVENTORY
+Priority: P1; release-blocking for affected assets/binaries. Owner: release/legal.
+
+Paths: docs/REUSE_AND_LICENSES.md; editor/ licenses/notices; native FFmpeg resources;
+model/font/template/icon dependencies and AnalyseFuture/reference-sources/.
+
+Root MIT licensing does not settle codec builds, dependency obligations, models,
+voices, fonts or imported media. Preserve exact source provenance and produce a
+reviewed inventory/SBOM with required notices. No finding here declares a specific
+license violation or blanket commercial clearance.
+Gate: each shipped component has known origin, version, rights and obligations;
+uncleared resources remain outside the distributed feature set.
+
+TD-11 — PRESERVATION SCALE, ARCHIVE SAFETY AND GIT GOVERNANCE
+Priority: P1 for repository maintenance. Type: operational assurance debt.
+Owner: repository owner + maintainers.
+
+Paths: AnalyseFuture/manifests/, archives/, reference-sources/, legacy-automation/;
+scripts/verify_repository_preservation.py; .gitattributes; .github/workflows/.
+
+All source snapshots were preserved/extracted and hash-checked; they add material
+to search and Git storage. Treat them as reference-only and do not activate nested
+workflows, run archived code or merge alternate timelines merely because files
+exist. Retired write automation remains preserved. Hash equality proves retention,
+not trustworthiness. Keep manifests/change reasons; do not delete material to
+shrink the repository without the owner's new direction.
+
+The user's account-compromise report is not resolved by this code review. Local
+history cannot establish sessions, token inventory, collaborator grants, app
+permissions or server-side branch settings. Authorized HTTPS Git access is not
+proof of GitHub API/audit access. Account-level review remains a distinct owner/
+security task; request no secret values in chat.
+Gate: every relocation is traceable and recoverable, current checks remain green,
+and permission/security conclusions state exactly what was inspected.
+
+RECOMMENDED ORDER OF WORK
+
+First preserve the current working baseline and confirm active workflow checks.
+Then address TD-01/02/03 with one focused real-media regression at a time. Prepare
+TD-04 in parallel when Windows resources exist. Before AI exposure or distribution,
+close relevant TD-06/10 gates. Track TD-05/07/08/09/11 continuously without using
+them as a reason for an unrequested broad rewrite.
+
+For every debt item, record a minimal reproduction or missing proof, the affected
+scope, owner, acceptance criteria, evidence and remaining limits. A green document
+or an empty test run does not close technical debt.
