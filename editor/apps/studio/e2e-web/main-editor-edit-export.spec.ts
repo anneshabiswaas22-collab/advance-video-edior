@@ -155,7 +155,7 @@ test("main editor really imports, edits, recovers and exports MP4", async ({ pag
   await info.attach("edited-output", { path: exported, contentType: "video/mp4" });
 
   run("python3", [
-    resolve(root, "scripts/check_media.py"), exported, "--require-audio",
+    resolve(root, "scripts/media/check_media.py"), exported, "--require-audio",
     "--min-width", "640", "--min-height", "360",
     "--min-seconds", "1.85", "--max-seconds", "2.15",
     "--video-codec", "h264", "--decode",
@@ -176,7 +176,7 @@ test("main editor really imports, edits, recovers and exports MP4", async ({ pag
     ],
   }, null, 2));
   run("python3", [
-    resolve(root, "scripts/check_edit_content.py"),
+    resolve(root, "scripts/media/check_edit_content.py"),
     exported, specPath, "--report", report,
   ]);
   await info.attach("decoded-content-measurements", {

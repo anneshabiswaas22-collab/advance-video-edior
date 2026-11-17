@@ -1,0 +1,23 @@
+{
+  "baseline_commit": "029a3e1346d1c00e1838e6bd304f45499cb2a078",
+  "files": [
+    {
+      "original_path": "editor/apps/studio/src/effect/behaviors/presets/index.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/recovery-validation/editor/apps/studio/src/effect/behaviors/presets/index.ts",
+      "sha256": "87f10192d12df6da2bbf48b08bd4b64a6e857ce8222d19d18ec434f7914db301",
+      "reason": "Preserve exact pre-repair source before correcting confirmed migration regressions."
+    },
+    {
+      "original_path": "editor/apps/studio/e2e-web/main-editor-edit-export.spec.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/recovery-validation/editor/apps/studio/e2e-web/main-editor-edit-export.spec.ts",
+      "sha256": "0aaa8a635df36fe1109b936784472098e3b000b263cf4eca37b28a7716ff109d",
+      "reason": "Preserve exact pre-repair source before correcting confirmed migration regressions."
+    },
+    {
+      "original_path": "tests/test_check_media.py",
+      "preserved_path": "AnalyseFuture/historical-implementations/recovery-validation/tests/test_check_media.py",
+      "sha256": "112ffbfd0b5725cc071b1d75572031226301e669e4add9c9ad34b53b71f09dab",
+      "reason": "Preserve exact pre-repair source before correcting confirmed migration regressions."
+    }
+  ]
+}

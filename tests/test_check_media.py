@@ -85,8 +85,8 @@ class MediaValidationTests(unittest.TestCase):
         class Failure:
             returncode = 1
             stderr = "corrupt packet"
-        with patch("scripts.check_media.shutil.which", return_value="/usr/bin/ffmpeg"), \
-             patch("scripts.check_media.subprocess.run", return_value=Failure()):
+        with patch("scripts.media.check_media.shutil.which", return_value="/usr/bin/ffmpeg"), \
+             patch("scripts.media.check_media.subprocess.run", return_value=Failure()):
             with self.assertRaisesRegex(RuntimeError, "corrupt packet"):
                 decode_media(Path("video.mp4"))
 
