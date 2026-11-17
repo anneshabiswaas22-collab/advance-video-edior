@@ -1,0 +1,11 @@
+{
+  "baseline_commit": "029a3e1346d1c00e1838e6bd304f45499cb2a078",
+  "files": [
+    {
+      "original_path": "editor/apps/desktop/src/main/ipc/fetch-url.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/apps/desktop/src/main/ipc/fetch-url.ts",
+      "sha256": "8bd9525ac4c80b72db86b7b705d30ddd2b31d92daebc21b10e9a97f02d249db6",
+      "reason": "Preserve exact source before fail-closed desktop URL-fetch hardening."
+    }
+  ]
+}
