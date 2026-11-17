@@ -21,7 +21,7 @@ The previous cloud setup in this session passed workspace type checks, the produ
 
 Post-restructure checks passed:
 
-- `python3 scripts/verify_repository_preservation.py`: all 8,611 original tracked files, three ZIPs, 11,598 extracted files and 14 relocated files verified by SHA-256 and location checks.
+- `python3 scripts/repository/verify_repository_preservation.py`: all 8,611 original tracked files, three ZIPs, 11,598 extracted files and 14 relocated files verified by SHA-256 and location checks.
 - `python3 -m unittest discover -s tests -v`: 24 tests passed in 5.2 seconds.
 - `CI=true pnpm --filter @openreel/studio exec playwright test -c /workspace/onboarding/playwright.config.ts`: two tests passed in 27.1 seconds using system Chromium. This exercised real project startup, import, store-backed split/trim, title/audio editing, IndexedDB save/recovery, MP4 export and decoded pixel/audio assertions.
 - The earlier full build/typecheck/unit validation was reused because executable application source and dependencies were unchanged; those broader suites were not rerun for this documentation/file-layout change.

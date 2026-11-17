@@ -2,26 +2,26 @@ import "./test/install-local-storage-mock";
 import { act, cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App";
-import { useProjectStore } from "./stores/project-store";
-import { useUIStore } from "./stores/ui-store";
-import { createEmptyProject } from "./stores/project/project-helpers";
-import type { AutoSaveMetadata } from "./services/auto-save";
+import { useProjectStore } from "./features/projects/state/project-store";
+import { useUIStore } from "./app/state/ui-store";
+import { createEmptyProject } from "./features/projects/state/project/project-helpers";
+import type { AutoSaveMetadata } from "./features/projects/services/auto-save";
 
 const recovery = vi.hoisted(() => ({
   isChecking: false, showDialog: false, availableSaves: [] as AutoSaveMetadata[],
   recover: vi.fn(async (_saveId: string) => false), dismiss: vi.fn(), clearAll: vi.fn(),
 }));
 
-vi.mock("./hooks/useProjectRecovery", () => ({
+vi.mock("./features/projects/hooks/useProjectRecovery", () => ({
   useProjectRecovery: () => recovery,
 }));
-vi.mock("./hooks/useKieAIPoller", () => ({ useKieAIPoller: () => undefined }));
-vi.mock("./components/MobileBlocker", () => ({ MobileBlocker: () => null }));
-vi.mock("./components/Toast", () => ({ ToastContainer: () => null }));
-vi.mock("./components/editor/EditorInterface", () => ({ EditorInterface: () => <p>Editor</p> }));
-vi.mock("./components/welcome", () => ({ WelcomeScreen: () => <p>Welcome</p> }));
-vi.mock("./pages/SharePage", () => ({ SharePage: () => <p>Shared video</p> }));
-vi.mock("./components/welcome/RecoveryDialog", () => ({ RecoveryDialog: ({ saves, onRecover, onDismiss }: {
+vi.mock("./features/generation/hooks/useKieAIPoller", () => ({ useKieAIPoller: () => undefined }));
+vi.mock("./shared/components/MobileBlocker", () => ({ MobileBlocker: () => null }));
+vi.mock("./shared/components/Toast", () => ({ ToastContainer: () => null }));
+vi.mock("./features/editor-shell/components/EditorInterface", () => ({ EditorInterface: () => <p>Editor</p> }));
+vi.mock("./features/projects/components/welcome", () => ({ WelcomeScreen: () => <p>Welcome</p> }));
+vi.mock("./features/sharing/pages/SharePage", () => ({ SharePage: () => <p>Shared video</p> }));
+vi.mock("./features/projects/components/welcome/RecoveryDialog", () => ({ RecoveryDialog: ({ saves, onRecover, onDismiss }: {
   saves: AutoSaveMetadata[]; onRecover: (id: string) => void; onDismiss: () => void;
 }) => <div role="dialog"><button onClick={() => onRecover(saves[0].id)}>Recover Project</button><button onClick={onDismiss}>Start Fresh</button></div> }));
 

@@ -77,10 +77,10 @@ pnpm --filter @openreel/studio exec playwright test -c playwright.web.config.ts
 From repo root:
 ~~~bash
 python -m unittest discover -s tests -v
-python scripts/generate_fixtures.py --output-dir test-output
-python scripts/check_media.py test-output/sample-3s.mp4 --require-audio --decode
+python scripts/media/generate_fixtures.py --output-dir test-output
+python scripts/media/check_media.py test-output/sample-3s.mp4 --require-audio --decode
 # After genuine editor export:
-python scripts/check_edit_content.py exported.mp4 expected-edits.json --report output.json
+python scripts/media/check_edit_content.py exported.mp4 expected-edits.json --report output.json
 ~~~
 
 Use deterministic media; compare independent expected frames/audio, not outputs derived from same generated export. Record OS/browser/FFmpeg versions and artifacts. Linux CI is not Windows testing.

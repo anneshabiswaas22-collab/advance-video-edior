@@ -1,29 +1,29 @@
 import { useEffect, useCallback, useRef, useState, lazy, Suspense } from "react";
-import { ToastContainer } from "./components/Toast";
-import { MobileBlocker } from "./components/MobileBlocker";
-import { WelcomeScreen } from "./components/welcome";
-import { RecoveryDialog } from "./components/welcome/RecoveryDialog";
-import { useUIStore } from "./stores/ui-store";
-import { useProjectStore } from "./stores/project-store";
-import { useRouter } from "./hooks/use-router";
-import { useProjectRecovery } from "./hooks/useProjectRecovery";
-import { useKieAIPoller } from "./hooks/useKieAIPoller";
+import { ToastContainer } from "./shared/components/Toast";
+import { MobileBlocker } from "./shared/components/MobileBlocker";
+import { WelcomeScreen } from "./features/projects/components/welcome";
+import { RecoveryDialog } from "./features/projects/components/welcome/RecoveryDialog";
+import { useUIStore } from "./app/state/ui-store";
+import { useProjectStore } from "./features/projects/state/project-store";
+import { useRouter } from "./app/hooks/use-router";
+import { useProjectRecovery } from "./features/projects/hooks/useProjectRecovery";
+import { useKieAIPoller } from "./features/generation/hooks/useKieAIPoller";
 import { SOCIAL_MEDIA_PRESETS, type SocialMediaCategory } from "@openreel/core";
 import { ToolcraftText as Text } from "@openreel/ui";
 
 const EditorInterface = lazy(() =>
-  import("./components/editor/EditorInterface").then((m) => ({
+  import("./features/editor-shell/components/EditorInterface").then((m) => ({
     default: m.EditorInterface,
   }))
 );
 const ScriptViewDialog = lazy(() =>
-  import("./components/editor/ScriptViewDialog").then((m) => ({ default: m.ScriptViewDialog })),
+  import("./features/ai/components/ScriptViewDialog").then((m) => ({ default: m.ScriptViewDialog })),
 );
 const SearchModal = lazy(() =>
-  import("./components/editor/SearchModal").then((m) => ({ default: m.SearchModal })),
+  import("./features/editor-shell/components/SearchModal").then((m) => ({ default: m.SearchModal })),
 );
 const SharePage = lazy(() =>
-  import("./pages/SharePage").then((m) => ({ default: m.SharePage })),
+  import("./features/sharing/pages/SharePage").then((m) => ({ default: m.SharePage })),
 );
 const LoadingSpinner: React.FC<{ message: string }> = ({ message }) => (
   <div className="h-screen w-screen bg-background flex flex-col items-center justify-center">

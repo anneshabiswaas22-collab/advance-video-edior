@@ -27,3 +27,6 @@ GitHub account audit logs/protections/permissions not available via API. Native 
 
 LATEST OWNER STEERING — 17 November 2026
 Structure-only work, no further tests/build/typecheck runs. Earlier unfinished audio/auth behavior changes and their tests were preserved under experiments/post-audit-proposals and restored inactive to honor this scope. Full initial inventory generated before structural file moves; classification is structural/content scan with explicit confidence, not line-by-line certification. Next: web functional grouping + static reference migration, root media/repository tool grouping, inactive Studio prototype preservation, root PROJECT_STRUCTURE.md and refreshed reports.
+
+STRUCTURE CHECKPOINT
+621 files regrouped by functional responsibility; 388 originals retained before reference/path updates. Browser feature collections, app/shared layers, media/repository scripts and preserved disconnected Studio prototype are in place. PROJECT_STRUCTURE.md created. No tests/build/typecheck/lint run after latest user instruction. Static inventory/reference and preservation accounting only. Final report refresh and explicit remaining limitations still in progress.

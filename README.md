@@ -18,7 +18,7 @@ Start with [AGENTS.md](AGENTS.md), [the foundation decision procedure](docs/FOUN
 
 ## Verified Chromium editing and export workflow
 
-The actual main web editor is exercised by [`main-editor-edit-export.spec.ts`](editor/apps/studio/e2e-web/main-editor-edit-export.spec.ts) using Playwright and real FFmpeg fixtures. The test verifies project recovery and the exported MP4 with [`check_media.py`](scripts/check_media.py) and [`check_edit_content.py`](scripts/check_edit_content.py). See [browser export evidence](docs/evidence/browser-edited-export-2026-11-15.md), [ADR-0001](docs/adr/0001-single-editor-foundation.md) and [the current review queue](docs/CODEX_REVIEW_QUEUE.md).
+The actual main web editor is exercised by [`main-editor-edit-export.spec.ts`](editor/apps/studio/e2e-web/main-editor-edit-export.spec.ts) using Playwright and real FFmpeg fixtures. The test verifies project recovery and the exported MP4 with [`check_media.py`](scripts/media/check_media.py) and [`check_edit_content.py`](scripts/media/check_edit_content.py). See [browser export evidence](docs/evidence/browser-edited-export-2026-11-15.md), [ADR-0001](docs/adr/0001-single-editor-foundation.md) and [the current review queue](docs/CODEX_REVIEW_QUEUE.md).
 
 Passing [browser CI](https://github.com/anneshabiswaas22-collab/advance-video-edior/actions/runs/43742090193) includes the playable export as an Actions artifact; it does not validate native Windows or a real GPU. The E2E test uses real UI file import/title placement and the mounted editor's actual command store for split/trim (not simulated mock clips).
 
@@ -28,8 +28,8 @@ We can test the validity and basic audio/video properties of files exported by w
 
 ```bash
 python -m unittest discover -s tests -v
-python scripts/generate_fixtures.py --output-dir test-output
-python scripts/check_media.py test-output/sample-3s.mp4 --require-audio --min-width 640 --min-height 360 --min-seconds 2.8 --max-seconds 3.2
+python scripts/media/generate_fixtures.py --output-dir test-output
+python scripts/media/check_media.py test-output/sample-3s.mp4 --require-audio --min-width 640 --min-height 360 --min-seconds 2.8 --max-seconds 3.2
 ```
 
 Test clips are generated locally and not committed. `check_media.py` validates container, codecs, duration and full decode. `check_edit_content.py` separately measures decoded pixel colors/reference differences and audio RMS at known timestamps. Together these checks cover the tested fixture, not every possible editing operation or exact audio phase synchronization.

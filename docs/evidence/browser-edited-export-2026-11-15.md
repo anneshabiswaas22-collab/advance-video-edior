@@ -39,8 +39,8 @@ pnpm --filter @openreel/studio exec playwright test -c playwright.web.config.ts
 For explicit media checks of any output:
 
 \`\`\`bash
-python scripts/check_media.py exported.mp4 --require-audio --decode
-python scripts/check_edit_content.py exported.mp4 expected-edits.json --report output.json
+python scripts/media/check_media.py exported.mp4 --require-audio --decode
+python scripts/media/check_edit_content.py exported.mp4 expected-edits.json --report output.json
 \`\`\`
 
 Run Python commands from the **repository root**, not \`editor/\`. Content expectations must come from known edit intent or trusted independent source media, not a golden reference derived from the export being tested.

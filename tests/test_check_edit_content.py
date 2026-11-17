@@ -5,7 +5,7 @@ import subprocess
 import tempfile
 import unittest
 
-from scripts.check_edit_content import verify
+from scripts.media.check_edit_content import verify
 
 
 @unittest.skipUnless(shutil.which("ffmpeg") and shutil.which("ffprobe"), "FFmpeg unavailable")

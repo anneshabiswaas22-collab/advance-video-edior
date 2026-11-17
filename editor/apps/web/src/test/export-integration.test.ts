@@ -1,8 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { useProjectStore } from "../stores/project-store";
+import { useProjectStore } from "../features/projects/state/project-store";
 import type { Project, Clip, Track } from "@openreel/core";
 
-vi.mock("../services/auto-save", () => ({
+vi.mock("../features/projects/services/auto-save", () => ({
   autoSaveManager: {
     startAutoSave: vi.fn(),
     stopAutoSave: vi.fn(),
@@ -14,7 +14,7 @@ vi.mock("../services/auto-save", () => ({
   initializeAutoSave: vi.fn().mockResolvedValue(undefined),
 }));
 
-vi.mock("../bridges/media-bridge", () => ({
+vi.mock("../features/media/bridges/media-bridge", () => ({
   getMediaBridge: vi.fn(() => ({
     isInitialized: vi.fn().mockReturnValue(true),
     importFile: vi.fn().mockResolvedValue({

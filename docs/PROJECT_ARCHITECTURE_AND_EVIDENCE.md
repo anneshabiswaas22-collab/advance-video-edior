@@ -96,10 +96,10 @@ Run in repo root for Python/FFmpeg:
 
 ~~~bash
 python -m unittest discover -s tests -v
-python scripts/generate_fixtures.py --output-dir test-output
-python scripts/check_media.py test-output/sample-3s.mp4 --require-audio --decode
+python scripts/media/generate_fixtures.py --output-dir test-output
+python scripts/media/check_media.py test-output/sample-3s.mp4 --require-audio --decode
 # For actual editor output, supply independent expected-edits.json:
-python scripts/check_edit_content.py exported.mp4 expected-edits.json --report qa-output.json
+python scripts/media/check_edit_content.py exported.mp4 expected-edits.json --report qa-output.json
 ~~~
 
 Then from editor workspace:

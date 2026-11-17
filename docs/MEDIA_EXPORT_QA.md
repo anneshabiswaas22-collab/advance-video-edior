@@ -7,7 +7,7 @@ video/audio payload, which catches failures that container metadata alone will m
 ## Example: expected H.264/AAC 1080p30 MP4
 
 ```bash
-python scripts/check_media.py final-edit.mp4 \
+python scripts/media/check_media.py final-edit.mp4 \
   --require-audio --min-width 1920 --min-height 1080 \
   --video-codec h264 --audio-codec aac \
   --min-fps 29.9 --max-fps 30.1 \
@@ -20,8 +20,8 @@ frame-rate metadata, duration, and whether a full FFmpeg decode was attempted.
 ## Generated regression fixture
 
 ```bash
-python scripts/generate_fixtures.py --output-dir test-output
-python scripts/check_media.py test-output/sample-3s.mp4 \
+python scripts/media/generate_fixtures.py --output-dir test-output
+python scripts/media/check_media.py test-output/sample-3s.mp4 \
   --require-audio --video-codec h264 --audio-codec aac \
   --min-fps 29.9 --max-fps 30.1 --min-seconds 2.8 --max-seconds 3.2 --decode
 ```

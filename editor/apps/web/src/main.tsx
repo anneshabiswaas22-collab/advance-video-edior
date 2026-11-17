@@ -5,14 +5,14 @@ import "@astryxdesign/core/reset.css";
 import "@astryxdesign/core/astryx.css";
 import "@astryxdesign/theme-neutral/theme.css";
 import "./index.css";
-import { AstryxProvider } from "./components/astryx/AstryxProvider";
-import { registerServiceWorker } from "./services/service-worker";
-import { initCustomFonts } from "./components/editor/inspector/font-options";
+import { AstryxProvider } from "./shared/components/astryx/AstryxProvider";
+import { registerServiceWorker } from "./app/services/service-worker";
+import { initCustomFonts } from "./features/inspector/components/font-options";
 import { setEncoderBackendFactory } from "@openreel/core";
-import { NativeFFmpegBackend } from "./services/native-ffmpeg-backend";
+import { NativeFFmpegBackend } from "./features/media/services/native-ffmpeg-backend";
 
 const DesktopApp = React.lazy(() =>
-  import("./desktop/DesktopApp").then((module) => ({
+  import("./app/desktop/DesktopApp").then((module) => ({
     default: module.DesktopApp,
   })),
 );

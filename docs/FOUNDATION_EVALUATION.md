@@ -22,7 +22,7 @@ GitHub Actions cloned OpenReel at `367d7e90b61b5181f9861b852bb8b9d7a7d2954a` and
 Score 0–5 in each category, record supporting logs/samples and a calculated result out of 100. A license incompatibility or fundamentally broken export is disqualifying regardless of numerical score.
 
 ## Minimum real benchmark cases
-1. Generate three-second 640×360 video and sine-wave audio via `scripts/generate_fixtures.py`.
+1. Generate three-second 640×360 video and sine-wave audio via `scripts/media/generate_fixtures.py`.
 2. Import, trim to two seconds, insert title, mix audio and export a playable MP4.
 3. Save, close, reopen and re-export; inspect reproducibility.
 4. Verify timecode alignment at cut boundaries, audio sync, captions, mask/transition preview-versus-export.

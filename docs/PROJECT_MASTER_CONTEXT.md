@@ -65,9 +65,9 @@ Key observed source locations:
 | editor/packages/ui/src/ | Shared UI |
 | editor/apps/desktop/ | Electron/native desktop integration; not Windows-certified |
 | editor/apps/studio/ | Studio app and existing Playwright test infrastructure |
-| scripts/generate_fixtures.py | Deterministic synthetic media creation |
-| scripts/check_media.py | Streams/codecs/duration/full decode QA |
-| scripts/check_edit_content.py | Decoded-frame region and audio RMS QA |
+| scripts/media/generate_fixtures.py | Deterministic synthetic media creation |
+| scripts/media/check_media.py | Streams/codecs/duration/full decode QA |
+| scripts/media/check_edit_content.py | Decoded-frame region and audio RMS QA |
 | .github/workflows/ | CI, import and media smoke workflows |
 
 The repo already has substantial code and tests; do not infer missing functionality solely from an untested feature list. Look up real methods and call paths.

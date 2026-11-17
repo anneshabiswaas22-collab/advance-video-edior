@@ -33,8 +33,8 @@ Default branch: `main` (user explicitly permits direct pushes).
 - `editor/packages/core` — timeline, playback, audio, media and export.
 - `editor/packages/ui` — shared UI.
 - `editor/packages/agent` — optional AI tools/commands.
-- `scripts/check_media.py` — ffprobe metadata + full FFmpeg decode.
-- `scripts/check_edit_content.py` — decoded frame reference/color and audio RMS window checks.
+- `scripts/media/check_media.py` — ffprobe metadata + full FFmpeg decode.
+- `scripts/media/check_edit_content.py` — decoded frame reference/color and audio RMS window checks.
 - `editor/apps/studio/e2e-web/main-editor-edit-export.spec.ts` — actual Chromium edited MP4 export and persisted project recovery.
 
 ## Remaining acceptance before calling v0.1 generally usable

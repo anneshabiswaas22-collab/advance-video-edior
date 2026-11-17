@@ -4,7 +4,7 @@ Date: 2026-11-15. Related: [Issue #7](https://github.com/anneshabiswaas22-collab
 
 ## What was implemented
 
-- \`scripts/check_edit_content.py\`: decode selected video frames to RGB24 with FFmpeg and compute ROI pixel mean-absolute error against expected RGB or **independent** golden images. Decode specified audio windows to mono PCM, measuring RMS in dBFS to assert sound or silence at exact times. JSON results can be saved for CI artifacts.
+- \`scripts/media/check_edit_content.py\`: decode selected video frames to RGB24 with FFmpeg and compute ROI pixel mean-absolute error against expected RGB or **independent** golden images. Decode specified audio windows to mono PCM, measuring RMS in dBFS to assert sound or silence at exact times. JSON results can be saved for CI artifacts.
 - \`tests/test_check_edit_content.py\`: creates deterministic 160x90 test media with a visible white overlay, red→blue cut, and delayed audio tone. Regression tests verify the good clip passes while missing overlay, wrong cut order, missing audio and wrong audio timing fail.
 - \`.github/workflows/media-smoke.yml\`: runs Python regression suite **after** FFmpeg installation.
 
@@ -14,8 +14,8 @@ Prerequisite: Python 3.10+ and FFmpeg/ffprobe on PATH.
 
 \`\`\`bash
 python -m unittest discover -s tests -v
-python scripts/check_media.py exported.mp4 --require-audio --decode
-python scripts/check_edit_content.py exported.mp4 expected-edits.json --report test-output/content-qa.json
+python scripts/media/check_media.py exported.mp4 --require-audio --decode
+python scripts/media/check_edit_content.py exported.mp4 expected-edits.json --report test-output/content-qa.json
 \`\`\`
 
 The expectations JSON must be authored from the planned edit, not derived from the export being checked. Example:

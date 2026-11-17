@@ -3,7 +3,7 @@ import unittest
 from unittest.mock import patch
 from pathlib import Path
 
-from scripts.check_media import _fps, decode_media, validate
+from scripts.media.check_media import _fps, decode_media, validate
 
 
 class MediaValidationTests(unittest.TestCase):

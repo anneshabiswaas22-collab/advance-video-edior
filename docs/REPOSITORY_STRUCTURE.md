@@ -89,7 +89,7 @@ This is a repository structure review, not a complete GitHub account or organiza
 Run from the repository root:
 
 ```bash
-python3 scripts/verify_repository_preservation.py
+python3 scripts/repository/verify_repository_preservation.py
 python3 -m unittest discover -s tests -v
 ```
 

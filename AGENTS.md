@@ -39,8 +39,8 @@ Before starting new work, read `docs/CODEX_REVIEW_QUEUE.md` for existing pull re
 ## Commands
 ```bash
 python -m unittest discover -s tests -v
-python scripts/generate_fixtures.py --output-dir test-output
-python scripts/check_media.py test-output/sample-3s.mp4 --require-audio --min-seconds 2.8 --max-seconds 3.2
+python scripts/media/generate_fixtures.py --output-dir test-output
+python scripts/media/check_media.py test-output/sample-3s.mp4 --require-audio --min-seconds 2.8 --max-seconds 3.2
 cd editor
 corepack enable
 corepack prepare pnpm@11.7.0 --activate

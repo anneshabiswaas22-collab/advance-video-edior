@@ -58,7 +58,7 @@ test("main editor really imports, edits, recovers and exports MP4", async ({ pag
   // Invoke the real editor command store shared with the mounted Chromium UI;
   // no mocked timeline, media decoder, project data, or export engine.
   const splitClips = await page.evaluate(async () => {
-    const { useProjectStore } = await import("/src/stores/project-store.ts");
+    const { useProjectStore } = await import("/src/features/projects/state/project-store.ts");
     const state = useProjectStore.getState();
     const original = state.project.timeline.tracks
       .find((track) => track.type === "video" && track.clips.length > 0)?.clips[0];
@@ -84,7 +84,7 @@ test("main editor really imports, edits, recovers and exports MP4", async ({ pag
   await page.getByRole("button", { name: "Text", exact: true }).click();
   await page.getByRole("button", { name: "Add Title" }).click();
   const saved = await page.evaluate(async () => {
-    const { useProjectStore } = await import("/src/stores/project-store.ts");
+    const { useProjectStore } = await import("/src/features/projects/state/project-store.ts");
     const store = useProjectStore.getState();
     const title = store.getAllTextClips()[0];
     if (!title) throw new Error("Text UI did not create a title");
@@ -99,7 +99,7 @@ test("main editor really imports, edits, recovers and exports MP4", async ({ pag
       track.type === "audio" && track.clips.length > 0)) {
       throw new Error("Separate audio track is missing");
     }
-    const { autoSaveManager } = await import("/src/services/auto-save.ts");
+    const { autoSaveManager } = await import("/src/features/projects/services/auto-save.ts");
     await autoSaveManager.forceSave(project);
     const snapshots = await autoSaveManager.checkForRecovery(project.id);
     if (!snapshots.length) throw new Error("Project is missing from IndexedDB");
@@ -124,7 +124,7 @@ test("main editor really imports, edits, recovers and exports MP4", async ({ pag
     .click({ timeout: 45_000 });
   await expect(page.locator("#editor-panel-timeline")).toBeVisible({ timeout: 45_000 });
   const restored = await page.evaluate(async () => {
-    const { useProjectStore } = await import("/src/stores/project-store.ts");
+    const { useProjectStore } = await import("/src/features/projects/state/project-store.ts");
     const state = useProjectStore.getState();
     return {
       id: state.project.id,
