@@ -907,7 +907,7 @@ describe("motion expressions", () => {
     expect(value).toBeCloseTo(42, 5);
   });
 
-  it("drives Function params and call args from the canonical scope key list", () => {
+  it("uses the canonical scope names for restricted helper calls", () => {
     expect(MOTION_EXPRESSION_SCOPE_KEYS).toContain("clamp");
     const value = evaluateMotionPropertyValueAtTime({
       keyframes: [],
@@ -1262,5 +1262,27 @@ describe("motion expression static base values and current-time reads", () => {
     });
 
     expect(value).toBeCloseTo(50, 5);
+  });
+});
+
+
+describe("motion expression security boundary", () => {
+  it.each([
+    "globalThis.__expression_escape = 1",
+    "Math.sin.constructor(\"return 1\")()",
+    "while (true) {}",
+    "(() => { for (;;) {} })()",
+    "value + ".repeat(1000) + "1",
+  ])("falls back and records an error for unsafe imported code: %s", (code) => {
+    const expression = {
+      ...createMotionExpression("expression", "transform.opacity", "unsafe-import"),
+      code,
+    };
+    const value = evaluateMotionPropertyValueAtTime({
+      keyframes: [], expressions: [expression], property: "transform.opacity",
+      localTime: 0, fallback: 42, duration: 5,
+    });
+    expect(value).toBe(42);
+    expect(getMotionExpressionError(expression.id)).toContain("compile");
   });
 });

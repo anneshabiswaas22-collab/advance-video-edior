@@ -1,0 +1,35 @@
+{
+  "baseline_commit": "029a3e1346d1c00e1838e6bd304f45499cb2a078",
+  "files": [
+    {
+      "original_path": "editor/packages/core/src/motion/motion-expressions.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/packages/core/src/motion/motion-expressions.ts",
+      "sha256": "29e831a14bf00bfe37ba02580e6dd659f43b8c5d042af37b41a381c640446847",
+      "reason": "Preserve original before replacing dynamic JavaScript expression execution."
+    },
+    {
+      "original_path": "editor/packages/core/src/motion/motion-expressions.test.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/packages/core/src/motion/motion-expressions.test.ts",
+      "sha256": "cb39a7eb15a1c7292678024548d4eae1ccf12852ad7252b36a8bda2d0fb28797",
+      "reason": "Preserve original before replacing dynamic JavaScript expression execution."
+    },
+    {
+      "original_path": "editor/packages/core/package.json",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/packages/core/package.json",
+      "sha256": "1f76390f6a56a1d97365aa2d2c41d6b0114ba439856289073895598d765e7c5c",
+      "reason": "Preserve original before replacing dynamic JavaScript expression execution."
+    },
+    {
+      "original_path": "editor/pnpm-lock.yaml",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/pnpm-lock.yaml",
+      "sha256": "45a3a5cd3f6e5d98cfe14dec26f8f27dc234e1d8a54a87d654a0a9f954c3aeea",
+      "reason": "Preserve original before replacing dynamic JavaScript expression execution."
+    },
+    {
+      "original_path": "editor/packages/core/src/effects/expression-engine.ts",
+      "preserved_path": "AnalyseFuture/historical-implementations/security-recovery/editor/packages/core/src/effects/expression-engine.ts",
+      "sha256": "370ae9d0095f9d63d826693d5a1cf21ee2b5d500f47eb8b59a31acb80331cae5",
+      "reason": "Remove inactive legacy expression evaluator dynamic JavaScript execution."
+    }
+  ]
+}

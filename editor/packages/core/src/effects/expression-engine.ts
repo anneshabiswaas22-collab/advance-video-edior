@@ -1,3 +1,5 @@
+import { compileRestrictedExpression, RESTRICTED_EXPRESSION_LIMITS, type RestrictedExpression } from "../motion/restricted-expression";
+
 export interface ExpressionContext {
   time: number;
   value: any;
@@ -42,27 +44,45 @@ export interface ExpressionContext {
 }
 
 export class ExpressionEngine {
-  private cache = new Map<string, Function>();
+  private cache = new Map<string, RestrictedExpression>();
 
   evaluate(expression: string, context: ExpressionContext): any {
+    // Reject before caching so large project strings cannot accumulate here.
+    if (expression.length > RESTRICTED_EXPRESSION_LIMITS.sourceLength) return 0;
     if (!this.cache.has(expression)) {
+      if (this.cache.size >= 256) {
+        const oldest = this.cache.keys().next().value;
+        if (oldest !== undefined) this.cache.delete(oldest);
+      }
       this.cache.set(expression, this.compile(expression));
     }
 
     const fn = this.cache.get(expression)!;
-    return fn(context);
+    let remainingOperations = 1024;
+    const consumeOperation = () => {
+      if (--remainingOperations < 0) throw new Error("Expression operation limit exceeded");
+    };
+    return fn({
+      ...this.createSafeContext(),
+      time: context.time,
+      value: context.value,
+      velocity: context.velocity,
+      fps: context.fps,
+      width: context.width,
+      height: context.height,
+      wiggle: (freq: number, amp: number) => this.wiggle(context.time, freq, amp),
+      smooth: (width = 5, samples = 5) =>
+        this.smooth(context.value, width, samples, consumeOperation),
+    }, consumeOperation);
   }
 
-  private compile(expression: string): Function {
-    const safeContext = this.createSafeContext();
-
+  private compile(expression: string): RestrictedExpression {
     try {
-      return new Function(
-        ...Object.keys(safeContext),
-        `return (${expression});`,
-      ).bind(null, ...Object.values(safeContext));
-    } catch (error) {
-      console.error("Expression compilation error:", error);
+      return compileRestrictedExpression(expression, [
+        ...Object.keys(this.createSafeContext()),
+        "time", "value", "velocity", "fps", "width", "height",
+      ]);
+    } catch {
       return () => 0;
     }
   }
@@ -93,14 +113,28 @@ export class ExpressionEngine {
   }
 
   private smooth(
-    values: number[],
-    _width: number = 5,
+    values: unknown,
+    width: number = 5,
     samples: number = 5,
+    consumeOperation: () => void = () => {},
   ): number {
+    if (!Number.isFinite(width) || width < 0 ||
+        !Number.isSafeInteger(samples) || samples < 1 || samples > 256) {
+      throw new Error("smooth requires finite width and 1–256 integer samples");
+    }
+    if (typeof values === "number" && Number.isFinite(values)) return values;
+    if (!Array.isArray(values) || values.length === 0) {
+      throw new Error("smooth requires a numeric value or non-empty numeric history");
+    }
     let sum = 0;
     for (let i = 0; i < samples; i++) {
+      consumeOperation();
       const idx = Math.max(0, values.length - 1 - i);
-      sum += values[idx];
+      const sample: unknown = values[idx];
+      if (typeof sample !== "number" || !Number.isFinite(sample)) {
+        throw new Error("smooth requires finite numeric samples");
+      }
+      sum += sample;
     }
     return sum / samples;
   }

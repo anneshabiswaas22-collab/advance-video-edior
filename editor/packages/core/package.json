@@ -34,6 +34,7 @@
     "vitest": "^1.6.0"
   },
   "dependencies": {
+    "acorn": "8.15.0",
     "@ffmpeg/core": "0.12.6",
     "@ffmpeg/core-mt": "0.12.6",
     "@ffmpeg/ffmpeg": "^0.12.15",

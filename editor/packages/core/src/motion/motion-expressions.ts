@@ -1,3 +1,4 @@
+import { compileRestrictedExpression, RESTRICTED_EXPRESSION_LIMITS } from "./restricted-expression";
 import { evaluateKeyframesAt } from "../animation/evaluate-keyframes";
 import {
   getMotionEffectKeyframeProperty,
@@ -42,6 +43,7 @@ interface MotionExpressionGuardState {
   readonly memo: Map<string, number>;
   readonly cycleFlagged: Set<string>;
   activeExpressionId: string | null;
+  remainingOperations: number;
 }
 
 function createMotionExpressionGuardState(): MotionExpressionGuardState {
@@ -51,6 +53,7 @@ function createMotionExpressionGuardState(): MotionExpressionGuardState {
     memo: new Map<string, number>(),
     cycleFlagged: new Set<string>(),
     activeExpressionId: null,
+    remainingOperations: 4096,
   };
 }
 
@@ -217,7 +220,7 @@ export const MOTION_EXPRESSION_PRESETS: readonly MotionExpressionPreset[] = [
     type: "expression",
     name: "Expression",
     description:
-      "Write a JavaScript expression. Available: value, time, wiggle(freq, amp), loopOut(), linear(), ease(), clamp(), random(), Math.",
+      "Write a restricted numeric expression (no loops, globals or arbitrary JavaScript). Available: value, time, wiggle(freq, amp), loopOut(), linear(), ease(), clamp(), random(), Math.",
     create: (property, id = createExpressionId()) => ({
       id,
       property,
@@ -444,8 +447,6 @@ export const MOTION_EXPRESSION_SCOPE_KEYS = [
   "effect",
 ] as const;
 
-type MotionExpressionScopeKey = (typeof MOTION_EXPRESSION_SCOPE_KEYS)[number];
-
 interface MotionLayerHandle {
   readonly index: number;
   readonly name: string;
@@ -488,7 +489,20 @@ type MotionExpressionScope = {
   readonly effect: (name: string) => (paramName: string) => number;
 };
 
-type CompiledMotionExpression = (scope: MotionExpressionScope) => unknown;
+type CompiledMotionExpression = (
+  scope: MotionExpressionScope,
+  consumeOperation: () => void,
+) => unknown;
+
+const MOTION_EXPRESSION_CACHE_LIMIT = 256;
+
+function setBoundedCache<T>(cache: Map<string, T>, key: string, value: T): void {
+  if (!cache.has(key) && cache.size >= MOTION_EXPRESSION_CACHE_LIMIT) {
+    const oldest = cache.keys().next().value;
+    if (oldest !== undefined) cache.delete(oldest);
+  }
+  cache.set(key, value);
+}
 
 const compiledExpressionCache = new Map<string, CompiledMotionExpression | null>();
 
@@ -501,40 +515,11 @@ export function getMotionExpressionError(expressionId: string): string | null {
 }
 
 function recordMotionExpressionError(expressionId: string, message: string): void {
-  motionExpressionErrors.set(expressionId, message);
+  setBoundedCache(motionExpressionErrors, expressionId, message);
 }
 
 export function clearMotionExpressionError(expressionId: string): void {
   motionExpressionErrors.delete(expressionId);
-}
-
-function buildScopeArgs(scope: MotionExpressionScope): readonly unknown[] {
-  return MOTION_EXPRESSION_SCOPE_KEYS.map(
-    (key: MotionExpressionScopeKey) => scope[key],
-  );
-}
-
-interface CompiledMotionExpressionBody {
-  readonly compiled: CompiledMotionExpression | null;
-  readonly syntaxError: SyntaxError | null;
-}
-
-function compileMotionExpressionBody(body: string): CompiledMotionExpressionBody {
-  try {
-    const evaluator = new Function(
-      ...MOTION_EXPRESSION_SCOPE_KEYS,
-      body,
-    ) as (...args: unknown[]) => unknown;
-    return {
-      compiled: (scope) => evaluator(...buildScopeArgs(scope)),
-      syntaxError: null,
-    };
-  } catch (error) {
-    if (error instanceof SyntaxError) {
-      return { compiled: null, syntaxError: error };
-    }
-    throw error;
-  }
 }
 
 function firstLine(message: string): string {
@@ -542,31 +527,29 @@ function firstLine(message: string): string {
 }
 
 function compileMotionExpression(code: string): CompiledMotionExpression | null {
+  // Never retain oversized imported source as a cache key.
+  if (code.length > RESTRICTED_EXPRESSION_LIMITS.sourceLength) return null;
   if (compiledExpressionCache.has(code)) {
     return compiledExpressionCache.get(code) ?? null;
   }
-  const returnForm = compileMotionExpressionBody(`"use strict"; return (${code});`);
-  let compiled = returnForm.compiled;
-  if (!compiled) {
-    const bodyForm = compileMotionExpressionBody(`"use strict"; ${code}`);
-    compiled = bodyForm.compiled;
-    if (!compiled) {
-      const message = firstLine(
-        returnForm.syntaxError?.message ??
-          bodyForm.syntaxError?.message ??
-          "unknown syntax error",
-      );
-      compileErrorCache.set(code, message);
-    }
-  }
-  if (compiled) {
+  let compiled: CompiledMotionExpression | null = null;
+  try {
+    const evaluate = compileRestrictedExpression(code, MOTION_EXPRESSION_SCOPE_KEYS);
+    compiled = (scope, consumeOperation) =>
+      evaluate(scope, consumeOperation);
     compileErrorCache.delete(code);
+  } catch (error) {
+    const message = firstLine(error instanceof Error ? error.message : String(error));
+    setBoundedCache(compileErrorCache, code, message);
   }
-  compiledExpressionCache.set(code, compiled);
+  setBoundedCache(compiledExpressionCache, code, compiled);
   return compiled;
 }
 
 function getMotionExpressionCompileError(code: string): string | null {
+  if (code.length > RESTRICTED_EXPRESSION_LIMITS.sourceLength) {
+    return "Restricted expression: source length limit exceeded";
+  }
   return compileErrorCache.get(code) ?? null;
 }
 
@@ -1031,7 +1014,11 @@ function evaluateCodeExpression(
   };
 
   try {
-    const result = compiled(scope);
+    const result = compiled(scope, () => {
+      if (--guard.remainingOperations < 0) {
+        throw new Error("Expression operation limit exceeded across layer references");
+      }
+    });
     if (!guard.cycleFlagged.has(expression.id)) {
       clearMotionExpressionError(expression.id);
     }
